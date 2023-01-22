@@ -1,0 +1,8 @@
+<div class="formContainer">
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_rest(form) }}
+    <button class="button">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+</div>
+

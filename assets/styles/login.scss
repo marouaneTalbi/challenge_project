@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$gray : #F5F5F5;
+$lemur : #00FF44;
+$bleu: #3f87a6;
+$beige:  #ebf8e1;
+
+.container{
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.loginImageContainer{
+  padding: 20px;
+  border-radius: 5px;
+}
+.form-control{
+  width: 100%;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 20px;
+}
+.button {
+  color: black;
+  padding: 5px;
+  border-radius: 5px;
+  border:  1px solid black;
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;}
+
+.loginLogo{
+  width: 200px;
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+.loginContainer {
+  background-color: rgba(192, 192, 192, 0.5);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 15px;
+  width: 100%;
+}
+
+.forgotPasswordDiv{
+  width: 100%;
+  margin-top: 10px;
+  font-size: 13px;
+}
