@@ -1,0 +1,27 @@
+$beige:  #ebf8e1;
+
+.sideBar {
+    width: 20%;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 0px;
+  }
+  .ulSideBar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
+  }
+  .liSideBar{
+    padding: 20px;
+    border: 0.5px solid rgba(0, 0, 0, 0);
+    border-radius: 0px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;  
+    width: 100%;
+    margin-top: 10px;
+    background-color: $beige;
+  }

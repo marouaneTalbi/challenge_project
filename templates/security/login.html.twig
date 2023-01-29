@@ -11,15 +11,20 @@
     {{ encore_entry_script_tags('login') }}
 {% endblock %}
 {% block body %}
+
+
     <div class="container">
         <form method="post">
         {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            <div class="alert-danger box">
+                <small class="error_message">{{ error.messageKey|trans(error.messageData, 'security') }}</small>
+            </div>
         {% endif %}
         {% if app.user %}
-            <div class="mb-3">
+           <div class="alert-warning box">
                 You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
             </div>
+    
         {% endif %}
             <div class="loginContainer">
                 <div class="loginImageContainer">
@@ -32,11 +37,10 @@
                 <input type="hidden" name="_csrf_token"value="{{ csrf_token('authenticate') }}">
                 <div class="forgotPasswordDiv">
                     <a href="{{path('front_forgot_password_request')}}">Mot de pass oublié</a>
+                    <a href="{{path('app_register')}}">Inscription</a>
                 </div>
                 <button class="button" type="submit">Sign in</button>
             </div>
-
-
         </form>
     </div>
 

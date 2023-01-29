@@ -14,16 +14,16 @@
         {% endblock %}
     </head>
     <body>
-        <nav>
-            <ul>
-                {% if (is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')) %}
-                    <li><a href="{{ path('front_default_index') }}">Accueil</a></li>
-                {% endif %}
-                {% if (is_granted('ROLE_ADMIN')) %}
-                    <li><a href="{{ path('back_default_index') }}">Panel d'admin</a></li>
-                {% endif %}
-            </ul>
-        </nav>
+        {% if (is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')) %}
+            <nav>
+                <ul class="front_nav_ul">
+                    <li class="front_nav_li"><a href="{{ path('front_default_index') }}">Accueil</a></li>
+                    {% if (is_granted('ROLE_ADMIN')) %}
+                        <li class="front_nav_li"><a href="{{ path('back_default_index') }}">Panel d'admin</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
         {% block body %}{% endblock %}
     </body>
 </html>

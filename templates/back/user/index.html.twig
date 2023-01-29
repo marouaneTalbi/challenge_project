@@ -2,17 +2,21 @@
 
 {% block body %}
 
+
+<div class="container">
     <button class="addButton">
-        <a href="{{ path('back_user_new') }}">+ Create new</a>
+        <a href="{{ path('back_user_new') }}">+ Create new User</a>
     </button>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Password</th>
+                {# <th>Password</th> #}
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,18 +24,25 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+
                 <td>{{ user.email }}</td>
-                {# <td>{{ user.roles ? user.roles|json_encode : '' }}</td> #}
                 <td>
                 {% for role in user.roles %}
                     {{role}}
                 {% endfor %}
                 </td>
 
-                <td>{{ user.password }}</td>
-                <td>
-                    <a href="{{ path('back_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('back_user_edit', {'id': user.id}) }}">edit</a>
+                {# <td>{{ user.password }}</td> #}
+                <td class="actionTable">
+                    <button class="button">
+                        <a href="{{ path('back_user_show', {'id': user.id}) }}"><i class="fa-solid fa-eye"></i></a>
+                    </button>
+                    <button class="button">
+                        <a href="{{ path('back_user_edit', {'id': user.id}) }}"><i class="fa-solid fa-pencil"></i></a>
+                    </button>
+                    {% include 'back/user/_delete_form.html.twig' %}
                 </td>
             </tr>
         {% else %}
@@ -41,5 +52,5 @@
         {% endfor %}
         </tbody>
     </table>
-
+</div>
 {% endblock %}

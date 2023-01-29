@@ -14,11 +14,14 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            pattern: ^/
+            user_checker: App\Security\UserChecker
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\AppCustomAuthenticator
             logout:
                 path: app_logout
+          
                 # where to redirect after logout
                 # target: app_any_route
 
@@ -33,7 +36,10 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/reset-password, roles: PUBLIC_ACCESS }
+        - { path: ^/confirm, roles: PUBLIC_ACCESS }
+
         - { path: ^/, roles: ROLE_USER }
 
     role_hierarchy:

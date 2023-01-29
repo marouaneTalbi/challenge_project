@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 $gray : #F5F5F5;
-$lemur : #00FF44;
+$validation_color : #29b014;
 $bleu: #3f87a6;
-$beige:  #ebf8e1;
+$beige:  hsl(94, 62%, 93%);
 
 .container{
   padding: 20px;
@@ -13,39 +13,22 @@ $beige:  #ebf8e1;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 5%;
+  margin-top: 5vh;
 }
 
 .loginImageContainer{
   padding: 20px;
   border-radius: 5px;
 }
-.form-control{
-  width: 100%;
-  height: 50px;
-  border-radius: 5px;
-  border: 1px solid black;
-  padding: 20px;
-}
-.button {
-  color: black;
-  padding: 5px;
-  border-radius: 5px;
-  border:  1px solid black;
-  margin-top: 10px;
-  width: 100%;
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: bold;}
 
 .loginLogo{
   width: 200px;
   height: 200px;
   margin-bottom: 20px;
 }
-
 .loginContainer {
-  background-color: rgba(192, 192, 192, 0.5);
+  background-color: rgba(236, 236, 236, 0.5);
+  box-shadow: 10px 5px 5px rgba(127, 127, 127, 0.477);
   z-index: 40;
   display: flex;
   flex-direction: column;
@@ -55,9 +38,38 @@ $beige:  #ebf8e1;
   border-radius: 15px;
   width: 100%;
 }
-
 .forgotPasswordDiv{
   width: 100%;
   margin-top: 10px;
   font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+}
+
+li{
+  color: red;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.help-text{
+  font-size: 13px;
+  margin-top: 5px;
+  color: $validation_color;
+}
+
+.alert-danger{
+  color: red;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.alert-warning{
+  color: rgb(255, 213, 0);
+  font-size: 13px;
+  margin-top: 10px;
+}
+.reset_email_message{
+  font-size: 14px;
+  margin-top: 10px;
 }

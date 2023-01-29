@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -16,19 +17,26 @@ class UserController extends AbstractController
     #[Route('/', name: 'user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
+        // dd($userRepository->findAll());
         return $this->render('back/user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
     }
 
     #[Route('/new', name: 'user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserRepository $userRepository): Response
+    public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $encoder): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
+            $encoded = $encoder->hashPassword($user, $user->getPassword());
+            $user->setPassword($encoded);
+            $user->setIsEnabled(true);
+            $user->setIsDeleted(false);
+
+
             $userRepository->save($user, true);
 
             return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
@@ -49,12 +57,14 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $encoder): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $encoded = $encoder->hashPassword($user, $user->getPassword());
+            $user->setPassword($encoded);
             $userRepository->save($user, true);
 
             return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
