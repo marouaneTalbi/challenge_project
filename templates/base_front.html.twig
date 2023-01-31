@@ -18,8 +18,12 @@
             <nav>
                 <ul class="front_nav_ul">
                     <li class="front_nav_li"><a href="{{ path('front_default_index') }}">Accueil</a></li>
-                    {% if (is_granted('ROLE_ADMIN')) %}
+                    {% if (is_granted('ROLE_MANAGER')) %}
                         <li class="front_nav_li"><a href="{{ path('back_default_index') }}">Panel d'admin</a></li>
+                    {% endif %}
+                    <li class="front_nav_li"><a href="{{ path('front_default_index') }}">Devenir musicien</a></li>
+                    {% if (is_granted('ROLE_MUSICIEN')) %}
+                        <li class="front_nav_li"><a href="{{ path('front_default_index') }}">Creer un groupe</a></li>
                     {% endif %}
                 </ul>
             </nav>
