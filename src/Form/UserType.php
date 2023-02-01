@@ -65,7 +65,7 @@ class UserType extends AbstractType
                 'choices' => [
                     'manager' => 'ROLE_MANAGER',
                     'fan' => 'ROLE_FAN',
-                    'musicien' => 'ROLE_MUSICIEN',
+                    'artist' => 'ROLE_ARTIST',
 
                 ],
                 'attr' => [

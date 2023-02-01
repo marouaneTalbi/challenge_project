@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 
@@ -89,6 +91,26 @@ class RegistrationType extends AbstractType
                     ],
                 ],
             ]);
+            if ($options['is_artist'] || $options['is_artist']) {
+                $builder
+                    ->add('description', TextareaType::class, [
+                        'help' => 'Ce champ vous permet de décrire votre parcours dans le milieu musical ou en tant que manager.',
+                        'label' => 'Description',
+                        'required' => false,
+                        'attr' => ['rows' => 10],
+                        'attr' => [
+                            'class' => 'form-control'
+                        ]
+                    ])
+                    ->add('promotionLink', UrlType::class, [
+                        'help' => 'Ce champ est destiné à vous permettre de vous promouvoir en partageant un lien vers votre site web ou une page spécifique',
+                        'label' => 'Promotion',
+                        'attr' => [
+                            'class' => 'form-control'
+                        ]
+                    ])
+                ;
+            }
         ;
     }
 
@@ -97,6 +119,8 @@ class RegistrationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'is_artist' => false,
+            'is_manager' => false,
         ]);
     }
 }

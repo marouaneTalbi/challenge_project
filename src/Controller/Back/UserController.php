@@ -85,4 +85,34 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{id}/update-status', name: 'user_update_status', methods: ['POST'])]
+    public function updateStatus(Request $request, $id, UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($id);
+        $apply = $user->getApply();
+
+        if ($apply == "artist") {
+            $user->setRoles(['ROLE_ARTIST']);
+        }
+        if ($apply == "manager") {
+            $user->setRoles(['ROLE_MANAGER']);
+        }
+        $user->setApply(null);
+        $user->setStatus("accepted");
+        $userRepository->save($user, true);
+
+        return $this->redirectToRoute('back_mailbox_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/{id}/rejected-status', name: 'user_rejected_status', methods: ['POST'])]
+    public function rejectedStatus($id, UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($id);
+
+        $user->setApply(null);
+        $user->setStatus("rejected");
+        $userRepository->save($user, true);
+
+        return $this->redirectToRoute('back_mailbox_index', [], Response::HTTP_SEE_OTHER);
+    }
 }

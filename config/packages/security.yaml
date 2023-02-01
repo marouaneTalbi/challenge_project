@@ -34,18 +34,19 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin, roles: ROLE_MANAGER }
+        - { path: ^/group, roles: ROLE_ARTIST }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/reset-password, roles: PUBLIC_ACCESS }
         - { path: ^/confirm, roles: PUBLIC_ACCESS }
-        - { path: ^/musicien, roles: ROLE_MUSICIEN }
 
         - { path: ^/, roles: ROLE_FAN }
 
     role_hierarchy:
-        ROLE_MANAGER: [ROLE_MUSICIEN, ROLE_FAN]
-        ROLE_MUSICIEN: ROLE_FAN
+        ROLE_ADMIN: [ROLE_MANAGER, ROLE_ARTIST, ROLE_FAN]
+        ROLE_MANAGER: ROLE_FAN
+        ROLE_ARTIST: ROLE_FAN
 
 when@test:
     security:

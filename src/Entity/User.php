@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -56,10 +57,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isDeleted = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $promotionLink = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $status = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $apply = null;
 
     public function __construct()
     {
-        $this->roles = ['ROLE_USER'];
+        $this->roles = ['ROLE_FAN'];
     }
 
     public function getId(): ?int
@@ -95,8 +107,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // guarantee every user at least has ROLE_FAN
+        $roles[] = 'ROLE_FAN';
 
         return array_unique($roles);
     }
@@ -188,6 +200,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsDeleted(bool $isDeleted): self
     {
         $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPromotionLink(): ?string
+    {
+        return $this->promotionLink;
+    }
+
+    public function setPromotionLink(?string $promotionLink): self
+    {
+        $this->promotionLink = $promotionLink;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getApply(): ?string
+    {
+        return $this->apply;
+    }
+
+    public function setApply(?string $apply): self
+    {
+        $this->apply = $apply;
 
         return $this;
     }

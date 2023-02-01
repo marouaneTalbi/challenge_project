@@ -45,16 +45,32 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    #[Route(path: '/register', name: 'app_register')]
-    public function register(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $encoder): Response
+    #[Route(path: '/register-choice', name: 'register-choice')]
+    public function registerChoice(): Response
+    {
+        return $this->render('security/register-choice.html.twig', []);
+    }
+
+    #[Route(path: '/register/{type}', name: 'app_register')]
+    public function register(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $encoder, $type): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationType ::class, $user);
+        $form = $this->createForm(RegistrationType ::class, $user, [
+            'is_artist' => $type == 'artist',
+            'is_manager' => $type == 'manager',
+        ]);
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            if ($type == 'artist') {
+                $user->setStatus('waiting');
+                $user->setApply('artist');
+            }
+            if ($type == 'manager') {
+                $user->setStatus('waiting');
+                $user->setApply('manager');
+            }
             $encoded = $encoder->hashPassword($user, $user->getPassword());
             $user->setPassword($encoded);
             $user->setIsEnabled(false);
@@ -65,6 +81,7 @@ class SecurityController extends AbstractController
 
             return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
         }
+        $this->mailer->sendMail($user->getEmail(), $user->getToken());
 
         return $this->render('security/register.html.twig', ['form' => $form->createView()]);
     }

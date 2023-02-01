@@ -1,0 +1,13 @@
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1>Inscription</h1>
+        <p>Sélectionnez le type d'utilisateur que vous souhaitez être :</p>
+        <div class="d-flex justify-content-around">
+            <a href="{{ path('app_register', { 'type': 'artist' }) }}" class="btn btn-primary">Artiste</a>
+            <a href="{{ path('app_register', { 'type': 'manager' }) }}" class="btn btn-primary">Manager</a>
+            <a href="{{ path('app_register', { 'type': 'user' }) }}" class="btn btn-primary">User simple</a>
+        </div>
+    </div>
+{% endblock %}
