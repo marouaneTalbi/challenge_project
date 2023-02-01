@@ -56,21 +56,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isDeleted = null;
 
-    #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'user_name')]
-    private Collection $group_id;
-
-    #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'user_sub')]
-    private Collection $group_sub;
-
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: News::class)]
-    private Collection $user_news;
 
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
-        $this->group_id = new ArrayCollection();
-        $this->group_sub = new ArrayCollection();
-        $this->user_news = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,87 +191,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Group>
-     */
-    public function getGroupId(): Collection
-    {
-        return $this->group_id;
-    }
-
-    public function addGroupId(Group $groupId): self
-    {
-        if (!$this->group_id->contains($groupId)) {
-            $this->group_id->add($groupId);
-            $groupId->addUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGroupId(Group $groupId): self
-    {
-        if ($this->group_id->removeElement($groupId)) {
-            $groupId->removeUserId($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Group>
-     */
-    public function getGroupSub(): Collection
-    {
-        return $this->group_sub;
-    }
-
-    public function addGroupSub(Group $groupSub): self
-    {
-        if (!$this->group_sub->contains($groupSub)) {
-            $this->group_sub->add($groupSub);
-        }
-
-        return $this;
-    }
-
-    public function removeGroupSub(Group $groupSub): self
-    {
-        $this->group_sub->removeElement($groupSub);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, News>
-     */
-    public function getUserNews(): Collection
-    {
-        return $this->user_news;
-    }
-
-    public function addUserNews(News $userNews): self
-    {
-        if (!$this->user_news->contains($userNews)) {
-            $this->user_news->add($userNews);
-            $userNews->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserNews(News $userNews): self
-    {
-        if ($this->user_news->removeElement($userNews)) {
-            // set the owning side to null (unless already changed)
-            if ($userNews->getAuthor() === $this) {
-                $userNews->setAuthor(null);
-            }
-        }
-
-        return $this;
-    }
-
-
 }
