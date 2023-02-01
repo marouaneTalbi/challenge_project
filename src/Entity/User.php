@@ -57,6 +57,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isDeleted = null;
 
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Subscription::class, orphanRemoval: true)]
+    private Collection $subscriptions;
+
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: News::class, orphanRemoval: true)]
+    private Collection $news;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
@@ -68,12 +74,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $apply = null;
-
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Subscription::class, orphanRemoval: true)]
-    private Collection $subscriptions;
-
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: News::class, orphanRemoval: true)]
-    private Collection $news;
 
     public function __construct()
     {

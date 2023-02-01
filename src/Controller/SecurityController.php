@@ -89,6 +89,7 @@ class SecurityController extends AbstractController
 
             return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
         }
+        $this->mailer->sendMail($user->getEmail(), $user->getToken());
 
         return $this->render('security/register.html.twig', ['form' => $form->createView()]);
     }
