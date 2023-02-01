@@ -215,7 +215,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->group_id->contains($groupId)) {
             $this->group_id->add($groupId);
-            $groupId->addUserName($this);
+            $groupId->addUserId($this);
         }
 
         return $this;
@@ -224,7 +224,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeGroupId(Group $groupId): self
     {
         if ($this->group_id->removeElement($groupId)) {
-            $groupId->removeUserName($this);
+            $groupId->removeUserId($this);
         }
 
         return $this;
