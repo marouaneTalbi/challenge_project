@@ -20,13 +20,13 @@
                     <button class="button">
                         <a href="{{ path('back_user_show', {'id': user.id}) }}"><i class="fa-solid fa-eye"></i></a>
                     </button>
-                    <form method="post" action="{{ path('back_user_update_status', {'id': user.id}) }}" onsubmit="return confirm('Voulez-vous vraiment passer cet utilisateur Artiste ?');">
+                    <form method="post" action="{{ path('back_user_update_status', {'id': user.id, 'role': 'artiste'}) }}" onsubmit="return confirm('Voulez-vous vraiment passer cet utilisateur Artiste ?');">
                         {# <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}"> #}
                         <button class="button">
                             <i class="fa-solid fa-check"></i>
                         </button>
                     </form>
-                    <form method="post" action="{{ path('back_user_rejected_status', {'id': user.id}) }}" onsubmit="return confirm('Voulez-vous vraiment refuser la demande pour passer Artiste de cet utilisateur');">
+                    <form method="post" action="{{ path('back_user_rejected_status', {'id': user.id, 'role': 'artiste'}) }}" onsubmit="return confirm('Voulez-vous vraiment refuser la demande pour passer Artiste de cet utilisateur');">
                         {# <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}"> #}
                         <button class="button">
                             <i class="fa-solid fa-xmark"></i>
@@ -62,13 +62,13 @@
                     <button class="button">
                         <a href="{{ path('back_user_show', {'id': user.id}) }}"><i class="fa-solid fa-eye"></i></a>
                     </button>
-                    <form method="post" action="{{ path('back_user_update_status', {'id': user.id}) }}" onsubmit="return confirm('Voulez-vous vraiment passer cet utilisateur Manager ?');">
+                    <form method="post" action="{{ path('back_user_update_status', {'id': user.id, 'role': 'manager'}) }}" onsubmit="return confirm('Voulez-vous vraiment passer cet utilisateur Manager ?');">
                         {# <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}"> #}
                         <button class="button">
                             <i class="fa-solid fa-check"></i>
                         </button>
                     </form>
-                    <form method="post" action="{{ path('back_user_rejected_status', {'id': user.id}) }}" onsubmit="return confirm('Voulez-vous vraiment refuser la demande pour passer Manager de cet utilisateur');">
+                    <form method="post" action="{{ path('back_user_rejected_status', {'id': user.id, 'role': 'manager'}) }}" onsubmit="return confirm('Voulez-vous vraiment refuser la demande pour passer Manager de cet utilisateur');">
                         {# <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}"> #}
                         <button class="button">
                             <i class="fa-solid fa-xmark"></i>

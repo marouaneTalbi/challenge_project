@@ -10,10 +10,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Services\MailerService;
+
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
+    private $mailer;
+
+    public function __construct(MailerService $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
     #[Route('/', name: 'user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
@@ -86,11 +95,14 @@ class UserController extends AbstractController
         return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}/update-status', name: 'user_update_status', methods: ['POST'])]
-    public function updateStatus(Request $request, $id, UserRepository $userRepository): Response
+    #[Route('/{id}/update-status/{role}', name: 'user_update_status', methods: ['POST'])]
+    public function updateStatus($id, UserRepository $userRepository, $role): Response
     {
         $user = $userRepository->find($id);
         $apply = $user->getApply();
+
+        $message = "Bravo, tu as obtenue le grade ".$role;
+        $this->mailer->sendMailRoleToUser($user->getEmail(), $message);
 
         if ($apply == "artist") {
             $user->setRoles(['ROLE_ARTIST']);
@@ -104,10 +116,12 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('back_mailbox_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('/{id}/rejected-status', name: 'user_rejected_status', methods: ['POST'])]
-    public function rejectedStatus($id, UserRepository $userRepository): Response
+    #[Route('/{id}/rejected-status/{role}', name: 'user_rejected_status', methods: ['POST'])]
+    public function rejectedStatus($id, UserRepository $userRepository, $role): Response
     {
         $user = $userRepository->find($id);
+        $message = "Désolé, tu n'est pas qualifié pour devenir ".$role;
+        $this->mailer->sendMailRoleToUser($user->getEmail(), $message);
 
         $user->setApply(null);
         $user->setStatus("rejected");

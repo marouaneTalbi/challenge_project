@@ -28,7 +28,7 @@ class MailerService extends AbstractController
             ->subject('Hello Email')
             ->text('Sending emails is fun again!')
             ->html('<p>See Twig integration for better HTML integration!</p>')
-            ->htmlTemplate('front/email/update-status.html.twig');
+            ->htmlTemplate('front/email/admin-status-requests.html.twig');
 
 
             $this->mailer->send($email);
@@ -48,6 +48,25 @@ class MailerService extends AbstractController
             ->context([
                 'token' => $token,
             ]);
+
+            $this->mailer->send($email);
+
+            return $this->render('front/default/index.html.twig');
+    }
+
+    public function sendMailRoleToUser($email, $message): Response
+    {
+        $email = (new TemplatedEmail())
+            ->from('challenge.noreply@gmail.com')
+            ->to(new Address($email))
+            ->subject('Hello Email')
+            ->text('Sending emails is fun again!')
+            ->html('<p>See Twig integration for better HTML integration!</p>')
+            ->htmlTemplate('front/email/user-status-role.html.twig')
+            ->context([
+                'message' => $message,
+            ]);
+
 
             $this->mailer->send($email);
 
