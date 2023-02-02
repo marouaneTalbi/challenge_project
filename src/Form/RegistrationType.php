@@ -91,7 +91,7 @@ class RegistrationType extends AbstractType
                     ],
                 ],
             ]);
-            if ($options['is_artist'] || $options['is_artist']) {
+            if ($options['is_artist'] || $options['is_manager']) {
                 $builder
                     ->add('description', TextareaType::class, [
                         'help' => 'Ce champ vous permet de décrire votre parcours dans le milieu musical ou en tant que manager.',

@@ -9,14 +9,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 #[Route('/mailbox')]
 class MailboxController extends AbstractController
 {
+
     #[Route('/', name: 'mailbox_index', methods: ['GET'])]
     public function index(EntityManagerInterface $manager, ManagerRegistry $repository): Response
     {
         $registry = $repository->getRepository(User::class);
-
         $artistsUsersRequest = $registry->findBy(['status' => 'waiting', 'apply' => 'artist']);
         $managersUsersRequest = $registry->findBy(['status' => 'waiting', 'apply' => 'manager']);
 

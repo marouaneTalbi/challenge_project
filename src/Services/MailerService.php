@@ -20,6 +20,22 @@ class MailerService extends AbstractController
 
     }
 
+    public function sendMailToAdmin($email): Response
+    {
+        $email = (new TemplatedEmail())
+            ->from('challenge.noreply@gmail.com')
+            ->to(new Address($email))
+            ->subject('Hello Email')
+            ->text('Sending emails is fun again!')
+            ->html('<p>See Twig integration for better HTML integration!</p>')
+            ->htmlTemplate('front/email/update-status.html.twig');
+
+
+            $this->mailer->send($email);
+
+            return $this->render('front/default/index.html.twig');
+    }
+
     public function sendMail($email, $token) :Response
     {
        $email = (new TemplatedEmail())
@@ -28,7 +44,7 @@ class MailerService extends AbstractController
             ->subject('Hello Email')
             ->text('Sending emails is fun again!')
             ->html('<p>See Twig integration for better HTML integration!</p>')
-            ->htmlTemplate('front/registration/registrationEmail.html.twig')
+            ->htmlTemplate('front/email/registrationEmail.html.twig')
             ->context([
                 'token' => $token,
             ]);

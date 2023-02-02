@@ -61,27 +61,34 @@ class SecurityController extends AbstractController
         ]);
         $form->handleRequest($request);
 
+        $adminUsers = $userRepository->findByRole('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($type == 'artist') {
-                $user->setStatus('waiting');
-                $user->setApply('artist');
-            }
-            if ($type == 'manager') {
-                $user->setStatus('waiting');
-                $user->setApply('manager');
-            }
             $encoded = $encoder->hashPassword($user, $user->getPassword());
             $user->setPassword($encoded);
             $user->setIsEnabled(false);
             $user->setIsDeleted(false);
             $user->setToken($this->generateToken());
+            if ($type == 'artist') {
+                $user->setStatus('waiting');
+                $user->setApply('artist');
+                foreach($adminUsers as $admin) {
+                    $this->mailer->sendMailToAdmin($admin->getEmail());
+                }
+            }
+            if ($type == 'manager') {
+                $user->setStatus('waiting');
+                $user->setApply('manager');
+                foreach($adminUsers as $admin) {
+                    $this->mailer->sendMailToAdmin($admin->getEmail());                
+                }
+            }
             $userRepository->save($user, true);
+            
             $this->mailer->sendMail($user->getEmail(), $user->getToken());
 
             return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
         }
-        $this->mailer->sendMail($user->getEmail(), $user->getToken());
 
         return $this->render('security/register.html.twig', ['form' => $form->createView()]);
     }
