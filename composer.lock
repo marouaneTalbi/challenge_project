@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3474f74c6b0d665957044fd229cb4e4e",
+    "content-hash": "ae9ed2baf097863c6601ff46a78a5602",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1746,6 +1746,46 @@
                 }
             ],
             "time": "2022-09-13T10:33:30+00:00"
+        },
+        {
+            "name": "lifo/autocomplete-bundle",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lifo101/autocomplete-bundle.git",
+                "reference": "259e4a6e9d4b10907d5083491fd6d19cf44fd19e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lifo101/autocomplete-bundle/zipball/259e4a6e9d4b10907d5083491fd6d19cf44fd19e",
+                "reference": "259e4a6e9d4b10907d5083491fd6d19cf44fd19e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Lifo\\AutocompleteBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jason Morriss",
+                    "email": "lifo101@gmail.com"
+                }
+            ],
+            "description": "Symfony Autocomplete Form Bundle",
+            "support": {
+                "issues": "https://github.com/lifo101/autocomplete-bundle/issues",
+                "source": "https://github.com/lifo101/autocomplete-bundle/tree/v1.0"
+            },
+            "time": "2022-09-30T09:21:41+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -7583,16 +7623,16 @@
         },
         {
             "name": "symfony/webpack-encore-bundle",
-            "version": "v1.16.0",
+            "version": "v1.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/webpack-encore-bundle.git",
-                "reference": "bb399930c0299866258b616a74a27b50b94c5d45"
+                "reference": "1862d71e483769b40278548a30e756ce13ef9d4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/bb399930c0299866258b616a74a27b50b94c5d45",
-                "reference": "bb399930c0299866258b616a74a27b50b94c5d45",
+                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/1862d71e483769b40278548a30e756ce13ef9d4c",
+                "reference": "1862d71e483769b40278548a30e756ce13ef9d4c",
                 "shasum": ""
             },
             "require": {
@@ -7636,7 +7676,7 @@
             "description": "Integration with your Symfony app & Webpack Encore!",
             "support": {
                 "issues": "https://github.com/symfony/webpack-encore-bundle/issues",
-                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v1.16.0"
+                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v1.16.1"
             },
             "funding": [
                 {
@@ -7652,7 +7692,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-18T15:21:06+00:00"
+            "time": "2023-01-18T19:37:55+00:00"
         },
         {
             "name": "symfony/yaml",

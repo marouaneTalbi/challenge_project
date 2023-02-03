@@ -19,7 +19,6 @@ Encore
         from: './assets/images',
         to: 'images/[path][name].[ext]',
     })
-
     /*
      * ENTRY CONFIG
      *
@@ -36,6 +35,8 @@ Encore
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
 
+    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
+    .enableStimulusBridge('./assets/controllers.json')
     /*
      * FEATURE CONFIG
      *

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit MusicGroup</title>
+
+{% block body %}
+    <h1>Edit MusicGroup</h1>
+
+    {{ include('front/music_group/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('front_app_music_group_index') }}">back to list</a>
+
+    {{ include('front/music_group/_delete_form.html.twig') }}
+{% endblock %}

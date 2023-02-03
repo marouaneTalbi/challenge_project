@@ -1,0 +1,25 @@
+{% extends 'base_front.html.twig' %}
+
+
+{% block body %}
+
+    <h1>Create new MusicGroup</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+            {% for user in artistUsers %}
+                <option value="{{ user.id }}">{{ user.firstname }}</option>
+            {% endfor %}
+        </select>
+        <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+    <script>    
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+
+    <a href="{{ path('front_app_music_group_index') }}">back to list</a>
+{% endblock %}

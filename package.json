@@ -2,7 +2,8 @@
     "devDependencies": {
         "@babel/core": "^7.17.0",
         "@babel/preset-env": "^7.16.0",
-        "@symfony/webpack-encore": "^4.0.0",
+        "@hotwired/stimulus": "^3.0.0",
+        "@symfony/ux-autocomplete": "file:vendor/symfony/ux-autocomplete/assets",
         "autoprefixer": "^10.4.13",
         "core-js": "^3.23.0",
         "file-loader": "^6.2.0",
@@ -12,6 +13,7 @@
         "sass": "^1.57.1",
         "sass-loader": "^13.2.0",
         "tailwindcss": "^3.2.4",
+        "tom-select": "^2.2.2",
         "webpack": "^5.74.0",
         "webpack-cli": "^4.10.0",
         "webpack-notifier": "^1.15.0",
@@ -26,6 +28,9 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^6.2.1"
+        "@fortawesome/fontawesome-free": "^6.2.1",
+        "@symfony/webpack-encore": "^4.2.0",
+        "bootstrap": "^5.2.3",
+        "select-pure": "^2.1.4"
     }
 }

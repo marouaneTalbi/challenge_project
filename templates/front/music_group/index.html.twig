@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<title>MusicGroup index</title>
+
+{% block body %}
+    <h1>MusicGroup index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for music_group in music_groups %}
+            <tr>
+                <td>{{ music_group.id }}</td>
+                <td>{{ music_group.name }}</td>
+                <td>
+                    <a href="{{ path('front_app_music_group_show', {'id': music_group.id}) }}">show</a>
+                    <a href="{{ path('front_app_music_group_edit', {'id': music_group.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('front_app_music_group_new') }}">Create new</a>
+{% endblock %}

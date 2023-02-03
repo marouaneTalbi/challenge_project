@@ -75,11 +75,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $apply = null;
 
+    #[ORM\OneToMany(mappedBy: 'manager', targetEntity: MusicGroup::class)]
+    private Collection $musicGroups;
+
     public function __construct()
     {
         $this->roles = ['ROLE_FAN'];
         $this->subscriptions = new ArrayCollection();
         $this->news = new ArrayCollection();
+        $this->musicGroups = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getFirstname();
     }
 
     public function getId(): ?int
@@ -274,6 +283,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->subscriptions->add($subscription);
             $subscription->setUserId($this);
         }
+    }
+    /*
+     * @return Collection<int, MusicGroup>
+     */
+    public function getMusicGroups(): Collection
+    {
+        return $this->musicGroups;
+    }
+
+    public function addMusicGroup(MusicGroup $musicGroup): self
+    {
+        if (!$this->musicGroups->contains($musicGroup)) {
+            $this->musicGroups->add($musicGroup);
+            $musicGroup->setManager($this);
+        }
 
         return $this;
     }
@@ -284,6 +308,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($subscription->getUserId() === $this) {
                 $subscription->setUserId(null);
+            }
+        }
+    }
+    public function removeMusicGroup(MusicGroup $musicGroup): self
+    {
+        if ($this->musicGroups->removeElement($musicGroup)) {
+            // set the owning side to null (unless already changed)
+            if ($musicGroup->getManager() === $this) {
+                $musicGroup->setManager(null);
             }
         }
 
