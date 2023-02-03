@@ -72,10 +72,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Subscription::class, orphanRemoval: true)]
     private Collection $subscriptions;
 
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: News::class, orphanRemoval: true)]
+    private Collection $news;
+
     public function __construct()
     {
         $this->roles = ['ROLE_FAN'];
         $this->subscriptions = new ArrayCollection();
+        $this->news = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -280,6 +284,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($subscription->getUserId() === $this) {
                 $subscription->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, News>
+     */
+    public function getNews(): Collection
+    {
+        return $this->news;
+    }
+
+    public function addNews(News $news): self
+    {
+        if (!$this->news->contains($news)) {
+            $this->news->add($news);
+            $news->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNews(News $news): self
+    {
+        if ($this->news->removeElement($news)) {
+            // set the owning side to null (unless already changed)
+            if ($news->getUserId() === $this) {
+                $news->setUserId(null);
             }
         }
 

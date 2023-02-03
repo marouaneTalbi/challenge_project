@@ -22,9 +22,13 @@ class Group
     #[ORM\OneToMany(mappedBy: 'group_id', targetEntity: Subscription::class, orphanRemoval: true)]
     private Collection $subscriptions;
 
+    #[ORM\OneToMany(mappedBy: 'group_id', targetEntity: News::class, orphanRemoval: true)]
+    private Collection $news;
+
     public function __construct()
     {
         $this->subscriptions = new ArrayCollection();
+        $this->news = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,6 +72,36 @@ class Group
             // set the owning side to null (unless already changed)
             if ($subscription->getGroupId() === $this) {
                 $subscription->setGroupId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, News>
+     */
+    public function getNews(): Collection
+    {
+        return $this->news;
+    }
+
+    public function addNews(News $news): self
+    {
+        if (!$this->news->contains($news)) {
+            $this->news->add($news);
+            $news->setGroupId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNews(News $news): self
+    {
+        if ($this->news->removeElement($news)) {
+            // set the owning side to null (unless already changed)
+            if ($news->getGroupId() === $this) {
+                $news->setGroupId(null);
             }
         }
 
