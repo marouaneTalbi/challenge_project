@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GroupRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GroupRepository::class)]
@@ -17,6 +19,14 @@ class Group
     #[ORM\Column(length: 30)]
     private ?string $name = null;
 
+    #[ORM\OneToMany(mappedBy: 'group_id', targetEntity: Subscription::class, orphanRemoval: true)]
+    private Collection $subscriptions;
+
+    public function __construct()
+    {
+        $this->subscriptions = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +40,36 @@ class Group
     public function setName(string $name): selfn
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Subscription>
+     */
+    public function getSubscriptions(): Collection
+    {
+        return $this->subscriptions;
+    }
+
+    public function addSubscription(Subscription $subscription): self
+    {
+        if (!$this->subscriptions->contains($subscription)) {
+            $this->subscriptions->add($subscription);
+            $subscription->setGroupId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscription(Subscription $subscription): self
+    {
+        if ($this->subscriptions->removeElement($subscription)) {
+            // set the owning side to null (unless already changed)
+            if ($subscription->getGroupId() === $this) {
+                $subscription->setGroupId(null);
+            }
+        }
 
         return $this;
     }

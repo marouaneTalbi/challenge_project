@@ -69,9 +69,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $apply = null;
 
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Subscription::class, orphanRemoval: true)]
+    private Collection $subscriptions;
+
     public function __construct()
     {
         $this->roles = ['ROLE_FAN'];
+        $this->subscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -248,6 +252,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setApply(?string $apply): self
     {
         $this->apply = $apply;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Subscription>
+     */
+    public function getSubscriptions(): Collection
+    {
+        return $this->subscriptions;
+    }
+
+    public function addSubscription(Subscription $subscription): self
+    {
+        if (!$this->subscriptions->contains($subscription)) {
+            $this->subscriptions->add($subscription);
+            $subscription->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscription(Subscription $subscription): self
+    {
+        if ($this->subscriptions->removeElement($subscription)) {
+            // set the owning side to null (unless already changed)
+            if ($subscription->getUserId() === $this) {
+                $subscription->setUserId(null);
+            }
+        }
 
         return $this;
     }
