@@ -78,12 +78,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'manager', targetEntity: MusicGroup::class)]
     private Collection $musicGroups;
 
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'invite')]
+    private Collection $events;
+
     public function __construct()
     {
         $this->roles = ['ROLE_FAN'];
         $this->subscriptions = new ArrayCollection();
         $this->news = new ArrayCollection();
         $this->musicGroups = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function __toString()
@@ -348,6 +352,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             if ($news->getUserId() === $this) {
                 $news->setUserId(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->addInvite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            $event->removeInvite($this);
         }
 
         return $this;

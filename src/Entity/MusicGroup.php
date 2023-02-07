@@ -25,9 +25,13 @@ class MusicGroup
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'musicGroups')]
     private Collection $artiste;
 
+    #[ORM\OneToMany(mappedBy: 'music_group', targetEntity: Event::class)]
+    private Collection $events;
+
     public function __construct()
     {
         $this->artiste = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,6 +83,36 @@ class MusicGroup
     public function removeArtiste(User $artiste): self
     {
         $this->artiste->removeElement($artiste);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->setMusicGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getMusicGroup() === $this) {
+                $event->setMusicGroup(null);
+            }
+        }
 
         return $this;
     }
