@@ -3,7 +3,6 @@
         "@babel/core": "^7.17.0",
         "@babel/preset-env": "^7.16.0",
         "@hotwired/stimulus": "^3.0.0",
-        "@symfony/ux-autocomplete": "file:vendor/symfony/ux-autocomplete/assets",
         "autoprefixer": "^10.4.13",
         "core-js": "^3.23.0",
         "file-loader": "^6.2.0",
