@@ -57,12 +57,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isDeleted = null;
 
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Subscription::class, orphanRemoval: true)]
-    private Collection $subscriptions;
-
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: News::class, orphanRemoval: true)]
-    private Collection $news;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
@@ -76,6 +70,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $apply = null;
 
     #[ORM\OneToMany(mappedBy: 'manager', targetEntity: MusicGroup::class)]
+    private Collection $managerMusicGroups;
+
+    #[ORM\ManyToMany(targetEntity: MusicGroup::class, mappedBy: 'artiste')]
     private Collection $musicGroups;
 
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'invite')]
@@ -84,8 +81,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->roles = ['ROLE_FAN'];
-        $this->subscriptions = new ArrayCollection();
-        $this->news = new ArrayCollection();
+        $this->managerMusicGroups = new ArrayCollection();
         $this->musicGroups = new ArrayCollection();
         $this->events = new ArrayCollection();
     }
@@ -274,21 +270,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Subscription>
+     * @return Collection<int, MusicGroup>
      */
-    public function getSubscriptions(): Collection
+    public function getManagerMusicGroups(): Collection
     {
-        return $this->subscriptions;
+        return $this->managerMusicGroups;
     }
 
-    public function addSubscription(Subscription $subscription): self
+    public function addManagerMusicGroup(MusicGroup $managerMusicGroup): self
     {
-        if (!$this->subscriptions->contains($subscription)) {
-            $this->subscriptions->add($subscription);
-            $subscription->setUserId($this);
+        if (!$this->managerMusicGroups->contains($managerMusicGroup)) {
+            $this->managerMusicGroups->add($managerMusicGroup);
+            $managerMusicGroup->setManager($this);
         }
+
+        return $this;
     }
-    /*
+
+    public function removeManagerMusicGroup(MusicGroup $managerMusicGroup): self
+    {
+        if ($this->managerMusicGroups->removeElement($managerMusicGroup)) {
+            // set the owning side to null (unless already changed)
+            if ($managerMusicGroup->getManager() === $this) {
+                $managerMusicGroup->setManager(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection<int, MusicGroup>
      */
     public function getMusicGroups(): Collection
@@ -300,58 +311,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->musicGroups->contains($musicGroup)) {
             $this->musicGroups->add($musicGroup);
-            $musicGroup->setManager($this);
+            $musicGroup->addArtiste($this);
         }
 
         return $this;
     }
 
-    public function removeSubscription(Subscription $subscription): self
-    {
-        if ($this->subscriptions->removeElement($subscription)) {
-            // set the owning side to null (unless already changed)
-            if ($subscription->getUserId() === $this) {
-                $subscription->setUserId(null);
-            }
-        }
-    }
     public function removeMusicGroup(MusicGroup $musicGroup): self
     {
         if ($this->musicGroups->removeElement($musicGroup)) {
-            // set the owning side to null (unless already changed)
-            if ($musicGroup->getManager() === $this) {
-                $musicGroup->setManager(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, News>
-     */
-    public function getNews(): Collection
-    {
-        return $this->news;
-    }
-
-    public function addNews(News $news): self
-    {
-        if (!$this->news->contains($news)) {
-            $this->news->add($news);
-            $news->setUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNews(News $news): self
-    {
-        if ($this->news->removeElement($news)) {
-            // set the owning side to null (unless already changed)
-            if ($news->getUserId() === $this) {
-                $news->setUserId(null);
-            }
+            $musicGroup->removeArtiste($this);
         }
 
         return $this;
@@ -383,4 +352,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+
+
+
 }
