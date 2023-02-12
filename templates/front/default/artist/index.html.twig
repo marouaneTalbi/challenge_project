@@ -1,0 +1,9 @@
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+    {% for artist in artists %}
+        {{artist.firstname}}
+        <br />
+    {% endfor %}
+
+{% endblock %}

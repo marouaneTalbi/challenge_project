@@ -1,0 +1,9 @@
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+    {% for music_group in music_groups %}
+        <a href="{{ path('front_app_music_group_show', {'id': music_group.id}) }}">{{music_group.name}}</a>
+    {% endfor %}
+
+{% endblock %}
+
