@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Services\MailerService;
+use Doctrine\Persistence\ObjectManager;
 
 
 #[Route('/user')]
@@ -26,7 +27,7 @@ class UserController extends AbstractController
     #[Route('/', name: 'user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-        // dd($userRepository->findAll());
+
         return $this->render('back/user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);

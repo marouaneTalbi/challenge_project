@@ -37,7 +37,7 @@ class Event
     #[ORM\Column]
     private ?bool $public = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'events')]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'events', cascade: ['persist'])]
     private Collection $invite;
 
     #[ORM\ManyToOne(inversedBy: 'events')]

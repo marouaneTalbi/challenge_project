@@ -3,6 +3,9 @@
 {% block body %}
  <div class="container">
     <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error}}</div>
+        {% endif %}
          <div class="loginContainer">
             <div class="loginImageContainer">
                 <img src="{{ asset('images/logo.png') }}" alt="logo" class="loginLogo">

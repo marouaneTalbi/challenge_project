@@ -63,7 +63,17 @@ class SecurityController extends AbstractController
 
         $adminUsers = $userRepository->findByRole('ROLE_ADMIN');
 
+
+
         if ($form->isSubmitted() && $form->isValid()) {
+          $currentUser =   $userRepository->findBy(['email' => $user->getEmail()]);
+
+          if($currentUser) {
+            $this->addFlash('danger', 'Cet email est déjà utilisé');
+            //return $this->redirectToRoute('app_register', ['type' => $type]);
+              return $this->render('security/register.html.twig', ['form' => $form->createView(), 'error' => 'Cet email est déjà utilisé']);
+          }
+
             $encoded = $encoder->hashPassword($user, $user->getPassword());
             $user->setPassword($encoded);
             $user->setIsEnabled(false);
@@ -87,7 +97,7 @@ class SecurityController extends AbstractController
             
             $this->mailer->sendMail($user->getEmail(), $user->getToken());
 
-            return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
+           return $this->redirectToRoute('register_email_confirmation', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('security/register.html.twig', ['form' => $form->createView()]);
@@ -97,6 +107,12 @@ class SecurityController extends AbstractController
     public function generateToken(): string
     {
         return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+    }
+
+    #[Route(path: '/register_email_confirmation', name: 'register_email_confirmation')]
+    public function registerEmailConfirmation(): Response
+    {
+        return $this->render('front/email/registerEmailConfirmation.html.twig');
     }
 
     #[Route(path: '/confirm/{token}', name: 'app_confirm')]
