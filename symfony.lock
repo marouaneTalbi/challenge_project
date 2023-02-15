@@ -47,9 +47,6 @@
             "migrations/.gitignore"
         ]
     },
-    "lifo/autocomplete-bundle": {
-        "version": "v1.0"
-    },
     "phpunit/phpunit": {
         "version": "9.5",
         "recipe": {

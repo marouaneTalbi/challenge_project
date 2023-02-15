@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae9ed2baf097863c6601ff46a78a5602",
+    "content-hash": "3474f74c6b0d665957044fd229cb4e4e",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1746,46 +1746,6 @@
                 }
             ],
             "time": "2022-09-13T10:33:30+00:00"
-        },
-        {
-            "name": "lifo/autocomplete-bundle",
-            "version": "v1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lifo101/autocomplete-bundle.git",
-                "reference": "259e4a6e9d4b10907d5083491fd6d19cf44fd19e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lifo101/autocomplete-bundle/zipball/259e4a6e9d4b10907d5083491fd6d19cf44fd19e",
-                "reference": "259e4a6e9d4b10907d5083491fd6d19cf44fd19e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.4"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "Lifo\\AutocompleteBundle\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jason Morriss",
-                    "email": "lifo101@gmail.com"
-                }
-            ],
-            "description": "Symfony Autocomplete Form Bundle",
-            "support": {
-                "issues": "https://github.com/lifo101/autocomplete-bundle/issues",
-                "source": "https://github.com/lifo101/autocomplete-bundle/tree/v1.0"
-            },
-            "time": "2022-09-30T09:21:41+00:00"
         },
         {
             "name": "monolog/monolog",

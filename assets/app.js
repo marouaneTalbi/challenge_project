@@ -1,6 +1,3 @@
-// import './bootstrap';
-import 'select2'
-require('select2/dist/css/select2.min.css');
 import 'bootstrap';
 import './styles/app.scss'
 import './styles/login.scss'

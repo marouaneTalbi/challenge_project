@@ -72,12 +72,6 @@ class UserType extends AbstractType
                     'class' => 'select'
                 ]
             ))
-            ->add('password',TextType::class,[
-                'label' => 'Password',
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
         ;
     }
 
