@@ -7,7 +7,7 @@
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+        <select class="js-example-basic-multiple" name="artiste[]" multiple="multiple">
             {% for user in artistUsers %}
                 <option value="{{ user.id }}">{{ user.firstname }}</option>
             {% endfor %}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<title>Event</title>
+
+{% block body %}
+    <h1>Event</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ event.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ event.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ event.description }}</td>
+            </tr>
+            <tr>
+                <th>Lieu</th>
+                <td>{{ event.lieu }}</td>
+            </tr>
+            <tr>
+                <th>Public</th>
+                <td>{{ event.public ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Event_start</th>
+                <td>{{ event.eventStart ? event.eventStart|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Event_end</th>
+                <td>{{ event.eventEnd ? event.eventEnd|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Background_color</th>
+                <td>{{ event.backgroundColor }}</td>
+            </tr>
+            <tr>
+                <th>Border_color</th>
+                <td>{{ event.borderColor }}</td>
+            </tr>
+            <tr>
+                <th>Text_color</th>
+                <td>{{ event.textColor }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('front_app_event_index') }}">back to list</a>
+
+    <a href="{{ path('front_app_event_edit', {'id': event.id}) }}">edit</a>
+
+    {{ include('front/event/_delete_form.html.twig') }}
+{% endblock %}

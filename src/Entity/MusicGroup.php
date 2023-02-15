@@ -18,7 +18,7 @@ class MusicGroup
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'musicGroups')]
+    #[ORM\ManyToOne(inversedBy: 'managerMusicGroups')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $manager = null;
 

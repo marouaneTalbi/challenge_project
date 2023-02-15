@@ -16,32 +16,39 @@ class Event
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(length: 50)]
+    private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $lieu = null;
-
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $heure = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $date = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $lieu = null;
 
     #[ORM\Column]
     private ?bool $public = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $event_start = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $event_end = null;
+
+    #[ORM\Column(length: 7)]
+    private ?string $background_color = null;
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'events', cascade: ['persist'])]
     private Collection $invite;
+    #[ORM\Column(length: 7)]
+    private ?string $border_color = null;
+
+    #[ORM\Column(length: 7)]
+    private ?string $text_color = null;
 
     #[ORM\ManyToOne(inversedBy: 'events')]
     private ?MusicGroup $music_group = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'events')]
+    private Collection $invite;
 
     public function __construct()
     {
@@ -53,26 +60,26 @@ class Event
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): self
+    public function setTitle(string $title): self
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
 
-    public function getType(): ?string
+    public function getDescription(): ?string
     {
-        return $this->type;
+        return $this->description;
     }
 
-    public function setType(string $type): self
+    public function setDescription(string $description): self
     {
-        $this->type = $type;
+        $this->description = $description;
 
         return $this;
     }
@@ -89,42 +96,6 @@ class Event
         return $this;
     }
 
-    public function getHeure(): ?\DateTimeInterface
-    {
-        return $this->heure;
-    }
-
-    public function setHeure(?\DateTimeInterface $heure): self
-    {
-        $this->heure = $heure;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(?\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
     public function isPublic(): ?bool
     {
         return $this->public;
@@ -133,6 +104,78 @@ class Event
     public function setPublic(bool $public): self
     {
         $this->public = $public;
+
+        return $this;
+    }
+
+    public function getEventStart(): ?\DateTimeInterface
+    {
+        return $this->event_start;
+    }
+
+    public function setEventStart(\DateTimeInterface $event_start): self
+    {
+        $this->event_start = $event_start;
+
+        return $this;
+    }
+
+    public function getEventEnd(): ?\DateTimeInterface
+    {
+        return $this->event_end;
+    }
+
+    public function setEventEnd(\DateTimeInterface $event_end): self
+    {
+        $this->event_end = $event_end;
+
+        return $this;
+    }
+
+    public function getBackgroundColor(): ?string
+    {
+        return $this->background_color;
+    }
+
+    public function setBackgroundColor(string $background_color): self
+    {
+        $this->background_color = $background_color;
+
+        return $this;
+    }
+
+    public function getBorderColor(): ?string
+    {
+        return $this->border_color;
+    }
+
+    public function setBorderColor(string $border_color): self
+    {
+        $this->border_color = $border_color;
+
+        return $this;
+    }
+
+    public function getTextColor(): ?string
+    {
+        return $this->text_color;
+    }
+
+    public function setTextColor(string $text_color): self
+    {
+        $this->text_color = $text_color;
+
+        return $this;
+    }
+
+    public function getMusicGroup(): ?MusicGroup
+    {
+        return $this->music_group;
+    }
+
+    public function setMusicGroup(?MusicGroup $music_group): self
+    {
+        $this->music_group = $music_group;
 
         return $this;
     }
@@ -157,18 +200,6 @@ class Event
     public function removeInvite(User $invite): self
     {
         $this->invite->removeElement($invite);
-
-        return $this;
-    }
-
-    public function getMusicGroup(): ?MusicGroup
-    {
-        return $this->music_group;
-    }
-
-    public function setMusicGroup(?MusicGroup $music_group): self
-    {
-        $this->music_group = $music_group;
 
         return $this;
     }

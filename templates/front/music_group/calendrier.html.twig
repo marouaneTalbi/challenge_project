@@ -1,0 +1,44 @@
+
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+  <a href="{{ path('front_app_event_new', {'id': music_group_id}) }}">créer un évènement</a>
+  <a href="{{ path('front_app_event_new', {'id': music_group_id}) }}">évènement(s) du groupe</a>
+  <div id="calendar"></div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          events: {{data|raw}},
+          editable: true,
+          eventStartEditable: true,
+          selectable: true
+        })
+        calendar.on('eventChange', (e) => {
+        console.log(e)
+        let url = `/api/${e.event.id}/edit`
+        let data = {
+          "title": e.event.title,
+          "description": e.event.extendedProps.descirption,
+          "lieu": e.event.extendedProps.lieu,
+          "eventStart": e.event.start,
+          "eventEnd": e.event.end,
+          "backgroundColor": e.event.backgroundColor,
+          "borderColor": e.event.borderColor,
+          "textColor": e.event.textColor
+        }
+        let xhr = new XMLHttpRequest
+        xhr.open("PUT", url)
+        xhr.send(JSON.stringify(data))
+      })
+        calendar.render()
+      })
+
+    </script>
+
+{% endblock %}
