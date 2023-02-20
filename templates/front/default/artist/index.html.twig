@@ -1,9 +1,35 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
-    {% for artist in artists %}
-        {{artist.firstname}}
-        <br />
-    {% endfor %}
+
+    <h1>Artists index</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for artist in artists %}
+            <tr>
+                <td>{{ artist.id }}</td>
+                <td>{{ artist.firstname}}</td>
+                <td>
+                    <button class="button">
+                         <a href="{{ path('front_artist_show', {'id': artist.id}) }}">
+                            <i class="fa-solid fa-eye"></i>
+                         </a>
+                    </button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}

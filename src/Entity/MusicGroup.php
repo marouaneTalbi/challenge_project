@@ -28,10 +28,18 @@ class MusicGroup
     #[ORM\OneToMany(mappedBy: 'music_group', targetEntity: Event::class)]
     private Collection $events;
 
+    #[ORM\OneToMany(mappedBy: 'music_group', targetEntity: Document::class)]
+    private Collection $documents;
+
+    #[ORM\OneToMany(mappedBy: 'owner_music_group', targetEntity: Music::class)]
+    private Collection $music;
+
     public function __construct()
     {
         $this->artiste = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->documents = new ArrayCollection();
+        $this->music = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,6 +119,66 @@ class MusicGroup
             // set the owning side to null (unless already changed)
             if ($event->getMusicGroup() === $this) {
                 $event->setMusicGroup(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Document>
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents->add($document);
+            $document->setMusicGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->removeElement($document)) {
+            // set the owning side to null (unless already changed)
+            if ($document->getMusicGroup() === $this) {
+                $document->setMusicGroup(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Music>
+     */
+    public function getMusic(): Collection
+    {
+        return $this->music;
+    }
+
+    public function addMusic(Music $music): self
+    {
+        if (!$this->music->contains($music)) {
+            $this->music->add($music);
+            $music->setOwnerMusicGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMusic(Music $music): self
+    {
+        if ($this->music->removeElement($music)) {
+            // set the owning side to null (unless already changed)
+            if ($music->getOwnerMusicGroup() === $this) {
+                $music->setOwnerMusicGroup(null);
             }
         }
 

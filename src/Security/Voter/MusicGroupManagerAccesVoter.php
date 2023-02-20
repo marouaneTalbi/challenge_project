@@ -11,10 +11,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class MusicGroupManagerAccesVoter extends Voter
 {
     const MANAGER_ACCESS = 'MANAGER_ACCESS';
+    const ADMIN_ACCESS = '';
 
     protected function supports(string $attribute, $subject): bool
     {
-        return $attribute === 'MANAGER_ACCESS' && $subject instanceof MusicGroup;
+        return ($attribute === 'MANAGER_ACCESS' || $attribute === 'ADMIN_ACCESS' )  && $subject instanceof MusicGroup;
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool

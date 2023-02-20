@@ -20,8 +20,14 @@ class MusicGroupType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'nom du groupe'
+                'label' => 'nom du groupe',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Firstname'
+
+                ]
             ])
+            
             // ->add('artiste', EntityType::class, [
             //     'class' => User::class,
             //     'autocomplete' => true,

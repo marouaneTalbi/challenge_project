@@ -36,8 +36,7 @@ class Event
 
     #[ORM\Column(length: 7)]
     private ?string $background_color = null;
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'events', cascade: ['persist'])]
-    private Collection $invite;
+   
     #[ORM\Column(length: 7)]
     private ?string $border_color = null;
 

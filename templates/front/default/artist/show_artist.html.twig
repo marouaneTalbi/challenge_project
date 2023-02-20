@@ -1,0 +1,41 @@
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ user.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ user.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>
+                    {% for role in user.roles %}
+                        {{role}}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Music</th>
+                <td>
+                    <ul>
+                        {% for music in musics %}
+                         <li> {{music.name}}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

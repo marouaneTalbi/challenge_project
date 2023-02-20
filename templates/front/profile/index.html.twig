@@ -1,9 +1,25 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
-    {% for music_group in music_groups %}
-        <a href="{{ path('front_app_music_group_show', {'id': music_group.id}) }}">{{music_group.name}}</a>
-    {% endfor %}
 
+    <div class="container"> 
+        <h1 class="mainTitle">Edit Profile</h1>
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_rest(form) }}
+            <button class="button">{{ button_label|default('Save') }}</button>
+            {{ form_end(form) }}
+
+    <div class="container">
+         {% if music_groups|length != 0 %}
+           <h1 class="mainTitle">Music Groups</h1>
+         {% endif %}
+        {% for music_group in music_groups %}
+              <button class="button">
+                  <a href="{{ path('front_app_music_group_show', {'id': music_group.id}) }}">
+                      {{music_group.name}}
+                  </a>
+              </button>
+        {% endfor %}
+    </div>
 {% endblock %}
-

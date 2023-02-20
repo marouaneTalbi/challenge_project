@@ -2,11 +2,14 @@
 
 namespace App\Controller\Front;
 
+use App\Entity\Music;
 use App\Entity\MusicGroup;
 use App\Form\MusicGroupType;
 use App\Entity\User;
+use App\Form\MusicType;
 use App\Repository\MusicGroupRepository;
 use App\Repository\EventRepository;
+use App\Repository\MusicRepository;
 use App\Repository\UserRepository;
 use App\Security\Voter\MusicGroupArtistAccesVoter;
 use App\Security\Voter\MusicGroupManagerAccesVoter;
@@ -62,10 +65,8 @@ class MusicGroupController extends AbstractController
         ]);
     }
 
-
-
     #[Route('/{id}', name: 'app_music_group_show', methods: ['GET'])]
-    public function show(MusicGroup $musicGroup): Response
+    public function show(MusicGroup $musicGroup, MusicRepository $musicRepository): Response
     {
         $artist = $this->getUser();
         // if (!$this->isGranted(MusicGroupManagerAccesVoter::MANAGER_ACCESS, $musicGroup)) {
@@ -76,13 +77,20 @@ class MusicGroupController extends AbstractController
         //     throw new AccessDeniedException("You are not a member of this group.");
         // }
 
+
+      //  dd($musicGroup->getArtiste());
+
+        $musics = $musicRepository->findBy(['owner_music_group' => $musicGroup->getId()]);
+
+       // $musics = $musicGroup->getMusic()->toArray();
+
         return $this->render('front/music_group/show.html.twig', [
             'music_group' => $musicGroup,
+            'musics' => $musics,
+            'artists' => $musicGroup->getArtiste(),
         ]);
     }
 
-
-    
     #[Route('/{id}/edit', name: 'app_music_group_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, MusicGroup $musicGroup, MusicGroupRepository $musicGroupRepository): Response
     {
@@ -118,9 +126,9 @@ class MusicGroupController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_MANAGER');
 
         //vérifie si le user est le manager du groupe 
-        if (!$this->isGranted(MusicGroupManagerAccesVoter::MANAGER_ACCESS, $musicGroup)) {
-            throw new AccessDeniedException();
-        }
+         if (!$this->isGranted(MusicGroupManagerAccesVoter::MANAGER_ACCESS, $musicGroup)) {
+             throw new AccessDeniedException();
+         }
 
         if ($this->isCsrfTokenValid('delete'.$musicGroup->getId(), $request->request->get('_token'))) {
             $musicGroupRepository->remove($musicGroup, true);
@@ -164,6 +172,37 @@ class MusicGroupController extends AbstractController
             'music_groups' => $musicGroupRepository->findAll(),
             'data' => $data,
             'music_group_id' => $id,
+        ]);
+    }
+
+    #[Route('/{id}/new/music', name: 'app_music_new_for_groupmusic', methods: ['GET', 'POST'])]
+    public function addMusicOfGroup(Request $request, MusicGroup $musicgroup, MusicRepository $musicRepository, MusicGroupRepository $musicGroupRepository): Response
+    {
+        $music = new Music();
+
+        $form = $this->createForm(MusicType::class, $music);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $group = $musicGroupRepository->find(['id' => $request->attributes->get('id')]);
+            $music->setOwnerMusicGroup($group);
+            $musicRepository->save($music, true);
+
+            return $this->redirectToRoute('front_app_music_group_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('front/music/new.html.twig', [
+            'music' => $music,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/show-user', name: 'artist_show', methods: ['GET'])]
+    public function showArtist(User $user): Response
+    {
+
+        return $this->render('front/default/artist/show_artist.html.twig', [
+            'user' => $user,
+            'musics' => $user->getMusic()->toArray(),
         ]);
     }
 }

@@ -13,18 +13,37 @@
                 <th>Name</th>
                 <td>{{ music_group.name }}</td>
             </tr>
+            <tr>
+                <th>Music list</th>
+                <td>
+                    <ul>
+                        {% for music in musics %}
+                            <li>{{ music.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>Artist</th>
+                <th>
+                    {% for artist in artists %}
+                        <li>{{ artist.firstname }}</li>
+                    {% endfor %}
+                </th>
+            </tr>
+
         </tbody>
     </table>
 
     <a href="{{ path('front_app_music_group_index') }}">back to list</a>
     {% if is_granted('ROLE_MANAGER') %}
         {% if is_granted('MANAGER_ACCESS', music_group) %}
-            <a href="{{ path('front_app_music_group_edit', {'id': music_group.id}) }}">edit</a>
-        {% endif %}
-    {% endif %}
-
-    {% if is_granted('ROLE_MANAGER') %}
-        {% if is_granted('MANAGER_ACCESS', music_group) %}
+            <button class="addButton">
+                <a href="{{ path('front_app_music_group_edit', {'id': music_group.id}) }}">edit</a>
+            </button>
+            <button class="addButton">
+                <a href="{{ path('front_app_music_new_for_groupmusic' , {'id': music_group.id}) }}">add new Music</a>
+            </button>
             {{ include('front/music_group/_delete_form.html.twig') }}
         {% endif %}
     {% endif %}

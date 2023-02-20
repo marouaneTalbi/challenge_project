@@ -23,6 +23,7 @@ class UserFixtures extends Fixture
        
         $object = (new User())
             ->setEmail('fan@user.fr')
+            ->setFirstName('fan Firstname')
             ->setRoles(['ROLE_FAN'])
             ->setIsEnabled(true)
             ->setIsDeleted(false)
@@ -33,6 +34,7 @@ class UserFixtures extends Fixture
         for($i =0; $i< 10; $i++){
             $object = (new User())
                 ->setEmail('manager'.$i.'@user.fr')
+                ->setFirstName('manager Firstname'. $i)
                 ->setRoles(['ROLE_MANAGER'])
                 ->setIsEnabled(true)
                 ->setIsDeleted(false)
@@ -43,20 +45,21 @@ class UserFixtures extends Fixture
             $manager->persist($object);
         }
 
-
-        $object = (new User())
-            ->setEmail('artist@user.fr')
-            ->setRoles(['ROLE_ARTIST'])
-            ->setIsEnabled(true)
-            ->setIsDeleted(false)
-            ->setPassword($pwd)
-            //->addEvent($faker->randomElement($events))
-
-        ;
+        for($i =0; $i< 10; $i++){
+            $object = (new User())
+                ->setEmail('artist'.$i.'@user.fr')
+                ->setFirstName('Artist Firstname'. $i)
+                ->setRoles(['ROLE_ARTIST'])
+                ->setIsEnabled(true)
+                ->setIsDeleted(false)
+                ->setPassword($pwd)
+                ;
         $manager->persist($object);
+        }
 
         $object = (new User())
             ->setEmail('admin@user.fr')
+            ->setFirstName('Admin Firstname')
             ->setRoles(['ROLE_ADMIN'])
             ->setIsEnabled(true)
             ->setIsDeleted(false)

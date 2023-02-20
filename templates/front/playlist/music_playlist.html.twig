@@ -1,0 +1,22 @@
+{% extends 'base_front.html.twig' %}
+
+
+{% block body %}
+    <h1>Playlist</h1>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Music</th>
+            <td>
+                <ul>
+                    {% for music in allMusic %}
+                        <li>{{ music.name }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}

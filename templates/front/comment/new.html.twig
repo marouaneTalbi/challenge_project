@@ -1,0 +1,13 @@
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+    <h1>Create new Comment</h1>
+
+    {{ include('front/comment/_form.html.twig') }}
+
+    <div class="buttonContainer">
+        <button class="button">
+            <a href="{{ path('front_app_comment_index') }}"><i class="fa-solid fa-arrow-left"></i></a>
+        </button>
+    </div>
+{% endblock %}

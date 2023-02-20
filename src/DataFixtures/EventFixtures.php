@@ -21,11 +21,13 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
 
         for($i =0; $i< 10; $i++){
             $event = new Event();
-            $event->setName('event Nameddd'.$i)
-                ->setType('event Type'.$i)
-                ->setLieu('event Lieu'.$i)
-                ->setHeure(new \DateTime(date('Y-m-d H:i:s')))
-                ->setDate(new \DateTime(date('H:i:s')))
+            $event
+                ->setTitle('event Nameddd'.$i)
+                ->setEventStart(new \DateTime(date('Y-m-d H:i:s')))
+                ->setEventEnd(new \DateTime(date('Y-m-d H:i:s')))
+                ->setBackgroundColor('red')
+                ->setBorderColor('red')
+                ->setTextColor('red')
                 ->setDescription('description'.$i)
                 ->setMusicGroup($faker->randomElement($musicGroups))
                 ->addInvite($faker->randomElement($users))
@@ -40,6 +42,7 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             UserFixtures::class,
+            MusicGroupFixtures::class,
             ];
     }
 }

@@ -1,21 +1,18 @@
 {% extends 'base_front.html.twig' %}
-
-
 {% block body %}
-
-    <h1>Create new MusicGroup</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <select class="js-example-basic-multiple" name="artiste[]" multiple="multiple">
-            {% for user in artistUsers %}
-                <option value="{{ user.id }}">{{ user.firstname }}</option>
-            {% endfor %}
-        </select>
-        <button class="btn">{{ button_label|default('Save') }}</button>
-    {{ form_end(form) }}
-
-    <script>    
+    <div class="container">
+        <h1 class="mainTitle">Create new MusicGroup</h1>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <select class="js-example-basic-multiple" name="artiste[]" multiple="multiple">
+                {% for user in artistUsers %}
+                    <option value="{{ user.id }}">{{ user.firstname }}</option>
+                {% endfor %}
+            </select>
+            <button class="button">{{ button_label|default('Save') }}</button>
+        {{ form_end(form) }}
+    </div>
+    <script>
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2();
         });

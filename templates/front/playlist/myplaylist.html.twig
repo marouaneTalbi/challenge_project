@@ -1,0 +1,16 @@
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+    <h1 class="mainTitle">My Playlists</h1>
+
+    {% for playlist in playlists %}
+        <div class="container">
+            <button class="button">
+                <a href="{{ path('front_app_music_myplaylist', {'id': playlist.id}) }}">{{ playlist.name }}</a>
+            </button>
+        </div>
+
+
+    {% endfor %}
+
+{% endblock %}

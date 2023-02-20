@@ -1,0 +1,29 @@
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mainTitle">Create new Playlist</h1>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <select class="js-example-basic-multiple" name="music[]" multiple="multiple">
+                {% for music in musics %}
+                    <option value="{{ music.id }}">{{ music.name }}</option>
+                {% endfor %}
+            </select>
+            <button class="button">{{ button_label|default('Save') }}</button>
+            {{ form_end(form) }}
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+
+    <div class="buttonContainer">
+        <button class="button">
+            <a href="{{ path('front_app_playlist_index') }}"><i class="fa-solid fa-arrow-left"></i></a>
+        </button>
+    </div>
+{% endblock %}
+
+

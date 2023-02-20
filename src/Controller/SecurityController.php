@@ -63,15 +63,14 @@ class SecurityController extends AbstractController
 
         $adminUsers = $userRepository->findByRole('ROLE_ADMIN');
 
-
-
         if ($form->isSubmitted() && $form->isValid()) {
           $currentUser =   $userRepository->findBy(['email' => $user->getEmail()]);
-
           if($currentUser) {
+            
             $this->addFlash('danger', 'Cet email est déjà utilisé');
             //return $this->redirectToRoute('app_register', ['type' => $type]);
-              return $this->render('security/register.html.twig', ['form' => $form->createView(), 'error' => 'Cet email est déjà utilisé']);
+              return $this->render('security/register.html.twig', 
+              ['form' => $form->createView(), 'error' => 'Cet email est déjà utilisé']);
           }
 
             $encoded = $encoder->hashPassword($user, $user->getPassword());
@@ -100,7 +99,7 @@ class SecurityController extends AbstractController
            return $this->redirectToRoute('register_email_confirmation', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('security/register.html.twig', ['form' => $form->createView()]);
+        return $this->render('security/register.html.twig', ['form' => $form->createView(),  'error' => false]);
     }
 
 

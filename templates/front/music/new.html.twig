@@ -1,0 +1,8 @@
+{% extends 'base_front.html.twig' %}
+{% block body %}
+ <div class="container">
+        <h1 class="mainTitle">Create new Music</h1>
+    {{ include('front/music/_form.html.twig') }}
+    </div>
+     <a href="{{ path('front_app_music_index') }}">back to list</a>
+{% endblock %}

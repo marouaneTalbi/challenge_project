@@ -19,7 +19,7 @@ class MusicGroupFixtures extends Fixture implements DependentFixtureInterface
         foreach ($users as $user) {
             if($user->getRoles()[0] == 'ROLE_MANAGER'){
                 $musicGroup = new MusicGroup();
-                $musicGroup->setName('The Beatles');
+                $musicGroup->setName('The Beatles'.$user->getId());
                 $musicGroup->setManager($user);
                 $musicGroup->addArtiste($user);
                 $manager->persist($musicGroup);
