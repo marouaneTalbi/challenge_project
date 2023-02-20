@@ -143,7 +143,7 @@ class MusicGroupController extends AbstractController
                 throw new AccessDeniedException();
         }    
         
-        $events = $eventRepository->findAll();
+        $events = $eventRepository->findBy(['music_group' => $id]);
         $rdvs = [];
         foreach ($events as $event) {
             $rdvs[] = [
@@ -166,4 +166,29 @@ class MusicGroupController extends AbstractController
             'music_group_id' => $id,
         ]);
     }
+
+
+    
+    #[Route('/{id}/my-event', name: 'app_music_group_event', methods: ['GET'])]
+    public function event(MusicGroup $musicGroup, MusicGroupRepository $musicGroupRepository, EventRepository $eventRepository, $id): Response
+    {
+        //vérifie si le user est un artiste ou un manager
+        if(!$this->isGranted('ROLE_ARTIST') && !$this->isGranted('ROLE_MANAGER')) {
+            throw new AccessDeniedException();
+        }
+
+        //vérifie si le user est le manager ou un artiste du groupe
+        if (!$this->isGranted(MusicGroupArtistAccesVoter::MEMBER_ACCESS, $musicGroup) &&
+            !$this->isGranted(MusicGroupManagerAccesVoter::MANAGER_ACCESS, $musicGroup)) {
+                throw new AccessDeniedException();
+        }
+
+        $events = $eventRepository->findBy(['music_group' => $id]);
+
+        return $this->render('front/music_group/event.html.twig', [
+            'music_groups' => $musicGroupRepository->findAll(),
+            'events' => $events,
+        ]);
+    }
+
 }

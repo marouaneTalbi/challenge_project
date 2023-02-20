@@ -1,0 +1,33 @@
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+
+    {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.title }}</td>
+                <td>{{ event.description }}</td>
+                <td>{{ event.lieu }}</td>
+                <td>{{ event.public ? 'Yes' : 'No' }}</td>
+                <td>{{ event.eventStart ? event.eventStart|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.eventEnd ? event.eventEnd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.backgroundColor }}</td>
+                <td>{{ event.borderColor }}</td>
+                <td>{{ event.textColor }}</td>
+                <td>
+                    <a href="{{ path('front_app_event_show', {'id': event.id}) }}">show</a>
+                    <a href="{{ path('front_app_event_edit', {'id': event.id}) }}">edit</a>
+                    {% if event.public %}
+                        <a href="{{ path('front_app_event_toggle_publicity', {'id': event.id}) }}" class="btn btn-warning">Rendre privé</a>
+                    {% else %}
+                        <a href="{{ path('front_app_event_toggle_publicity', {'id': event.id}) }}" class="btn btn-success">Rendre public</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+
+{% endblock %}

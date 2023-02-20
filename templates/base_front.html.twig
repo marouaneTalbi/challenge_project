@@ -24,6 +24,8 @@
                     <li class="front_nav_li"><a href="{{ path('front_default_index') }}">Accueil</a></li>
                     <li class="front_nav_li"><a href="{{ path('front_default_artists') }}">Liste des Artistes</a></li>
                     <li class="front_nav_li"><a href="{{ path('front_default_music_groups') }}">Liste des Groupes</a></li>
+                    <li class="front_nav_li"><a href="{{ path('front_app_event_index') }}">Liste des Events</a></li>
+
                     {% if (is_granted('ROLE_ADMIN')) %}
                         <li class="front_nav_li"><a href="{{ path('back_default_index') }}">Panel d'admin</a></li>
                     {% endif %}
