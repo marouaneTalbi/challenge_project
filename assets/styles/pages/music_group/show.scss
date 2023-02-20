@@ -1,0 +1,66 @@
+
+.music-group-show {
+    @extend .main-section;
+
+    & h1 {
+        color: white;
+    }
+
+    & h2 {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 36px;
+        color: #FFFFFF;
+    }
+
+    & .artist-list {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+
+        & .artist {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            & .picture {
+                width: 60px;
+                height: 60px;
+                border-radius: 15px;
+                background-color: red;
+                width: 132px;
+                height: 132px;
+            }
+
+            & h4 {
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 24px;
+                line-height: 36px;
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    & a {
+        @extend .main-button;
+    }
+
+    & span {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #FFFFFF;
+        font-style: italic;
+    }
+
+    & .calendar {
+        background: transparent;
+        text-decoration: underline;
+    }
+}

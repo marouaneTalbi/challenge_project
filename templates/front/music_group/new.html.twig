@@ -2,24 +2,35 @@
 
 
 {% block body %}
+    <section class="music-group-new">
+        <h1>Création du groupe</h1>
+        {{ form_start(form) }}
+            <div class="input-container">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
 
-    <h1>Create new MusicGroup</h1>
+            <div class="input-container">
+                <label>artistes du groupe</label>
+                <select class="js-example-basic-multiple" name="artiste[]" multiple="multiple">
+                    {% for user in artistUsers %}
+                        <option value="{{ user.id }}">{{ user.firstname }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+            <button class="save">{{ button_label|default('Créer le groupe') }}</button>
+        {{ form_end(form) }}
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <select class="js-example-basic-multiple" name="artiste[]" multiple="multiple">
-            {% for user in artistUsers %}
-                <option value="{{ user.id }}">{{ user.firstname }}</option>
-            {% endfor %}
-        </select>
-        <button class="btn">{{ button_label|default('Save') }}</button>
-    {{ form_end(form) }}
+        <script>    
+            $(document).ready(function() {
+                $('.js-example-basic-multiple').select2();
+            });
+        </script>
+        
+    </section>
 
-    <script>    
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-        });
-    </script>
+
 
     <a href="{{ path('front_app_music_group_index') }}">back to list</a>
 {% endblock %}

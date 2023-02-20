@@ -84,7 +84,7 @@ class MusicGroupController extends AbstractController
 
     
     #[Route('/{id}/edit', name: 'app_music_group_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, MusicGroup $musicGroup, MusicGroupRepository $musicGroupRepository): Response
+    public function edit(UserRepository $userRepository, Request $request, MusicGroup $musicGroup, MusicGroupRepository $musicGroupRepository): Response
     {
         //vérifie si le user est un manager
         $this->denyAccessUnlessGranted('ROLE_MANAGER');
@@ -97,6 +97,8 @@ class MusicGroupController extends AbstractController
         $form = $this->createForm(MusicGroupType::class, $musicGroup);
         $form->handleRequest($request);
 
+        $artistUsers = $userRepository->findByRole('ROLE_ARTIST');
+
         if ($form->isSubmitted() && $form->isValid()) {
             $musicGroupRepository->save($musicGroup, true);
 
@@ -106,6 +108,7 @@ class MusicGroupController extends AbstractController
         return $this->renderForm('front/music_group/edit.html.twig', [
             'music_group' => $musicGroup,
             'form' => $form,
+            'artistUsers' => $artistUsers,
         ]);
     }
 
@@ -114,6 +117,7 @@ class MusicGroupController extends AbstractController
     #[Route('/{id}', name: 'app_music_group_delete', methods: ['POST'])]
     public function delete(Request $request, MusicGroup $musicGroup, MusicGroupRepository $musicGroupRepository): Response
     {
+
         //vérifie si le user est un manager
         $this->denyAccessUnlessGranted('ROLE_MANAGER');
 
@@ -123,6 +127,7 @@ class MusicGroupController extends AbstractController
         }
 
         if ($this->isCsrfTokenValid('delete'.$musicGroup->getId(), $request->request->get('_token'))) {
+
             $musicGroupRepository->remove($musicGroup, true);
         }
 

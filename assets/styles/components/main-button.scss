@@ -1,0 +1,18 @@
+.main-button {
+    width: max-content;
+    padding: 20px 40px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #FFFFFF;
+    background: linear-gradient(95.82deg, #FC466B 5.85%, #3F5EFB 93.47%);
+    border-radius: 10px;
+    cursor: pointer;
+
+    &--delete {
+        background: #C95656;
+    }
+}
