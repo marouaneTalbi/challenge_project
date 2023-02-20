@@ -71,6 +71,10 @@ class EventController extends AbstractController
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
+        if (!$this->isGranted(EventVoter::EVENT_ACCESS, $event)) {
+            throw new AccessDeniedException();
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $eventRepository->save($event, true);
 
