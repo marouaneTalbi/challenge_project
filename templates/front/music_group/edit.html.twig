@@ -32,7 +32,46 @@
         <script>    
             $(document).ready(function() {
                 $('.js-example-basic-multiple').select2();
+
+                // Initialiser le tableau des artistes sélectionnés
+                const selectedArtists = $('.js-example-basic-multiple').val() || [];
+
+                // Écouter l'événement 'select2:select'
+                $('.js-example-basic-multiple').on('select2:select', function (e) {
+                    const addedArtistId = e.params.data.id;
+
+                    // Ajouter l'artiste au tableau
+                    if (!selectedArtists.includes(addedArtistId)) {
+                    selectedArtists.push(addedArtistId);
+                    }
+
+                    console.log(selectedArtists); // Afficher le tableau mis à jour
+                });
+
+                $('.js-example-basic-multiple').on('select2:unselect', function (e) {
+                    const removedArtistId = e.params.data.id;
+
+                    // Retirer l'artiste du tableau
+                    const artistIndex = selectedArtists.indexOf(removedArtistId);
+                    if (artistIndex > -1) {
+                    selectedArtists.splice(artistIndex, 1);
+                    }
+
+                    console.log(selectedArtists); // Afficher le tableau mis à jour
+                });
+
+                $('form').on('submit', function (e) {
+                    // Récupérer la liste des artistes sélectionnés
+                    const selectedArtists = $('.js-example-basic-multiple').val() || [];
+
+                    // Ajouter la liste des artistes sélectionnés dans un champ caché du formulaire
+                    $('input[name="selected_artists"]').val(selectedArtists.join(','));
+
+                    // Continuer la soumission du formulaire
+                    return true;
+                });
             });
+            
         </script>
         
     </section>

@@ -100,6 +100,24 @@ class MusicGroupController extends AbstractController
         $artistUsers = $userRepository->findByRole('ROLE_ARTIST');
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $selectedUsers = $request->get('artiste');
+            
+            $artists = $musicGroup->getArtiste();
+
+            foreach ($artists as $artist) {
+                if (!in_array($artist, $selectedUsers)) {
+                    $musicGroup->removeArtiste($artist);
+                }
+            }
+
+            foreach ($selectedUsers as $userId) {
+                $user = $userRepository->find($userId);
+                $musicGroup->addArtiste($user);
+            }
+            // dd($form);
+            // foreach($musicGroup->getArtiste() as $test){
+            //     dd($test);
+            // }
             $musicGroupRepository->save($musicGroup, true);
 
             return $this->redirectToRoute('front_app_music_group_index', [], Response::HTTP_SEE_OTHER);
@@ -133,6 +151,8 @@ class MusicGroupController extends AbstractController
 
         return $this->redirectToRoute('front_app_music_group_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 
     #[Route('/{id}/calendar', name: 'app_music_group_calendar', methods: ['GET'])]
     public function calendar(MusicGroup $musicGroup, MusicGroupRepository $musicGroupRepository, EventRepository $eventRepository, $id): Response
