@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-
-<title>New Event</title>
+{% extends 'base_front.html.twig' %}
 
 {% block body %}
-    <h1>Create new Event</h1>
 
-    {{ include('front/event/_form.html.twig') }}
-
-    <a href="{{ path('front_app_event_index') }}">back to list</a>
+    <section class="event-new">
+        <h3>Créer un évènement</h3>
+        {{ include('front/event/_form.html.twig') }}
+    </section>
 {% endblock %}
