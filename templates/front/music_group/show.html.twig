@@ -61,13 +61,9 @@
     {% for music in musics %}
          {% set array = array | merge([{id: music.id ,name: music.name, url: music.url}]) %}
     {% endfor %}
-
     <input type="hidden" id="array" value="{{ array|json_encode }}">
 
-    <audio controls id="audio">
-
-    </audio>
-
+    <audio controls id="audio"></audio>
 
     <script>
         const musics = document.getElementById('array').value;
@@ -87,8 +83,6 @@
         audio.appendChild(source);
         source.setAttribute("src", '/uploads/'+allMusicsParsed[0].url);
         source.setAttribute("type", 'audio/mpeg');
-        audio.load();
-        audio.play();
 
             next.addEventListener("click", function(){
                 const indexofItem = allMusicsParsed.findIndex(x => x.url === source.getAttribute("src").replace('/uploads/', ''));
