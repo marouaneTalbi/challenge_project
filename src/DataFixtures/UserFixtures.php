@@ -27,6 +27,7 @@ class UserFixtures extends Fixture
             ->setRoles(['ROLE_FAN'])
             ->setIsEnabled(true)
             ->setIsDeleted(false)
+            ->setImage('logo.png')
             ->setPassword($pwd)
         ;
         $manager->persist($object);
@@ -38,9 +39,9 @@ class UserFixtures extends Fixture
                 ->setRoles(['ROLE_MANAGER'])
                 ->setIsEnabled(true)
                 ->setIsDeleted(false)
+                ->setImage('logo.png')
                 ->setPassword($pwd)
                 //->addEvent($faker->randomElement($events))
-
             ;
             $manager->persist($object);
         }
@@ -52,6 +53,7 @@ class UserFixtures extends Fixture
                 ->setRoles(['ROLE_ARTIST'])
                 ->setIsEnabled(true)
                 ->setIsDeleted(false)
+                ->setImage('logo.png')
                 ->setPassword($pwd)
                 ;
         $manager->persist($object);
@@ -63,6 +65,7 @@ class UserFixtures extends Fixture
             ->setRoles(['ROLE_ADMIN'])
             ->setIsEnabled(true)
             ->setIsDeleted(false)
+            ->setImage('logo.png')
             ->setPassword($pwd)
            // ->addEvent($faker->randomElement($events))
 

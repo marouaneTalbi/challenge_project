@@ -184,7 +184,15 @@ class MusicGroupController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $group = $musicGroupRepository->find(['id' => $request->attributes->get('id')]);
+            $mp3 = $form->get('url')->getData();
+            $newMp3Name = str_replace(' ', '', $form->get('name')->getData());
+            $mp3Name = md5(uniqid()).$newMp3Name.'.'.$mp3->guessExtension();
+            $mp3->move($this->getParameter('upload_directory'), $mp3Name);
+
+            $music->setUrl($mp3Name);
+            $music->setSize(filesize($this->getParameter('upload_directory').'/'.$mp3Name).' Mo');
             $music->setOwnerMusicGroup($group);
+
             $musicRepository->save($music, true);
 
             return $this->redirectToRoute('front_app_music_group_index', [], Response::HTTP_SEE_OTHER);
