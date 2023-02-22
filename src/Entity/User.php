@@ -90,6 +90,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: NewsGroup::class, orphanRemoval: true)]
+    private Collection $newsGroups;
+
     public function __construct()
     {
         $this->roles = ['ROLE_FAN'];
@@ -99,6 +102,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->comments = new ArrayCollection();
         $this->music = new ArrayCollection();
         $this->playlists = new ArrayCollection();
+        $this->newsGroups = new ArrayCollection();
     }
 
  //   public function __toString()
@@ -471,7 +475,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
+    /**
+     * @return Collection<int, NewsGroup>
+     */
+    public function getNewsGroups(): Collection
+    {
+        return $this->newsGroups;
+    }
 
+    public function addNewsGroup(NewsGroup $newsGroup): self
+    {
+        if (!$this->newsGroups->contains($newsGroup)) {
+            $this->newsGroups->add($newsGroup);
+            $newsGroup->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNewsGroup(NewsGroup $newsGroup): self
+    {
+        if ($this->newsGroups->removeElement($newsGroup)) {
+            // set the owning side to null (unless already changed)
+            if ($newsGroup->getAuthor() === $this) {
+                $newsGroup->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
 
 
 }

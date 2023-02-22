@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\News;
+use App\Entity\NewsGroup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<News>
+ * @extends ServiceEntityRepository<NewsGroup>
  *
- * @method News|null find($id, $lockMode = null, $lockVersion = null)
- * @method News|null findOneBy(array $criteria, array $orderBy = null)
- * @method News[]    findAll()
- * @method News[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method NewsGroup|null find($id, $lockMode = null, $lockVersion = null)
+ * @method NewsGroup|null findOneBy(array $criteria, array $orderBy = null)
+ * @method NewsGroup[]    findAll()
+ * @method NewsGroup[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class NewsRepository extends ServiceEntityRepository
+class NewsGroupRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, News::class);
+        parent::__construct($registry, NewsGroup::class);
     }
 
-    public function save(News $entity, bool $flush = false): void
+    public function save(NewsGroup $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class NewsRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(News $entity, bool $flush = false): void
+    public function remove(NewsGroup $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class NewsRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return News[] Returns an array of News objects
+//     * @return NewsGroup[] Returns an array of NewsGroup objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class NewsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?News
+//    public function findOneBySomeField($value): ?NewsGroup
 //    {
 //        return $this->createQueryBuilder('n')
 //            ->andWhere('n.exampleField = :val')

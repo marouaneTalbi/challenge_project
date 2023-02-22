@@ -32,7 +32,12 @@
                     {% endfor %}
                 </th>
             </tr>
-
+            <tr>
+                <th>News</th>
+                {% for news in news_group %}
+                    <td>{{ news.post }}</td>
+                {% endfor %}
+            </tr>
         </tbody>
     </table>
 

@@ -7,6 +7,7 @@ use App\Entity\MusicGroup;
 use App\Form\MusicGroupType;
 use App\Entity\User;
 use App\Form\MusicType;
+use App\Entity\NewsGroup;
 use App\Repository\MusicGroupRepository;
 use App\Repository\EventRepository;
 use App\Repository\MusicRepository;
@@ -88,6 +89,7 @@ class MusicGroupController extends AbstractController
             'music_group' => $musicGroup,
             'musics' => $musics,
             'artists' => $musicGroup->getArtiste(),
+            'news_group' => $musicGroup->getNewsGroups()
         ]);
     }
 
