@@ -1,13 +1,81 @@
-<!DOCTYPE html>
-
-<title>Edit MusicGroup</title>
+{% extends 'base_front.html.twig' %}
 
 {% block body %}
-    <h1>Edit MusicGroup</h1>
+    <section class="music-group-new">
+        <h1>Modification du groupe</h1>
+        {{ form_start(form) }}
+            {{ form_widget(form._token) }}
+            <div class="input-container">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
 
-    {{ include('front/music_group/_form.html.twig', {'button_label': 'Update'}) }}
+            <div class="input-container">
+                <label>artistes du groupe</label>
+                <select class="js-example-basic-multiple" name="artiste[]" multiple="multiple">
+                    {% for user in artistUsers %}
+                        {% if user not in music_group.artiste %}
+                            <option value="{{ user.id }}">{{ user.firstname }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    {% for artist in music_group.artiste %}
+                        <option selected="selected" value="{{ artist.id }}">{{ artist.firstname }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="button-container">
+                <button class="save">{{ button_label|default('Modifier le groupe') }}</button>
+                {{ form_end(form) }}
+                {{ include('front/music_group/_delete_form.html.twig') }}
+            </div>
+
+        <script>    
+            $(document).ready(function() {
+                $('.js-example-basic-multiple').select2();
+
+                // Initialiser le tableau des artistes sélectionnés
+                const selectedArtists = $('.js-example-basic-multiple').val() || [];
+
+                // Écouter l'événement 'select2:select'
+                $('.js-example-basic-multiple').on('select2:select', function (e) {
+                    const addedArtistId = e.params.data.id;
+
+                    // Ajouter l'artiste au tableau
+                    if (!selectedArtists.includes(addedArtistId)) {
+                    selectedArtists.push(addedArtistId);
+                    }
+
+                    console.log(selectedArtists); // Afficher le tableau mis à jour
+                });
+
+                $('.js-example-basic-multiple').on('select2:unselect', function (e) {
+                    const removedArtistId = e.params.data.id;
+
+                    // Retirer l'artiste du tableau
+                    const artistIndex = selectedArtists.indexOf(removedArtistId);
+                    if (artistIndex > -1) {
+                    selectedArtists.splice(artistIndex, 1);
+                    }
+
+                    console.log(selectedArtists); // Afficher le tableau mis à jour
+                });
+
+                $('form').on('submit', function (e) {
+                    // Récupérer la liste des artistes sélectionnés
+                    const selectedArtists = $('.js-example-basic-multiple').val() || [];
+
+                    // Ajouter la liste des artistes sélectionnés dans un champ caché du formulaire
+                    $('input[name="selected_artists"]').val(selectedArtists.join(','));
+
+                    // Continuer la soumission du formulaire
+                    return true;
+                });
+            });
+            
+        </script>
+        
+    </section>
 
     <a href="{{ path('front_app_music_group_index') }}">back to list</a>
 
-    {{ include('front/music_group/_delete_form.html.twig') }}
 {% endblock %}

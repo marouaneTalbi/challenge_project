@@ -1,0 +1,64 @@
+.music-group-new {
+    @extend .main-section;
+    
+    & h1 {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 40px;
+        line-height: 60px;
+        color: #FFFFFF;
+    }
+
+    & form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        & .input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            & label {
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 30px;
+                color: rgba(255, 255, 255, 0.5);
+            }
+            
+            & input {
+                width: 460px;
+                padding: 15px;
+                background-color: transparent;
+                border: 3px solid rgba(255, 255, 255, 0.2);
+                border-radius: 7px;
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 30px;
+                color: #FFFFFF;
+            }
+
+            & .select2-selection {
+                width: 460px;
+                padding: 15px;
+                background-color: transparent;
+                border: 3px solid rgba(255, 255, 255, 0.2);
+                border-radius: 7px;
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 30px;
+            }
+        }
+
+        & .save {
+            @extend .main-button;
+        }
+    }
+}

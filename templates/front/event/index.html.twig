@@ -1,50 +1,18 @@
-<!DOCTYPE html>
-
-<title>Event index</title>
+{% extends 'base_front.html.twig' %}
 
 {% block body %}
-    <h1>Event index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Lieu</th>
-                <th>Public</th>
-                <th>Event_start</th>
-                <th>Event_end</th>
-                <th>Background_color</th>
-                <th>Border_color</th>
-                <th>Text_color</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <section class="event-index">
+        <h1>Liste des évènements</h1>
         {% for event in events %}
-            <tr>
-                <td>{{ event.id }}</td>
-                <td>{{ event.title }}</td>
-                <td>{{ event.description }}</td>
-                <td>{{ event.lieu }}</td>
-                <td>{{ event.public ? 'Yes' : 'No' }}</td>
-                <td>{{ event.eventStart ? event.eventStart|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ event.eventEnd ? event.eventEnd|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ event.backgroundColor }}</td>
-                <td>{{ event.borderColor }}</td>
-                <td>{{ event.textColor }}</td>
-                <td>
-                    <a href="{{ path('front_app_event_show', {'id': event.id}) }}">show</a>
-                    <a href="{{ path('front_app_event_edit', {'id': event.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
+            <a class="event-card" href="{{ path('front_app_event_show', {'id': event.id}) }}">
+                <div class="header">
+                    <span>{{ event.musicGroup.name }} à {{ event.lieu }}</span>
+                    <span>{{ event.eventStart ? event.eventStart|date('Y-m-d') : '' }}</span>
+                </div>
+                <h5>{{ event.title }}</h5>
+                <p>{{ event.description }}</p>
+            </a>
         {% endfor %}
-        </tbody>
-    </table>
 
+    </section>
 {% endblock %}

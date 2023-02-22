@@ -1,40 +1,36 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
-    <h1>MusicGroup</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ music_group.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ music_group.name }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <section class="music-group-show">
+        <h1>{{ music_group.name }}</h1>
+        <h2>Artistes</h2>
+        <div class="artist-list">
+            {% for artist in music_group.artiste %}
+                <div class="artist">
+                    <div class="picture">
 
-    <a href="{{ path('front_app_music_group_index') }}">back to list</a>
-    {% if is_granted('ROLE_MANAGER') %}
-        {% if is_granted('MANAGER_ACCESS', music_group) %}
-            <a href="{{ path('front_app_music_group_edit', {'id': music_group.id}) }}">edit</a>
-        {% endif %}
-    {% endif %}
+                    </div>
+                    <h4>{{ artist.firstname }}</h4>
+                </div>
+            {% endfor %}
+        </div>
+        <h2>Biographie</h2>
+        <span>coming soon...</span>
+        <div>
+            {% if is_granted('ROLE_MANAGER') %}
+                {% if is_granted('MANAGER_ACCESS', music_group) %}
+                    <a href="{{ path('front_app_music_group_edit', {'id': music_group.id}) }}">Modifier</a>
+                {% endif %}
+            {% endif %}
 
-    {% if is_granted('ROLE_MANAGER') %}
-        {% if is_granted('MANAGER_ACCESS', music_group) %}
-            {{ include('front/music_group/_delete_form.html.twig') }}
-        {% endif %}
-    {% endif %}
-
-    {% if is_granted('ROLE_ARTIST', music_group) or is_granted('ROLE_MANAGER', music_group) %}
-        {% if is_granted('MANAGER_ACCESS', music_group) or is_granted('MEMBER_ACCES', music_group) %}
-            <a href="{{ path('front_app_music_group_calendar', {'id': music_group.id}) }}">voir calendrier</a>
-        {% endif %}
-    {% endif %}
-
+            {% if is_granted('ROLE_ARTIST', music_group) or is_granted('ROLE_MANAGER', music_group) %}
+                {% if is_granted('MANAGER_ACCESS', music_group) or is_granted('MEMBER_ACCES', music_group) %}
+                    <a class="calendar" href="{{ path('front_app_music_group_calendar', {'id': music_group.id}) }}">Voir calendrier</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </section>
 
 {% endblock %}
 

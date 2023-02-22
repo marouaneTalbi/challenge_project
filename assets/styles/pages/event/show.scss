@@ -1,0 +1,37 @@
+.event-show {
+    @extend .main-section;
+
+    & h3 {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 28px;
+        line-height: 42px;
+        color: #FFFFFF;
+    }
+
+    & p {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 11px;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    & .infos {
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+
+        & span {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            color: #FFFFFF;
+        }
+    }
+
+    & button {
+        @extend .main-button;
+    }
+}
