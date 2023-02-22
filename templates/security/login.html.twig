@@ -27,19 +27,25 @@
     
         {% endif %}
             <div class="loginContainer">
-                <div class="loginImageContainer">
-                    <img src="{{ asset('images/logo.png') }}" alt="logo" class="loginLogo">
+                <div class="blockLogin">
+                    <div class="loginImageContainer">
+                        <img src="{{ asset('images/logo.png') }}" alt="logo" class="loginLogo">
+                    </div>
+                    <div class="input-style">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                    </div>
+                    <div class="input-style">
+                        <label for="inputPassword">Password</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                    </div>
+                    <input type="hidden" name="_csrf_token"value="{{ csrf_token('authenticate') }}">
+                    <div class="forgotPasswordDiv">
+                        <a href="{{path('front_forgot_password_request')}}">Mot de pass oublié</a>
+                        <a href="{{path('register-choice')}}">Inscription</a>
+                    </div>
+                    <button class="validate_button" type="submit">Se connecter</button>
                 </div>
-                <label for="inputEmail">Email</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-                <label for="inputPassword">Password</label>
-                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-                <input type="hidden" name="_csrf_token"value="{{ csrf_token('authenticate') }}">
-                <div class="forgotPasswordDiv">
-                    <a href="{{path('front_forgot_password_request')}}">Mot de pass oublié</a>
-                    <a href="{{path('register-choice')}}">Inscription</a>
-                </div>
-                <button class="button" type="submit">Sign in</button>
             </div>
         </form>
     </div>

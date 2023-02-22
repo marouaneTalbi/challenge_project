@@ -1,0 +1,67 @@
+.bigContainer {
+    color: white;
+    & .containerReset {
+        .input_register {
+            margin: 40px;                
+            background-color: transparent;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-radius: 7px;
+            height: 54px;
+            width: 457px;
+            left: 0px;
+            top: 37px;
+            border-radius: 7px;
+            margin: 5px;
+            color: white;
+            font-weight: 200;
+            font-size: 20px;
+            line-height: 20px;
+            padding: 5px;     
+        }
+            border: 3px solid white;
+            text-align: center;
+            padding: 1em;
+            & .loginImageContainer {
+                img {
+                    height: 94px;
+                    width: 94px;
+                    left: 154px;
+                    top: 161px;
+                    border-radius: 0px;
+                    text-align: center;
+                    margin: 5px;
+                }
+            }
+        & h1 {
+            color: white;
+                text-align: center;
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 40px;
+                line-height: 60px;
+        }
+        & button {
+            @extend .validate_button;
+            font-size: 16px;
+                font-weight: 600;
+                border-color: none;
+                height: 60px;
+                width: 249px;
+                border-radius: 10px;
+                padding: 18px 60px 18px 60px;
+                padding: 18px 60px;
+                gap: 10px;
+                width: 249px;
+                height: 60px;
+                left: 601px;
+                top: 495px;
+                margin: 10px;
+                background: -webkit-linear-gradient(0deg, rgba(252,70,107,1) 0%, rgba(63,94,251,1) 100%);
+                color: white;
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                border-radius: 10px;
+                cursor: pointer;
+        }
+    }
+}

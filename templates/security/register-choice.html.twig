@@ -1,13 +1,41 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1>Inscription</h1>
-        <p>Sélectionnez le type d'utilisateur que vous souhaitez être :</p>
-        <div class="d-flex justify-content-around">
-            <a href="{{ path('app_register', { 'type': 'artist' }) }}" class="btn btn-primary">Artiste</a>
-            <a href="{{ path('app_register', { 'type': 'manager' }) }}" class="btn btn-primary">Manager</a>
-            <a href="{{ path('app_register', { 'type': 'user' }) }}" class="btn btn-primary">User simple</a>
+    <div class="container">
+        <div class="btn-container">
+            <a href="{{ path('app_register', { 'type': 'artist' }) }}" class="btn-artiste">
+                <div class="block-artist">
+                    <h1>Artiste</h1>
+                    <p>Vous êtes un artiste ?</p>
+                    <div class="loginImageContainer">
+                        <img src="../../assets/images/microphone.png" alt="logo" class="loginLogo">
+                    </div>
+                </div>
+            </a>
+            <div class="block-text-choice">
+                <h1>Inscription</h1>
+                <p>Sélectionnez le type d'utilisateur que vous souhaitez être :</p>
+            </div>
+            <a href="{{ path('app_register', { 'type': 'manager' }) }}" class="btn-artiste">
+                <div class="block-artist">
+                    <h1>Manager</h1>
+                    <p>Vous êtes un manager ?</p>
+                    <div class="loginImageContainer">
+                        <img src="{{ asset('images/logo.png') }}" alt="logo" class="loginLogo">
+                    </div>
+                </div>
+            </a>
+            <div class="block-artist"style="visibility: hidden;"></div>
+            <a href="{{ path('app_register', { 'type': 'user' }) }}" class="btn-artiste">
+                <div class="block-artist">
+                    <h1>User simple</h1>
+                    <p>Vous êtes un user simple ?</p>
+                    <div class="loginImageContainer">
+                        <img src="{{ asset('images/logo.png') }}" alt="logo" class="loginLogo">
+                    </div>
+            </a>
+            </div>
+            <div class="block-artist"style="visibility: hidden;"></div>
         </div>
     </div>
 {% endblock %}

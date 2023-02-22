@@ -71,7 +71,7 @@ class SecurityController extends AbstractController
           if($currentUser) {
             $this->addFlash('danger', 'Cet email est déjà utilisé');
             //return $this->redirectToRoute('app_register', ['type' => $type]);
-              return $this->render('security/register.html.twig', ['form' => $form->createView(), 'error' => 'Cet email est déjà utilisé']);
+              return $this->render('security/register.html.twig', ['form' => $form->createView()]);
           }
 
             $encoded = $encoder->hashPassword($user, $user->getPassword());

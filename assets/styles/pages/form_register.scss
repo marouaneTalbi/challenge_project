@@ -1,0 +1,72 @@
+.container {
+    & .loginContainer {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        & .loginImageContainer {
+            display: flex;
+            justify-content: center;
+            & img{
+                height: 94px;
+                width: 94px;
+                border-radius: 0px;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+            }
+        }
+        & .form-register {
+            background-color: red;
+        }
+        & .form-widget {
+            & label {
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 20px;
+                color: #FFFFFF;
+                margin: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            & input {
+                background-color: transparent;
+                border: 3px solid rgba(255, 255, 255, 0.2);
+                border-radius: 7px;
+                height: 54px;
+                width: 457px;
+                border-radius: 7px;
+                margin: 5px;
+                color: white;
+                font-weight: 200;
+                font-size: 20px;
+                line-height: 20px;
+                padding: 5px;
+                outline: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        & .validate_button {
+            justify-content: center;
+            display: flex;
+            font-size: 16px;
+            font-weight: 600;
+            border-color: none;
+            height: 60px;
+            width: 249px;
+            border-radius: 10px;
+            padding: 18px 60px 18px 60px;
+            gap: 10px;
+            margin: 10px;
+            background: -webkit-linear-gradient(0deg, rgba(252,70,107,1) 0%, rgba(63,94,251,1) 100%);
+            color: white;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    }
+}

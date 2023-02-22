@@ -1,0 +1,71 @@
+.container {
+    & .btn-container {
+        width: auto;
+        height: 75%;
+        border: 1px solid #c3c3c3;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 1em;
+        text-align: center;
+        justify-content: center;
+
+        & .block-text-choice {
+            & h1 {
+                color: white;
+                text-align: center;
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 40px;
+                line-height: 60px;
+            }
+            & p {
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 30px;
+                color: white;
+            }
+        }
+        & .block-artist{
+            border: 3px solid white;
+            width: 404px;
+            height: auto;
+            border-radius: 13px;
+            padding: 10px;
+            & h1{
+                text-decoration: none;
+                background: -webkit-linear-gradient(0deg, rgba(252,70,107,1) 0%, rgba(63,94,251,1) 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-align: center;
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 40px;
+                line-height: 60px;
+            }
+            & p {
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 30px;
+                color: white;
+            }
+            & img {
+                height: 94px;
+                width: 94px;
+                left: 154px;
+                top: 161px;
+                border-radius: 0px;
+                text-align: center;
+
+            }
+        }
+        
+    }
+}
