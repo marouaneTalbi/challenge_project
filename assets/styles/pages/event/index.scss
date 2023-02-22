@@ -1,0 +1,79 @@
+.event-index {
+    @extend .main-section;
+
+    & h1 {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 40px;
+        line-height: 60px;
+        color: #FFFFFF;
+    }
+
+    & .empty {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 16px;
+        font-style: italic;
+        color: #FFFFFF;
+    }
+
+    & .event-card {
+        background: #1F1E25;
+        border: 1px solid rgba(136, 136, 136, 0.15);
+        border-radius: 15px;
+        padding: 20px;
+        width: 50%;
+        transition: transform 0.2s ease-in-out;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        & svg {
+            width: 20px;
+            height: 20px;
+            color: white !important;
+            display: flex;
+            align-self: flex-end;
+        }
+
+        & .header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            & span {
+                font-style: normal;
+                font-weight: 600;
+                font-size: 12.0558px;
+                line-height: 18px;
+                color: #FFFFFF;
+            }
+ 
+        }
+
+        & h5 {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            color: #FFFFFF;
+        }
+
+        & p {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 18px;
+
+            color: rgba(255, 255, 255, 0.5);
+        }
+    }
+}

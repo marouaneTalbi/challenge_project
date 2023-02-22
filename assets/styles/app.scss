@@ -1,12 +1,14 @@
-@import '~@fortawesome/fontawesome-free/scss/v4-shims';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/brands';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import './layout/header.scss';
+@import './base/reset.scss';
+@import './pages/music_group/index.scss';
+@import './pages/music_group/show.scss';
+@import './pages/music_group/new.scss';
+@import './components/main-section.scss';
+@import './components/main-button.scss';
+@import './pages/event/index.scss';
+@import './pages/event/show.scss';
+@import './pages/event/new.scss';
+@import './layout/calendar.scss';
 
 
 $yellow : #fdfd6a;
