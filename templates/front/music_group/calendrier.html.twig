@@ -3,7 +3,7 @@
 
 {% block body %}
   <a href="{{ path('front_app_event_new', {'id': music_group_id}) }}">créer un évènement</a>
-  <a href="{{ path('front_app_event_new', {'id': music_group_id}) }}">évènement(s) du groupe</a>
+  <a href="{{ path('front_app_music_group_event', {'id': music_group_id}) }}">évènement(s) du groupe</a>
   <div id="calendar"></div>
 {% endblock %}
 
