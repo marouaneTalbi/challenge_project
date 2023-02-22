@@ -29,6 +29,15 @@
         </tbody>
     </table>
 
+
+
+
+
+    <audio controls>
+        <source src="{{ asset('uploads/' ~ music.url) }}" type="audio/mpeg">
+    </audio>
+
+
     <div class="buttonContainer">
         <button class="button">
             <a href="{{ path('front_app_music_index') }}"><i class="fa-solid fa-arrow-left"></i></a>

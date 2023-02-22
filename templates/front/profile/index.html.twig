@@ -1,14 +1,17 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
+    <h1 class="mainTitle">Edit Profile</h1>
 
     <div class="container"> 
-        <h1 class="mainTitle">Edit Profile</h1>
-            {{ form_start(form) }}
-            {{ form_errors(form) }}
-            {{ form_rest(form) }}
-            <button class="button">{{ button_label|default('Save') }}</button>
-            {{ form_end(form) }}
+        <div class="loginImageContainer">
+            <img src="{{ asset('images/' ~  user.image) }}" alt="logo" class="loginLogo">
+        </div>
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_rest(form) }}
+        <button class="button">{{ button_label|default('Save') }}</button>
+        {{ form_end(form) }}
 
     <div class="container">
          {% if music_groups|length != 0 %}

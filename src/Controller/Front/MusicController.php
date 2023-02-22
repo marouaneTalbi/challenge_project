@@ -29,6 +29,13 @@ class MusicController extends AbstractController
         $form = $this->createForm(MusicType::class, $music);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $mp3 = $form->get('url')->getData();
+            $newMp3Name = str_replace(' ', '', $form->get('name')->getData());
+            $mp3Name = md5(uniqid()).$newMp3Name.'.'.$mp3->guessExtension();
+            $mp3->move($this->getParameter('upload_directory'), $mp3Name);
+            $music->setUrl($mp3Name);
+            $music->setSize(filesize($this->getParameter('upload_directory').'/'.$mp3Name).' Mo');
+
             $musicRepository->save($music, true);
 
             return $this->redirectToRoute('front_app_music_index', [], Response::HTTP_SEE_OTHER);
