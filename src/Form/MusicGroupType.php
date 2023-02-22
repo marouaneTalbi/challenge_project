@@ -28,6 +28,13 @@ class MusicGroupType extends AbstractType
                 ]
             ])
             
+            // ->add('selected_artists', HiddenType::class, [
+            //     'mapped' => false, // Ne pas mapper ce champ à une propriété de l'objet
+            //     'attr' => ['id' => 'selected_artists'] // Ajouter un identifiant pour cibler ce champ avec JavaScript
+            // ])
+
+
+
             // ->add('artiste', EntityType::class, [
             //     'class' => User::class,
             //     'autocomplete' => true,

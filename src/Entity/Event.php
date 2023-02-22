@@ -46,9 +46,6 @@ class Event
     #[ORM\ManyToOne(inversedBy: 'events')]
     private ?MusicGroup $music_group = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'events')]
-    private Collection $invite;
-
     public function __construct()
     {
         $this->invite = new ArrayCollection();
