@@ -6,10 +6,10 @@
         <h2>Artistes</h2>
         <div class="artist-list">
             {% for artist in music_group.artiste %}
-                <div class="artist">
+                <a class="artist" href="{{ path('front_default_artist', {'id': artist.id}) }}">
                     <img class="picture" src="{{ asset('images/' ~  artist.image) }}" alt="logo" />
                     <h4>{{ artist.firstname }}</h4>
-                </div>
+                </a>
             {% endfor %}
         </div>
         <h2>Biographie</h2>

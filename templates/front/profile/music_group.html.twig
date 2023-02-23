@@ -1,0 +1,12 @@
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+    <section class="profile-music-group">
+        {% for music_group in music_groups %}
+
+            {% else %}
+            <span>Vous avez aucun groupe de musique</span>
+        {% endfor %}
+    </section>
+
+{% endblock %}

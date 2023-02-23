@@ -27,6 +27,12 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+
+            &:hover {
+                transform: scale(1.05);
+            }
 
             & .picture {
                 width: 60px;
@@ -94,6 +100,12 @@
         align-items: center;
         justify-content: center;
         width: max-content;
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
 
         & svg {
             color: white;

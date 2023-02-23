@@ -6,7 +6,7 @@
             <img class="picture" src="{{ asset('images/' ~  artist.image) }}" alt="logo" />
             <div class="infos">
                 <div class="top">
-                    <h2>{{ artist.firstname }}</h2>
+                    <h2>{{ artist.lastname }} {{ artist.firstname }}</h2>
                         {% if highestRole == "ROLE_ARTIST" %}
                         <div class="role">
                             Artist

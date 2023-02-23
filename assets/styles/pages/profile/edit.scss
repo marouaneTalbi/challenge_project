@@ -1,0 +1,62 @@
+.profile-edit {
+    @extend .main-section;
+
+    & form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        & .input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+        }
+
+        & .checkbox-container {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            width: max-content;
+            gap: 20px;
+
+            & input {
+                width: max-content;
+            }
+
+            & div {
+                display: flex;
+                flex-direction: row;
+                height: max-content;
+                align-items: center;
+            }
+        }
+        
+        & label {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 30px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        & input, textarea {
+            width: 460px;
+            padding: 15px;
+            background-color: transparent;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-radius: 7px;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 30px;
+            color: #FFFFFF;
+        }
+
+        & button {
+            @extend .main-button;
+        }
+    }
+}

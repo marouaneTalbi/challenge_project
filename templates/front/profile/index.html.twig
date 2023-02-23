@@ -1,6 +1,44 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
+    <section class="profile-index">
+        {{ include('front/navbar.html.twig') }}
+
+
+        {# <div class="header">
+        {{ form_start(form) }}
+            <img class="picture" src="{{ asset('images/' ~  user.image) }}" alt="logo" />
+            <div class="infos">
+                <div class="top">
+                    <h2>{{ user.lastname }} {{ user.firstname }}</h2>
+                        {% if highestRole == "ROLE_ARTIST" %}
+                        <div class="role">
+                            Artist
+                        </div>
+                        {% endif %}
+                        {% if highestRole == "ROLE_MANAGER" %}
+                        <div class="role manager">
+                            Manager
+                        </div>
+                        {% endif %}
+                        {% if highestRole == "ROLE_FAN" %}
+                        <div class="role fan">
+                            Fan
+                        </div>
+                        {% endif %}
+                </div>
+                <div class="bottom">
+                    {% if music_groups is not empty %}
+                        <h3>Groupe de musique :</h3>
+                        {% for music_group in music_groups %}
+                            <a href="{{ path('front_app_music_group_show', {'id': music_group.id}) }}">{{ music_group.name }}</a>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
     <h1 class="mainTitle">Edit Profile</h1>
 
     <div class="container"> 
@@ -24,5 +62,5 @@
                   </a>
               </button>
         {% endfor %}
-    </div>
+    </div> #}
 {% endblock %}

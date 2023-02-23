@@ -1,0 +1,32 @@
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+    <section class="profile-edit">
+        <h2>Modification de profil</h2>
+        {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="input-container">
+                {{ form_label(form.image) }}
+                {{ form_widget(form.image) }}
+            </div>
+            <div class="input-container">
+                {{ form_label(form.firstname) }}
+                {{ form_widget(form.firstname) }}
+            </div>
+            <div class="input-container">
+                {{ form_label(form.lastname) }}
+                {{ form_widget(form.lastname) }}
+            </div>
+            <div class="input-container">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+            </div>
+            {{ form_rest(form) }}
+            <button class="button">{{ button_label|default('Enregistrer') }}</button>
+        {{ form_end(form) }}
+
+
+
+        {{ include('front/navbar.html.twig') }}
+    </section>
+{% endblock %}
