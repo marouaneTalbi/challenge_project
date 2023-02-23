@@ -3,11 +3,6 @@
 {% block body %}
  <div class="container">
     <form method="post">
-        
-         <div class="loginContainer">
-        {% if error %}
-            <div class="alert alert-danger">{{ error}}</div>
-        {% endif %}
         <div class="loginContainer">
             <div class="loginImageContainer">
                 <img src="{{ asset('images/logo.png') }}" alt="logo" class="loginLogo">
@@ -16,8 +11,13 @@
             <div class="form_error">
               {{ form_errors(form) }}
             </div> 
-            {{form_widget(form, {'attr': {'class': 'form-widget'}})}}
-                <button  class="validate_button"type="submit" class="button">Register</button>
+
+            <div class="form-widget">
+                {{ include('front/event/_input_textarea.html.twig') }}
+            </div>
+            
+
+            <button  class="validate_button"type="submit" class="button">Register</button>
            
             {{form_end(form, {})}}
         </div>
