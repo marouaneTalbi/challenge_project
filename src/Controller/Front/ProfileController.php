@@ -96,13 +96,30 @@ class ProfileController extends AbstractController
     public function musicGroup(UserRepository $userRepository, Request $request): Response
     {
         $user = $this->getUser();
-
-        $musicGroups = $user->getMusicGroups();
-
-        // dd($musicGroups);
+        if ($this->isGranted('ROLE_MANAGER')) {
+            $musicGroups = $user->getManagerMusicGroups();
+        }
+        if ($this->isGranted('ROLE_ARTIST')) {
+            $musicGroups = $user->getMusicGroups();
+        }
 
         return $this->render('front/profile/music_group.html.twig', [
             'music_groups' => $musicGroups,
+        ]);
+    }
+
+
+
+    #[Route('/profile/events', name: 'app_profile_events')]
+    public function events(UserRepository $userRepository, Request $request): Response
+    {
+        $user = $this->getUser();
+
+        $events = $user->getEvents();
+
+        return $this->render('front/profile/event.html.twig', [
+            'events' => $events,
+            // 'music_group' => $musicGroups,
         ]);
     }
 

@@ -77,8 +77,8 @@ class MusicGroupController extends AbstractController
         //     throw new AccessDeniedException("You are not a member of this group.");
         // }
 
-
-      //  dd($musicGroup->getArtiste());
+        $manager = $musicGroup->getManager();
+        // dd($manager);
 
         $musics = $musicRepository->findBy(['owner_music_group' => $musicGroup->getId()]);
 

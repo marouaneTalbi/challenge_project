@@ -2,11 +2,34 @@
 
 {% block body %}
     <section class="profile-music-group">
+        {% if is_granted('ROLE_MANAGER') %}
+            <h2>Vous êtes Manager de ces groupes de Musique</h2>
+        {% endif %}
+        {% if is_granted('ROLE_ARTIST') %}
+            <h2>Vous êtes Artiste de ces groupes de Musique</h2>
+        {% endif %}
+        <div class="music-group-list">
         {% for music_group in music_groups %}
+            <a class="music-group-card" href="{{ path('front_app_music_group_show', {'id': music_group.id}) }}">
+                <div class="picture">
 
+                </div>
+                <div class="music-group-infos">
+                    <h3>{{ music_group.name }}</h3>
+                    <ul>
+                        {% for artiste in music_group.artiste %}
+                            <li>{{ artiste.firstname }}</li>
+                            {% endfor %}
+                        </ul>
+                </div>
+            </a>
             {% else %}
-            <span>Vous avez aucun groupe de musique</span>
+            <span>Vous n'avez aucun groupe de musique</span>
         {% endfor %}
+        </div>
+
+        
+        {{ include('front/navbar.html.twig') }}
     </section>
 
 {% endblock %}

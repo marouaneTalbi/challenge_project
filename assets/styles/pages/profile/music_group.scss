@@ -1,0 +1,75 @@
+.profile-music-group {
+    @extend .main-section;
+
+    & span {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #FFFFFF;
+        font-style: italic;
+    }
+
+    & .music-group-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        & .music-group-card {
+            padding: 20px;
+            background: #1F1E25;
+            border: 1px solid rgba(136, 136, 136, 0.15);
+            box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+            width: 40%;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+
+            & .picture {
+                width: 60px;
+                height: 60px;
+                border-radius: 15px;
+                background-color: red;
+            }
+
+            & .music-group-infos {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                & h3 {
+                    font-family: 'Poppins';
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 24px;
+                    line-height: 36px;
+                    text-align: center;
+                    color: #FFFFFF;
+                }
+
+                & ul {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 15px;
+
+                    & li {
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 20px;
+                        line-height: 30px;
+                        text-align: center;
+                        color: #FFFFFF;
+                    }
+                }
+            }
+        }
+    }
+}

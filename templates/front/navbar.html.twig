@@ -2,8 +2,12 @@
 {% block body %}
     <nav class="nav-bar">
         <ul>
+            <li><a href="{{path('front_app_profile')}}">Profile</a><i class="fa-solid fa-angle-right"></i></li>
             <li><a href="{{path('front_app_profile_edit')}}">Modifier mon profile</a><i class="fa-solid fa-angle-right"></i></li>
-            <li><a href="{{path('front_app_profile_music_group')}}">Mes groupes</a><i class="fa-solid fa-angle-right"></i></li>
+            {% if (is_granted('ROLE_MANAGER') or is_granted('ROLE_ARTIST')) %}
+                <li><a href="{{path('front_app_profile_music_group')}}">Mes groupes</a><i class="fa-solid fa-angle-right"></i></li>
+            {% endif %}
+            <li><a href="{{path('front_app_profile_events')}}">Mes évènements</a><i class="fa-solid fa-angle-right"></i></li>
         </ul>
     </nav>
 {% endblock %}
