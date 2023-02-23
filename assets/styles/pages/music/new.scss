@@ -1,19 +1,10 @@
-.music-group-new {
+.music-new {
     @extend .main-section;
-    
-    & h1 {
-        font-family: 'Poppins';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 40px;
-        line-height: 60px;
-        color: #FFFFFF;
-    }
 
     & form {
         display: flex;
         flex-direction: column;
-        gap:20px;
+        gap: 20px;
 
         & .input-container {
             display: flex;
@@ -29,7 +20,7 @@
                 color: rgba(255, 255, 255, 0.5);
             }
             
-            & input {
+            & input, select {
                 width: 460px;
                 padding: 15px;
                 background-color: transparent;
@@ -41,6 +32,10 @@
                 font-size: 20px;
                 line-height: 30px;
                 color: #FFFFFF;
+            }
+            
+            & option {
+                background-color: #151419;
             }
 
             & .select2-selection {
@@ -56,9 +51,9 @@
                 line-height: 30px;
             }
         }
-    }
 
-    & button {
-        @extend .main-button;
+        & button{
+            @extend .main-button;
+        }
     }
 }
