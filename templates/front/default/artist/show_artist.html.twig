@@ -1,41 +1,38 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <table class="table">
-            <tbody>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>
-                    {% for role in user.roles %}
-                        {{role}}
-                    {% endfor %}
-                </td>
-            </tr>
-            <tr>
-                <th>Music</th>
-                <td>
-                    <ul>
-                        {% for music in musics %}
-                         <li> {{music.name}}</li>
+    <section class="artist-show">
+        <div class="header">
+            <img class="picture" src="{{ asset('images/' ~  artist.image) }}" alt="logo" />
+            <div class="infos">
+                <div class="top">
+                    <h2>{{ artist.firstname }}</h2>
+                        {% if highestRole == "ROLE_ARTIST" %}
+                        <div class="role">
+                            Artist
+                        </div>
+                        {% endif %}
+                        {% if highestRole == "ROLE_MANAGER" %}
+                        <div class="role manager">
+                            Manager
+                        </div>
+                        {% endif %}
+                        {% if highestRole == "ROLE_FAN" %}
+                        <div class="role fan">
+                            Fan
+                        </div>
+                        {% endif %}
+                </div>
+                <div class="bottom">
+                    {% if music_groups is not empty %}
+                        <h3>Groupe de musique :</h3>
+                        {% for music_group in music_groups %}
+                            <a href="{{ path('front_app_music_group_show', {'id': music_group.id}) }}">{{ music_group.name }}</a>
                         {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}

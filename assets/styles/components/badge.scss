@@ -1,0 +1,17 @@
+.badge {
+    width: max-content;
+    height: 36px;
+    padding: 0px 25px;
+    background: rgba(20, 194, 90, 0.45);
+    border-radius: 36px;
+    color: #14C25A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+
+    &--manager {
+        background-color: rgba(244, 147, 32, 0.45);
+        color: #F49320;
+    }
+}
