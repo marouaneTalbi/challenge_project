@@ -35,15 +35,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
 
    
-    // #[Assert\Regex("/^[A-Z]$/")]
-        // pattern: '/^[A-Z]$/',
-        // message: 'password must contain letters, numbers and special character',
- 
+    #[Assert\Regex("/^(?=.*[a-z])(?=.*\d).{6,}$/i", message: "Password must contain at least one number and one letter")]
+    #[Assert\Regex("/[A-Z]/", message: "Password must contain at least one Capital Letter")]
+    #[Assert\Regex("/[!@#$%^&*()\-_=+{};:,<.>]/", message: "Password must contain at least one special character")]
     #[ORM\Column]
     private ?string $password = null;
+
     #[Assert\NotBlank]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstname = null;
+
     #[Assert\NotBlank]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastname = null;
@@ -87,6 +88,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Playlist::class)]
     private Collection $playlists;
 
+    #[Assert\Image( mimeTypes: ["image/jpeg", "image/png"], mimeTypesMessage: "Please upload a valid image")]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 

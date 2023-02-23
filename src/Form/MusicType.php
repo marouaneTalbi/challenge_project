@@ -26,13 +26,7 @@ class MusicType extends AbstractType
                     'placeholder' => 'Nom'
                 ]
             ])
-            // ->add('url', TextType::class, [
-            //     'label' => 'Url',
-            //     'attr' => [
-            //         'class' => 'form-control',
-            //         'placeholder' => 'Url'
-            //     ]
-            // ])
+
             ->add('url', FileType::class, [
                 'mapped' => false,
                 'label' => 'Url',
@@ -46,7 +40,9 @@ class MusicType extends AbstractType
                         'maxSize' => '20M',
                         'mimeTypes' => [
                             'audio/mpeg',
+                            'audio/mp3',
                         ],
+                        'mimeTypesMessage' => 'Please upload a valid mp3 document',
                         'notFoundMessage' => 'Le mp3 n\'a pas été trouvé',
                         'maxSizeMessage' => 'Le mp3 est trop gros ({{ size }} {{ suffix }}). La taille maximum est de  {{ limit }} {{ suffix }}.',
                         'disallowEmptyMessage' => 'Il n\'est pas possible d\'envoyer un fichier vide',
