@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -19,14 +20,8 @@ class ProfileFormType extends AbstractType
     {
         $builder
 
-        ->add('image', FileType::class,
-            array('data_class' => null),[
-            'label' => 'Image',
-            'attr' => [
-                'class' => 'form-control',
-                'placeholder' => 'Firstname'
-            ]
-        ])
+        ->add('image', FileType::class,array('data_class' => null))
+
         ->add('firstname', TextType::class,[
             'label' => 'Firstname',
             'constraints' => [

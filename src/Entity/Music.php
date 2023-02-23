@@ -18,6 +18,14 @@ class Music
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
+    #[Assert\File(
+        maxSize: '20M',
+        extensions: ['mp3'],
+        mimeTypes: ['audio/mpeg'],
+        extensionsMessage: 'Please upload a valid mp3 file',
+        maxSizeMessage: 'The mp3 is too big ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.',
+        mimeTypesMessage: 'Please upload a valid mp3 file',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 

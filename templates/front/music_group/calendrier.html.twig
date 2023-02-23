@@ -2,9 +2,13 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
-  <a href="{{ path('front_app_event_new', {'id': music_group_id}) }}">créer un évènement</a>
-  <a href="{{ path('front_app_music_group_event', {'id': music_group_id}) }}">évènement(s) du groupe</a>
-  <div id="calendar"></div>
+  <section class="calendar-index">
+    <div class="button-container">
+      <a class="create" href="{{ path('front_app_event_new', {'id': music_group_id}) }}">créer un évènement</a>
+      <a class="event" href="{{ path('front_app_music_group_event', {'id': music_group_id}) }}">évènement(s) du groupe</a>
+    </div>
+    <div id="calendar"></div>
+  </section>
 {% endblock %}
 
 {% block javascripts %}
@@ -17,7 +21,7 @@
           events: {{data|raw}},
           editable: true,
           eventStartEditable: true,
-          selectable: true
+          selectable: true,
         })
         calendar.on('eventChange', (e) => {
         console.log(e)

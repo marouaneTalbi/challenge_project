@@ -36,4 +36,10 @@ class DefaultController extends AbstractController
             'music_groups' => $music_groups
         ]);
     }
+
+    #[Route('/email_template', name: 'default_email_template')]
+    public function emailTemplate(MusicGroupRepository $musicGroupRepository): Response
+    {
+        return $this->render('front/email/registrationEmail.html.twig');
+    }
 }

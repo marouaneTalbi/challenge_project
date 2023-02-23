@@ -1,5 +1,64 @@
-salut voici le token 
+{% apply inline_css %}
+ <div class="container">
+     <div class="emailBox">
+        <h1>CONFIRMATION DE VOTRE ADRESSE E-MAIL</h1>
+    </div>
+     <div class="emailBox">
+        <h3>Pour confirmer votre inscription sur notre plate-forme, vous devez cliquer sur le bouton ci-dessous.</h3>
+    </div>
+    <div class="emailBox">
+        <button>
+            <a href=" {{ url('app_confirm', {"token": token}) }}">cliquez ici pour confirmer votre compte</a>
+      </button>
+    </div>
+</div>
 
-{{token}}
 
-<a href=" {{ url('app_confirm', {"token": token}) }}">cliquez ici pour confirmer votre compte</a>
+ <style>
+    .container {
+        width: 90%;
+        padding:1%;
+    }
+
+    button {
+        background-color: #3e3442;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 25px;
+    }
+
+    h1 {
+        color: white;
+        font-size: 50px;
+        font-family: 'Inter', sans-serif;
+    }
+
+    a{
+        color: white;
+        text-decoration: none;
+    }
+
+    h3 {
+        color: white;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .emailBox {
+        background-color: #cfc4ff;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2%;
+    }
+
+ </style>
+{% endapply %}

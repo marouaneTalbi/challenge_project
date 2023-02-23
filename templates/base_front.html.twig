@@ -5,6 +5,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js" integrity="sha256-z82jYOK/utiAteR0z6FjIOQmdWzvxqXJ6wsXbGJkBwY=" crossorigin="anonymous"></script>
         
@@ -19,7 +20,24 @@
     </head>
     <body>
         {% if (is_granted('ROLE_FAN') or is_granted('ROLE_MANAGER')) %}
-            <nav>
+            <header>
+                <h1>TITLE</h1>
+                <nav>
+                    <ul>
+                        <li><a href="{{ path('front_default_index') }}">Accueil</a></li>
+                        <li><a href="{{ path('front_default_artists') }}">Liste des Artistes</a></li>
+                        <li><a href="{{ path('front_default_music_groups') }}">Liste des Groupes</a></li>
+                        <li><a href="{{ path('front_app_event_index') }}">Liste des Events</a></li>
+                        {% if (is_granted('ROLE_ADMIN')) %}
+                            <li><a href="{{ path('back_default_index') }}">Panel d'admin</a></li>
+                        {% endif %}
+                        {% if (is_granted('ROLE_MANAGER')) %}
+                            <li><a href="{{ path('front_app_music_group_new') }}">Creer un groupe</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </header>
+            {# <nav>
                 <ul class="front_nav_ul">
                     <li class="front_nav_li"><a href="{{ path('front_default_index') }}">Accueil</a></li>
                     <li class="front_nav_li"><a href="{{ path('front_app_profile') }}">Profile</a></li>
@@ -34,12 +52,11 @@
                         <li class="front_nav_li"><a href="{{ path('front_app_comment_index') }}">Comment</a></li>
                         <li class="front_nav_li"><a href="{{ path('back_default_index') }}">Panel d'admin</a></li>
                     {% endif %}
-                    {# <li class="front_nav_li"><a href="{{ path('front_default_become-artist') }}">Devenir artiste</a></li> #}
                     {% if (is_granted('ROLE_MANAGER')) %}
                         <li class="front_nav_li"><a href="{{ path('front_app_music_group_new') }}">Creer un groupe</a></li>
                     {% endif %}
                 </ul>
-            </nav>
+            </nav> #}
         {% endif %}
         {% block body %}{% endblock %}
     </body>

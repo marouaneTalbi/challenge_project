@@ -1,22 +1,35 @@
 {% extends 'base_front.html.twig' %}
 {% block body %}
-    <div class="container">
-        <h1 class="mainTitle">Create new MusicGroup</h1>
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <select class="js-example-basic-multiple" name="artiste[]" multiple="multiple">
-                {% for user in artistUsers %}
-                    <option value="{{ user.id }}">{{ user.firstname }}</option>
-                {% endfor %}
-            </select>
-            <button class="button">{{ button_label|default('Save') }}</button>
+    <section class="music-group-new">
+        <h1>Création du groupe</h1>
+        {{ form_start(form) }}
+            <div class="input-container">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+
+            <div class="input-container">
+                <label>artistes du groupe</label>
+                <select class="js-example-basic-multiple" name="artiste[]" multiple="multiple">
+                    {% for user in artistUsers %}
+                        <option value="{{ user.id }}">{{ user.firstname }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+            <button class="save">{{ button_label|default('Créer le groupe') }}</button>
         {{ form_end(form) }}
-    </div>
-    <script>
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-        });
-    </script>
+
+        <script>    
+            $(document).ready(function() {
+                $('.js-example-basic-multiple').select2();
+            });
+
+        </script>
+        
+    </section>
+
+
 
     <a href="{{ path('front_app_music_group_index') }}">back to list</a>
 {% endblock %}

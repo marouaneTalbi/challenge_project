@@ -1,1 +1,36 @@
-{{message}}
+{% apply inline_css %}
+ <div class="container">
+     <div class="emailBox">
+        <h1>Félicitation</h1>
+    </div>
+     <div class="emailBox">
+        <h3>{{message}}</h3>
+    </div>
+</div>
+
+ <style>
+    .container {
+        width: 90%;
+        padding:1%;
+    }
+    h1 {
+        color: white;
+        font-size: 50px;
+        font-family: 'Inter', sans-serif;
+    }
+    h3 {
+        color: white;
+        font-family: 'Inter', sans-serif;
+    }
+    .emailBox {
+        background-color: #cfc4ff;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2%;
+    }
+
+ </style>
+{% endapply %}
