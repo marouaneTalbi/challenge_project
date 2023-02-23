@@ -5,12 +5,16 @@
     <section class="event-show">
 
         <h3>{{ event.title }}</h3>
+        {% for invite in invites %}
+            {{invite.firstname}}
+            {% else %}
+            0 invités
+        {% endfor %}
         <p>{{ event.description }}</p>
         <div class="infos">
             <span><i class="fa-solid fa-location-dot"></i> {{ event.lieu }}</span>
             <span><i class="fa-solid fa-calendar-days"></i> {{ event.eventStart ? event.eventStart|date('Y-m-d') : '' }} - {{ event.eventEnd ? event.eventEnd|date('Y-m-d') : '' }}</span>
         </div>
-        <button disable>Postuler (à venir)</button>
     
     </section>
 

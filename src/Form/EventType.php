@@ -22,8 +22,6 @@ class EventType extends AbstractType
             ->add('background_color', ColorType::class)
             ->add('border_color', ColorType::class)
             ->add('text_color', ColorType::class)
-            //->add('invite')
-            // ->add('invite')
         ;
     }
 

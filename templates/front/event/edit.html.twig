@@ -3,10 +3,105 @@
 {% block body %}
     <section class="event-new">
         <h3>Modifier un évènement</h3>
-        {{ include('front/event/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ form_start(form) }}
+            {{ form_widget(form._token) }}
+            <div class="input-container">
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title) }}
+    </div>
+    <div class="input-container">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+    </div>
+    <div class="input-container">
+        {{ form_label(form.lieu) }}
+        {{ form_widget(form.lieu) }}
+    </div>
+    <div class="checkbox-container">
+        {{ form_label(form.public) }}
+        {{ form_widget(form.public) }}
+    </div>
+    <div class="checkbox-container">
+        {{ form_label(form.event_start) }}
+        {{ form_widget(form.event_start) }}
+    </div>
+    <div class="checkbox-container">
+        {{ form_label(form.event_end) }}
+        {{ form_widget(form.event_end) }}
+    </div>
+    <div class="checkbox-container">
+        {{ form_label(form.text_color) }}
+        {{ form_widget(form.text_color) }}
+    </div>
+    <div class="checkbox-container">
+        {{ form_label(form.background_color) }}
+        {{ form_widget(form.background_color) }}
+    </div>
+    <div class="checkbox-container">
+        {{ form_label(form.border_color) }}
+        {{ form_widget(form.border_color) }}
+    </div>
+
+            <div class="input-container">
+                <label>artistes du groupe</label>
+                <select class="js-example-basic-multiple" name="artiste[]" multiple="multiple">
+                    {% for user in artistUsers %}
+                        <option value="{{ user.id }}">{{ user.firstname }}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+            <div class="button-container">
+                <button class="save">{{ button_label|default('Modifier le groupe') }}</button>
+                {{ form_end(form) }}
+
+            </div>
     </section>
 
-    <a href="{{ path('front_app_event_index') }}">back to list</a>
-
     {{ include('front/event/_delete_form.html.twig') }}
+
+    <script>    
+            $(document).ready(function() {
+                $('.js-example-basic-multiple').select2();
+
+                // Initialiser le tableau des artistes sélectionnés
+                const selectedArtists = $('.js-example-basic-multiple').val() || [];
+
+                // Écouter l'événement 'select2:select'
+                $('.js-example-basic-multiple').on('select2:select', function (e) {
+                    const addedArtistId = e.params.data.id;
+
+                    // Ajouter l'artiste au tableau
+                    if (!selectedArtists.includes(addedArtistId)) {
+                    selectedArtists.push(addedArtistId);
+                    }
+
+                    console.log(selectedArtists); // Afficher le tableau mis à jour
+                });
+
+                $('.js-example-basic-multiple').on('select2:unselect', function (e) {
+                    const removedArtistId = e.params.data.id;
+
+                    // Retirer l'artiste du tableau
+                    const artistIndex = selectedArtists.indexOf(removedArtistId);
+                    if (artistIndex > -1) {
+                    selectedArtists.splice(artistIndex, 1);
+                    }
+
+                    console.log(selectedArtists); // Afficher le tableau mis à jour
+                });
+
+                $('form').on('submit', function (e) {
+                    // Récupérer la liste des artistes sélectionnés
+                    const selectedArtists = $('.js-example-basic-multiple').val() || [];
+
+                    // Ajouter la liste des artistes sélectionnés dans un champ caché du formulaire
+                    $('input[name="selected_artists"]').val(selectedArtists.join(','));
+
+                    // Continuer la soumission du formulaire
+                    return true;
+                });
+            });
+            
+        </script>
 {% endblock %}

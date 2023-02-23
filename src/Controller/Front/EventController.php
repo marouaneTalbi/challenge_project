@@ -4,14 +4,18 @@ namespace App\Controller\Front;
 
 use App\Entity\Event;
 use App\Form\EventType;
+use App\Entity\EventUser;
 use App\Repository\EventRepository;
 use App\Repository\MusicGroupRepository;
+use App\Repository\UserRepository;
 use App\Security\Voter\EventVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 #[Route('/event')]
 class EventController extends AbstractController
@@ -29,15 +33,22 @@ class EventController extends AbstractController
 
 
     #[Route('/{id}/new', name: 'app_event_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, MusicGroupRepository $musicGroupRepository, EventRepository $eventRepository, $id): Response
+    public function new(Request $request, UserRepository $userRepository, MusicGroupRepository $musicGroupRepository, EventRepository $eventRepository, $id): Response
     {
         $event = new Event();
         $musicGroup = $musicGroupRepository->find($id);
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
+        $artistUsers = $userRepository->findByRole('ROLE_FAN');
 
         if ($form->isSubmitted() && $form->isValid()) {
             $event->setMusicGroup($musicGroup);
+
+            $selectedUsers = $request->get('invites');
+            foreach ($selectedUsers as $userId) {
+                $user = $userRepository->find($userId);
+                $event->addInvite($user);
+            }
             $eventRepository->save($event, true);
 
             return $this->redirectToRoute('front_app_music_group_calendar', ["id" => $id], Response::HTTP_SEE_OTHER);
@@ -46,6 +57,7 @@ class EventController extends AbstractController
         return $this->renderForm('front/event/new.html.twig', [
             'event' => $event,
             'form' => $form,
+            'artistUsers' => $artistUsers
         ]);
     }
 
@@ -57,19 +69,23 @@ class EventController extends AbstractController
         if (!$this->isGranted(EventVoter::EVENT_ACCESS, $event)) {
             throw new AccessDeniedException();
         }
-
+        $invites = $event->getInvite();
+        // dd($invites);
         return $this->render('front/event/show.html.twig', [
             'event' => $event,
+            'invites' => $invites,
         ]);
     }
 
 
 
     #[Route('/{id}/edit', name: 'app_event_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Event $event, EventRepository $eventRepository): Response
+    public function edit(Request $request, Event $event, EventRepository $eventRepository, UserRepository $userRepository): Response
     {
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
+
+        $artistUsers = $userRepository->findByRole('ROLE_FAN');
 
         if (!$this->isGranted(EventVoter::EVENT_ACCESS, $event)) {
             throw new AccessDeniedException();
@@ -84,6 +100,7 @@ class EventController extends AbstractController
         return $this->renderForm('front/event/edit.html.twig', [
             'event' => $event,
             'form' => $form,
+            'artistUsers' => $artistUsers,
         ]);
     }
 

@@ -20,17 +20,20 @@ class UserFixtures extends Fixture
 
         // pwd = test
         $pwd = '$2y$13$r/sNDkWI9w4h0XHSIYqYJusHu3JYZTFwEOxTCkXG31rL9Dy1Tncba';
+
+        for($i =0; $i< 10; $i++){
+            $object = (new User())
+                ->setEmail('fan'.$i.'@user.fr')
+                ->setFirstName('fan Firstname'. $i)
+                ->setRoles(['ROLE_FAN'])
+                ->setIsEnabled(true)
+                ->setIsDeleted(false)
+                ->setImage('logo.png')
+                ->setPassword($pwd)
+            ;
+            $manager->persist($object);
+        }
        
-        $object = (new User())
-            ->setEmail('fan@user.fr')
-            ->setFirstName('fan Firstname')
-            ->setRoles(['ROLE_FAN'])
-            ->setIsEnabled(true)
-            ->setIsDeleted(false)
-            ->setImage('logo.png')
-            ->setPassword($pwd)
-        ;
-        $manager->persist($object);
 
         for($i =0; $i< 10; $i++){
             $object = (new User())
