@@ -1,0 +1,33 @@
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+    <section class="album-new">
+        <h2>Create new Album</h2>
+
+        {{ form_start(form) }}
+            <div class="input-container">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="input-container">
+                {{ form_label(form.image) }}
+                {{ form_widget(form.image) }}
+            </div>
+            <div class="input-container">
+                <label>musiques</label>
+                <select class="js-example-basic-multiple" name="musics[]" multiple="multiple">
+                    {% for music in musics %}
+                        <option value="{{ music.id }}">{{ music.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="btn">{{ button_label|default('Créer') }}</button>
+
+            <script>    
+                $(document).ready(function() {
+                    $('.js-example-basic-multiple').select2();
+                });
+            </script>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}

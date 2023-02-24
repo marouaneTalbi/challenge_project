@@ -1,0 +1,21 @@
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+    <section class="album-show">
+        <img src="{{ asset('images/' ~  album.image) }}" alt="logo" />
+        <span>ALBUM</span>
+        <h2>{{ album.name }}</h2>
+        <ul>
+        {% for music in musicList %}
+            <li>
+                {{music.name}}
+            </li>
+        {% endfor %}
+        </ul>
+    </section>
+    
+
+    <a href="{{ path('front_app_album_edit', {'id': album.id}) }}">edit</a>
+
+    {{ include('front/album/_delete_form.html.twig') }}
+{% endblock %}

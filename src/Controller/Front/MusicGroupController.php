@@ -76,7 +76,7 @@ class MusicGroupController extends AbstractController
         // if (!$musicGroup->getArtiste()->contains($artist)) {
         //     throw new AccessDeniedException("You are not a member of this group.");
         // }
-
+        $albums = $musicGroup->getAlbums();
         $manager = $musicGroup->getManager();
         // dd($manager);
 
@@ -88,6 +88,7 @@ class MusicGroupController extends AbstractController
             'music_group' => $musicGroup,
             'musics' => $musics,
             'artists' => $musicGroup->getArtiste(),
+            'albums' => $albums,
         ]);
     }
 
@@ -229,6 +230,8 @@ class MusicGroupController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/{id}/show-user', name: 'artist_show', methods: ['GET'])]
     public function showArtist(User $user): Response
     {
@@ -240,6 +243,7 @@ class MusicGroupController extends AbstractController
     }
 
     
+
     #[Route('/{id}/my-event', name: 'app_music_group_event', methods: ['GET'])]
     public function event(MusicGroup $musicGroup, MusicGroupRepository $musicGroupRepository, EventRepository $eventRepository, $id): Response
     {

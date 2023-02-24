@@ -1,0 +1,22 @@
+.album-show {
+    @extend .main-section;
+
+    & span {
+        color: white;
+        font-size: 15px;
+        line-height: normal;
+    }
+
+    & h2 {
+        font-size: 50px !important;
+    }
+
+    & ul {
+        & li {
+            list-style: decimal;
+            margin-left: 60px;
+            color: white;
+            font-size: 20px;
+        }
+    }
+}
