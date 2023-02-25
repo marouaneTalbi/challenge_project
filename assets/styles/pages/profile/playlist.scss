@@ -1,0 +1,18 @@
+.profile-playlist {
+    @extend .main-section;
+
+    & a {
+        color: white;
+        font-size: 20px;
+    }
+
+    & ul {
+        padding-left: 20px;
+    }
+
+    & li {
+        list-style: decimal;
+        color: white;
+        font-size: 20px;
+    }
+}

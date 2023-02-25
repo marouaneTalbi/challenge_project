@@ -7,6 +7,8 @@ use App\Repository\AlbumRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
 class Album
@@ -26,8 +28,8 @@ class Album
     #[ORM\OneToMany(mappedBy: 'album', targetEntity: Music::class, cascade: ['persist'])]
     private Collection $music;
     
-    #[Assert\Image( mimeTypes: ["image/jpeg", "image/png"], mimeTypesMessage: "Please upload a valid image")]
-    #[ORM\Column(length: 255)]
+    // #[Assert\Image( mimeTypes: ["image/jpeg", "image/png"], mimeTypesMessage: "Please upload a valid image")]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
     public function __construct()

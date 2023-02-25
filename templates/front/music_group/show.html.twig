@@ -30,9 +30,8 @@
                     <a class="button" href="{{ path('front_app_music_group_edit', {'id': music_group.id}) }}">Modifier</a>
                 {% endif %}
             {% endif %}
-
             {% if is_granted('ROLE_ARTIST', music_group) or is_granted('ROLE_MANAGER', music_group) %}
-                {% if is_granted('MANAGER_ACCESS', music_group) or is_granted('MEMBER_ACCES', music_group) %}
+                {% if is_granted('MANAGER_ACCESS', music_group) or music_group.artiste.contains(user) %}
                     <a class="calendar" href="{{ path('front_app_music_group_calendar', {'id': music_group.id}) }}">gérer les évènements</a>
                 {% endif %}
             {% endif %}

@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Music;
 use App\Entity\Playlist;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,6 +26,7 @@ class PlaylistType extends AbstractType
             ])
             ->add('image', TextType::class, [
                 'label' => 'Image',
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Image'
@@ -31,6 +34,15 @@ class PlaylistType extends AbstractType
                 ]
             ])
             ->add('public')
+            ->add('music', EntityType::class, [
+                'class' => Music::class,
+                'multiple' => true,
+                'choice_label' => 'name',
+                'attr' => [
+                    'class' => 'js-example-basic-multiple'
+                ]
+
+            ])
             //->add('music')
             //->add('owner')
         ;

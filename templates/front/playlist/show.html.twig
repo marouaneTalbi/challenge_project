@@ -1,44 +1,24 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
-    <h1>Playlist</h1>
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ playlist.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ playlist.name }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ playlist.image }}</td>
-            </tr>
-            <tr>
-                <th>Public</th>
-                <td>{{ playlist.public ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Music</th>
-                <td>
-                    <ul>
-                      {% for music in musics %}
-                  <li>{{ music.name }}</li>
-                {% endfor %}</ul></td>
-
-            </tr>
-        </tbody>
-    </table>
-    <div class="buttonContainer">
-        <button class="button">
-            <a href="{{ path('front_app_playlist_index') }}"><i class="fa-solid fa-arrow-left"></i></a>
-        </button>
-        <button class="button">
-            <a href="{{ path('front_app_playlist_edit', {'id': playlist.id}) }}">edit</a>
-        </button>
-        {{ include('front/playlist/_delete_form.html.twig') }}
-    </div>
+    <section class="playlist-show">
+        <span>PLAYLIST</span>
+        <h2>{{ playlist.name }}</h2>
+        <span>MUSICS</span>
+        <ul>
+        {% for music in musics %}
+            <li>
+                {{music.name}}
+            </li>
+        {% endfor %}
+        </ul>
+        <div class="buttonContainer">
+            {% if playlist.owner == app.user or is_granted('ROLE_ADMIN') %}
+            <button class="button">
+                <a href="{{ path('front_app_playlist_edit', {'id': playlist.id}) }}">Modifier</a>
+            </button>
+            {% endif %}
+        </div>
+    </section>
 
 {% endblock %}

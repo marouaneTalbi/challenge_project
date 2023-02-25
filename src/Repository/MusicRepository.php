@@ -39,6 +39,16 @@ class MusicRepository extends ServiceEntityRepository
         }
     }
 
+
+    
+    public function findUnassignedMusic()
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.album IS NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Music[] Returns an array of Music objects
 //     */

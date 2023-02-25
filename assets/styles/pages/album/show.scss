@@ -7,11 +7,44 @@
         line-height: normal;
     }
 
-    & h2 {
-        font-size: 50px !important;
+    & .header {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+
+        & img {
+            height: 300px;
+            width: 300px;
+            border-radius: 15px;
+        }
+
+        & .text {
+            display: flex;
+            flex-direction: column;
+            padding-top: 40px;
+        
+            & h2 {
+                font-size: 50px !important;
+            }
+
+            & a {
+                margin-top: auto;
+                color: white;
+                font-size: 17px;
+            }
+        }
+    }
+
+    & .edit {
+        @extend .main-button;
+        background: transparent;
+        text-decoration: underline;
     }
 
     & ul {
+        width: 100%;
+        border-top: 1px solid rgba(136, 136, 136, 0.15);
+
         & li {
             list-style: decimal;
             margin-left: 60px;

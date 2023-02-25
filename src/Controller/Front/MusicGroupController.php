@@ -89,6 +89,7 @@ class MusicGroupController extends AbstractController
             'musics' => $musics,
             'artists' => $musicGroup->getArtiste(),
             'albums' => $albums,
+            'user' => $artist
         ]);
     }
 
