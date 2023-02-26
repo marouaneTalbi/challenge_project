@@ -9,6 +9,9 @@
                 {{ form_widget(form.name) }}
             </div>
             <div class="input-container">
+                <div class="form-error" >
+                    {{ form_errors(form.image) }}
+                </div>
                 {{ form_label(form.image) }}
                 {{ form_widget(form.image) }}
             </div>
@@ -29,7 +32,12 @@
 
         {{ form_end(form) }}
     </section>
-
+    <style>
+        .form-error > ul > li {
+            color: red;
+            font-size: 20px;
+        }
+    </style>
 
 
     {# <div class="container">

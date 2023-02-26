@@ -10,6 +10,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 
 class PlaylistType extends AbstractType
 {
@@ -24,15 +26,7 @@ class PlaylistType extends AbstractType
 
                 ]
             ])
-            ->add('image', TextType::class, [
-                'label' => 'Image',
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Image'
-
-                ]
-            ])
+            ->add('image', FileType::class,array('data_class' => null))
             ->add('public')
             ->add('music', EntityType::class, [
                 'class' => Music::class,

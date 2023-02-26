@@ -17,7 +17,8 @@ class Playlist
 
     #[ORM\Column(length: 100)]
     private ?string $name = null;
-
+    
+    #[Assert\Image( mimeTypes: ["image/jpeg", "image/png"], mimeTypesMessage: "Please upload a valid image")]
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $image = null;
 

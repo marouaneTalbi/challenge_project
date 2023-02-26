@@ -23,6 +23,8 @@ class NewsFixtures extends Fixture implements DependentFixtureInterface
             $news->setPost('The Beatles'.$i);
             $news->setAuthor($faker->randomElement($users));
             $news->setGroupe($faker->randomElement($musicGroups));
+            $news->setStatus('published');
+            $news->setContent('content');
             $manager->persist($news);
         }
 
