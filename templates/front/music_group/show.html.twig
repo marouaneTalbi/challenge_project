@@ -65,6 +65,18 @@
                 {% endif %}
             {% endif %}
         </h2>
+        {% for news in news_group %}
+            <tr>
+                <td>{{ news.id }}</td>
+                <td>{{ news.post }}</td>
+                <td>{{ news.content }}</td>
+                <td>
+                    <a href="{{ path('front_app_news_group_show', {'id': news.id}) }}">show</a>
+                    <a href="{{ path('front_app_news_group_edit', {'id': news.id}) }}">edit</a>
+                    <a href="{{ path('front_app_news_group_delete', {'id': news.id}) }}">delete</a>
+                </td>
+            </tr>
+        {% endfor %}
 
         {% set array = [] %}
         {% for music in musics %}
