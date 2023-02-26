@@ -36,7 +36,7 @@ class MusicGroup
 
     #[ORM\OneToMany(mappedBy: 'groupe', targetEntity: NewsGroup::class)]
     private Collection $newsGroups;
-   
+
     #[ORM\OneToMany(mappedBy: 'music_group', targetEntity: Album::class)]
     private Collection $albums;
 
@@ -215,6 +215,7 @@ class MusicGroup
     }
 
      /**
+    /**
      * @return Collection<int, Album>
      */
     public function getAlbums(): Collection
@@ -241,7 +242,7 @@ class MusicGroup
             }
         }
     }
-    
+
     public function removeAlbum(Album $album): self
     {
         if ($this->albums->removeElement($album)) {

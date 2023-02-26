@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit NewsGroup</title>
+
+{% block body %}
+    <h1>Edit NewsGroup</h1>
+
+    {{ include('front_news_group/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('front_app_news_group_index') }}">back to list</a>
+
+    {{ include('front/news_group/_delete_form.html.twig') }}
+{% endblock %}

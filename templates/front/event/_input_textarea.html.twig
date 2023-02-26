@@ -1,0 +1,41 @@
+{{ form_start(form) }}
+
+
+<div class="input-text-firstname">
+    {{ form_label(form.firstname) }}
+    {{ form_widget(form.firstname) }}
+</div>
+
+
+<div class="input-text-lastname">
+    {{ form_label(form.lastname) }}
+    {{ form_widget(form.lastname) }}
+</div>
+
+
+<div class="input-text-email">
+    {{ form_label(form.email) }}
+    {{ form_widget(form.email) }}
+</div>
+
+<div class="input-text-password">
+    {{ form_widget(form.password) }}
+</div>
+
+
+
+{% if form.description is defined %}
+    <div class="input-textarea-description">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+    </div>
+{% endif %}
+
+{% if form.promotionLink is defined %}
+<div class="input-textarea-promotion">
+    {{ form_label(form.promotionLink) }}
+    {{ form_widget(form.promotionLink) }}
+</div>
+{% endif %}
+
+{{ form_end(form) }}

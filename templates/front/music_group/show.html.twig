@@ -39,7 +39,6 @@
         {% for music in musics %}
             {% set array = array | merge([{id: music.id ,name: music.name, url: music.url}]) %}
         {% endfor %}
-
         <audio controls id="audio"></audio>
         <input type="hidden" id="array" value="{{ array|json_encode }}">
         <div id="div1"></div>
@@ -171,7 +170,6 @@
          {% set array = array | merge([{id: music.id ,name: music.name, url: music.url}]) %}
     {% endfor %}
     <input type="hidden" id="array" value="{{ array|json_encode }}">
-
     <audio controls id="audio"></audio>
 
     <script>

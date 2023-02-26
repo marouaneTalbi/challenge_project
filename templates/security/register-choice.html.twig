@@ -1,13 +1,23 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1>Inscription</h1>
-        <p>Sélectionnez le type d'utilisateur que vous souhaitez être :</p>
-        <div class="d-flex justify-content-around">
-            <a href="{{ path('app_register', { 'type': 'artist' }) }}" class="btn btn-primary">Artiste</a>
-            <a href="{{ path('app_register', { 'type': 'manager' }) }}" class="btn btn-primary">Manager</a>
-            <a href="{{ path('app_register', { 'type': 'user' }) }}" class="btn btn-primary">User simple</a>
-        </div>
-    </div>
+    <section class="register-choice">
+        <a class="card" href="{{ path('app_register', { 'type': 'artist' }) }}">
+            <h1>Artist</h1>
+            <p>Vous êtes un artiste ?</p>
+            <img src="../../assets/images/Microphone.svg" />
+        </a>
+        <a class="card" href="{{ path('app_register', { 'type': 'user' }) }}">
+            <h1>Fan</h1>
+            <p>Vous êtes un manager ?</p>
+            <img src="../../assets/images/Musical Notes.svg" />
+        </a>
+        <a class="card" href="{{ path('app_register', { 'type': 'manager' }) }}">
+            <h1>Manager</h1>
+            <p>Vous voulez un fan ?</p>
+            <img src="../../assets/images/Music Record.svg" />
+        </a>
+    </section>
+   
+
 {% endblock %}
