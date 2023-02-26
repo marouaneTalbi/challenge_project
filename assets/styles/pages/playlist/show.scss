@@ -31,4 +31,38 @@
         @extend .main-button;
         color: white !important;
     }
+
+    & .header {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+
+        & img {
+            height: 300px;
+            width: 300px;
+            border-radius: 15px;
+        }
+
+        & .text {
+            display: flex;
+            flex-direction: column;
+            padding-top: 40px;
+        
+            & h2 {
+                font-size: 50px !important;
+            }
+
+            & a {
+                margin-top: auto;
+                color: white;
+                font-size: 17px;
+            }
+        }
+    }
+
+    & .edit {
+        @extend .main-button;
+        background: transparent !important;
+        text-decoration: underline;
+    }
 }
