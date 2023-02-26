@@ -27,6 +27,7 @@ class EventType extends AbstractType
             ->add('text_color', ColorType::class)
             ->add('invite', EntityType::class, [
                 'class' => User::class,
+                'required' => false,
                 'multiple' => true,
                 'choice_label' => 'firstname',
                 'attr' => [
