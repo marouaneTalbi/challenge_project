@@ -39,6 +39,10 @@ class PlaylistController extends AbstractController
             // foreach ($music as $key => $value) {
             //     $playlist->addMusic($musicRepository->find($value));
             // }
+            $image = $form->get('image')->getData();
+            $image->move($this->getParameter('images_directory'), $image->getClientOriginalName());
+            $playlist->setImage($image->getClientOriginalName());
+
             $playlist->setOwner($this->getUser());
             $playlistRepository->save($playlist, true);
 

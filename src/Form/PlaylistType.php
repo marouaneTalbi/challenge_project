@@ -10,6 +10,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 
 class PlaylistType extends AbstractType
 {
@@ -24,7 +26,7 @@ class PlaylistType extends AbstractType
 
                 ]
             ])
-            ->add('image', TextType::class, [
+            ->add('image', FileType::class, [
                 'label' => 'Image',
                 'required' => false,
                 'attr' => [

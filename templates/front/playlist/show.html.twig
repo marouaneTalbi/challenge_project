@@ -2,8 +2,16 @@
 
 {% block body %}
     <section class="playlist-show">
-        <span>PLAYLIST</span>
-        <h2>{{ playlist.name }}</h2>
+        <div class="header">
+            <img src="{{ asset('images/' ~  playlist.image) }}" alt="logo" />
+            <div class="text">
+                <span>PLAYLIST</span>
+                <h2>{{ playlist.name }}</h2>
+
+                {# <a href="{{ path('front_app_music_group_show', {'id': album.musicGroup.id}) }}">{{ album.musicGroup.name }}</a> #}
+            </div>
+        </div>
+        <a class="edit" href="{{ path('front_app_playlist_edit', {'id': playlist.id}) }}">Modifier</a>
         <span>MUSICS</span>
         <ul>
         {% for music in musics %}
@@ -12,13 +20,6 @@
             </li>
         {% endfor %}
         </ul>
-        <div class="buttonContainer">
-            {% if playlist.owner == app.user or is_granted('ROLE_ADMIN') %}
-            <button class="button">
-                <a href="{{ path('front_app_playlist_edit', {'id': playlist.id}) }}">Modifier</a>
-            </button>
-            {% endif %}
-        </div>
     </section>
 
 {% endblock %}
