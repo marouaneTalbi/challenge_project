@@ -1,8 +1,15 @@
 .playlist-index {
     @extend .main-section;
     
+    & .btn {
+        @extend .main-button;
+        background: transparent !important;
+        text-decoration: underline;
+    }
+
     & a {
         color: white;
+
     }
 
     & ul {
@@ -12,7 +19,11 @@
             list-style: decimal;
             margin-left: 60px;
             color: white;
-            font-size: 20px;
+            font-family: 'Poppins';
+
+            & a {
+                font-size: 25px;
+            }
         }
     }
 }
