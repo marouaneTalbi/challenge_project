@@ -60,23 +60,23 @@ class MusicController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_music_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Music $music, MusicRepository $musicRepository): Response
-    {
-        $form = $this->createForm(MusicType::class, $music);
-        $form->handleRequest($request);
+    // #[Route('/{id}/edit', name: 'app_music_edit', methods: ['GET', 'POST'])]
+    // public function edit(Request $request, Music $music, MusicRepository $musicRepository): Response
+    // {
+    //     $form = $this->createForm(MusicType::class, $music);
+    //     $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $musicRepository->save($music, true);
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $musicRepository->save($music, true);
 
-            return $this->redirectToRoute('front_app_music_index', [], Response::HTTP_SEE_OTHER);
-        }
+    //         return $this->redirectToRoute('front_app_music_index', [], Response::HTTP_SEE_OTHER);
+    //     }
 
-        return $this->renderForm('front/music/edit.html.twig', [
-            'music' => $music,
-            'form' => $form,
-        ]);
-    }
+    //     return $this->renderForm('front/music/edit.html.twig', [
+    //         'music' => $music,
+    //         'form' => $form,
+    //     ]);
+    // }
 
     #[Route('/{id}', name: 'app_music_delete', methods: ['POST'])]
     public function delete(Request $request, Music $music, MusicRepository $musicRepository): Response
