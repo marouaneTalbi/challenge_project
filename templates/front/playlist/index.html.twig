@@ -1,7 +1,7 @@
 {% extends 'base_front.html.twig' %}
 {% block body %}
     <section class="playlist-index">
-        <h2>Liste des playlists</h2>
+        <h2>Liste des playlists <a class="btn" href="{{ path('front_app_playlist_new') }}">Créer une playlist</a></h2>
         <ul>
         {% for playlist in playlists %}
             {% if playlist.public %}
