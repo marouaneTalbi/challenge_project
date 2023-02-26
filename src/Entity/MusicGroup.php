@@ -36,6 +36,8 @@ class MusicGroup
 
     #[ORM\OneToMany(mappedBy: 'groupe', targetEntity: NewsGroup::class)]
     private Collection $newsGroups;
+    #[ORM\OneToMany(mappedBy: 'music_group', targetEntity: Album::class)]
+    private Collection $albums;
 
     public function __construct()
     {
@@ -44,6 +46,12 @@ class MusicGroup
         $this->documents = new ArrayCollection();
         $this->music = new ArrayCollection();
         $this->newsGroups = new ArrayCollection();
+        $this->albums = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -203,6 +211,21 @@ class MusicGroup
             $this->newsGroups->add($newsGroup);
             $newsGroup->setGroupe($this);
         }
+    }
+    /**
+     * @return Collection<int, Album>
+     */
+    public function getAlbums(): Collection
+    {
+        return $this->albums;
+    }
+
+    public function addAlbum(Album $album): self
+    {
+        if (!$this->albums->contains($album)) {
+            $this->albums->add($album);
+            $album->setMusicGroup($this);
+        }
 
         return $this;
     }
@@ -213,6 +236,16 @@ class MusicGroup
             // set the owning side to null (unless already changed)
             if ($newsGroup->getGroupe() === $this) {
                 $newsGroup->setGroupe(null);
+            }
+        }
+    }
+    
+    public function removeAlbum(Album $album): self
+    {
+        if ($this->albums->removeElement($album)) {
+            // set the owning side to null (unless already changed)
+            if ($album->getMusicGroup() === $this) {
+                $album->setMusicGroup(null);
             }
         }
 

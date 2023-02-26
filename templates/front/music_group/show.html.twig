@@ -1,76 +1,51 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
+    <section class="music-group-show">
+        <h1>{{ music_group.name }}</h1>
+        <h2>Artistes</h2>
+        <div class="artist-list">
+            {% for artist in music_group.artiste %}
+                <a class="artist" href="{{ path('front_default_artist', {'id': artist.id}) }}">
+                    <img class="picture" src="{{ asset('images/' ~  artist.image) }}" alt="logo" />
+                    <h4>{{ artist.firstname }}</h4>
+                </a>
+            {% endfor %}
+        </div>
+        <h2>Musiques <a title="upload une musique" class="add-music" href="{{ path('front_app_music_new_for_groupmusic' , {'id': music_group.id}) }}"><i class="fa-solid fa-plus"></i></a></h2>
+        <div class="music-container">
+            {% for music in musics %}
+                <a class="music">{{ music.name }}</a>
+            {% endfor %}
+        </div>
+        <h2>Album <a title="Créer un album" class="add-music" href="{{ path('front_app_album_new' , {'id': music_group.id}) }}"><i class="fa-solid fa-plus"></i></a></h2>
+        <div class="music-container">
+            {% for album in albums %}
+                <a class="music" href="{{ path('front_app_album_show' , {'id': album.id}) }}">{{ album.name }}</a>
+            {% endfor %}
+        </div>
+        <div>
+            {% if is_granted('ROLE_MANAGER') %}
+                {% if is_granted('MANAGER_ACCESS', music_group) %}
+                    <a class="button" href="{{ path('front_app_music_group_edit', {'id': music_group.id}) }}">Modifier</a>
+                {% endif %}
+            {% endif %}
+            {% if is_granted('ROLE_ARTIST', music_group) or is_granted('ROLE_MANAGER', music_group) %}
+                {% if is_granted('MANAGER_ACCESS', music_group) or music_group.artiste.contains(user) %}
+                    <a class="calendar" href="{{ path('front_app_music_group_calendar', {'id': music_group.id}) }}">gérer les évènements</a>
+                {% endif %}
+            {% endif %}
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ music_group.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ music_group.name }}</td>
-            </tr>
-            <tr>
-                <th>Music list</th>
+        {% set array = [] %}
+        {% for music in musics %}
+            {% set array = array | merge([{id: music.id ,name: music.name, url: music.url}]) %}
+        {% endfor %}
+        <input type="hidden" id="array" value="{{ array|json_encode }}">
 
-                <td>
-                    <ul>
-                        {% for music in musics %}
-                            <li>{{ music.name }}</li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <th>Artist</th>
-                <th>
-                    {% for artist in artists %}
-                        <li>{{ artist.firstname }}</li>
-                    {% endfor %}
-                </th>
-            </tr>
-            <tr>
-                <th>News</th>
-                {% for news in news_group %}
-                    <td>{{ news.post }}</td>
-                {% endfor %}
-            </tr>
-        </tbody>
-    </table>
+        <audio controls id="audio"></audio>
 
-    <div id="div1"
-         style="
-            height: 200px;
-            width:30%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            ">
-
-    </div>
-
-    <div id="div2"
-         style="
-            height: 200px;
-            width:30%;
-            display: flex;
-            flex-direction: column;
-            margin-bottom:5%;
-    ">
-
-    </div>
-
-    {% set array = [] %}
-    {% for music in musics %}
-         {% set array = array | merge([{id: music.id ,name: music.name, url: music.url}]) %}
-    {% endfor %}
-    <input type="hidden" id="array" value="{{ array|json_encode }}">
-
-    <audio controls id="audio"></audio>
-
-    <script>
+        <script>
         const musics = document.getElementById('array').value;
         const allMusicsParsed = JSON.parse(musics);
         const audio = document.getElementById("audio");
@@ -135,58 +110,6 @@
         div1.insertBefore(audio, next);
         div1.insertBefore(previus,songName);
     </script>
-
-
-
-
-
-
-    <a href="{{ path('front_app_music_group_index') }}">back to list</a>
-    {% if is_granted('ROLE_MANAGER') %}
-        {% if is_granted('MANAGER_ACCESS', music_group) %}
-            <button class="addButton">
-                <a href="{{ path('front_app_music_group_edit', {'id': music_group.id}) }}">edit</a>
-            </button>
-            <button class="addButton">
-                <a href="{{ path('front_app_music_new_for_groupmusic' , {'id': music_group.id}) }}">add new Music</a>
-            </button>
-            {{ include('front/music_group/_delete_form.html.twig') }}
-        {% endif %}
-    {% endif %}
-
-    {% if is_granted('ROLE_ARTIST', music_group) or is_granted('ROLE_MANAGER', music_group) %}
-        {% if is_granted('MANAGER_ACCESS', music_group) or is_granted('MEMBER_ACCES', music_group) %}
-            <a href="{{ path('front_app_music_group_calendar', {'id': music_group.id}) }}">voir calendrier</a>
-        {% endif %}
-    {% endif %}
-    <section class="music-group-show">
-        <h1>{{ music_group.name }}</h1>
-        <h2>Artistes</h2>
-        <div class="artist-list">
-            {% for artist in music_group.artiste %}
-                <div class="artist">
-                    <div class="picture">
-
-                    </div>
-                    <h4>{{ artist.firstname }}</h4>
-                </div>
-            {% endfor %}
-        </div>
-        <h2>Biographie</h2>
-        <span>coming soon...</span>
-        <div>
-            {% if is_granted('ROLE_MANAGER') %}
-                {% if is_granted('MANAGER_ACCESS', music_group) %}
-                    <a href="{{ path('front_app_music_group_edit', {'id': music_group.id}) }}">Modifier</a>
-                {% endif %}
-            {% endif %}
-
-            {% if is_granted('ROLE_ARTIST', music_group) or is_granted('ROLE_MANAGER', music_group) %}
-                {% if is_granted('MANAGER_ACCESS', music_group) or is_granted('MEMBER_ACCES', music_group) %}
-                    <a class="calendar" href="{{ path('front_app_music_group_calendar', {'id': music_group.id}) }}">Voir calendrier</a>
-                {% endif %}
-            {% endif %}
-        </div>
     </section>
 
 {% endblock %}

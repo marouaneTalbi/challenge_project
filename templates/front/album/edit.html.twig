@@ -1,0 +1,80 @@
+{% extends 'base_front.html.twig' %}
+
+
+{% block body %}
+    <section class="album-edit">
+        <h2>Modifier l'album</h2>
+
+        {{ form_start(form) }}
+            <div class="input-container">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="input-container">
+                {{ form_label(form.image) }}
+                {{ form_widget(form.image) }}
+            </div>
+            <div class="input-container">
+                {{ form_label(form.music) }}
+                {{ form_widget(form.music) }}
+            </div>
+            <div class="button-container">
+                <button class="btn">{{ button_label|default('Modifier') }}</button>
+                {{ include('front/album/_delete_form.html.twig') }}
+            </div>
+
+
+            <script>    
+            $(document).ready(function() {
+                $('.js-example-basic-multiple').select2({
+                    escapeMarkup: function(markup) {
+                        return markup;
+                    }
+                });
+
+                // Initialiser le tableau des artistes sélectionnés
+                const selectedArtists = $('.js-example-basic-multiple').val() || [];
+
+                // Écouter l'événement 'select2:select'
+                $('.js-example-basic-multiple').on('select2:select', function (e) {
+                    const addedArtistId = e.params.data.id;
+
+                    // Ajouter l'artiste au tableau
+                    if (!selectedArtists.includes(addedArtistId)) {
+                    selectedArtists.push(addedArtistId);
+                    }
+
+                    console.log(selectedArtists); // Afficher le tableau mis à jour
+                });
+
+                $('.js-example-basic-multiple').on('select2:unselect', function (e) {
+                    const removedArtistId = e.params.data.id;
+
+                    // Retirer l'artiste du tableau
+                    const artistIndex = selectedArtists.indexOf(removedArtistId);
+                    if (artistIndex > -1) {
+                    selectedArtists.splice(artistIndex, 1);
+                    }
+
+                    console.log(selectedArtists); // Afficher le tableau mis à jour
+                });
+
+                $('form').on('submit', function (e) {
+                    // Récupérer la liste des artistes sélectionnés
+                    const selectedArtists = $('.js-example-basic-multiple').val() || [];
+
+                    // Ajouter la liste des artistes sélectionnés dans un champ caché du formulaire
+                    $('input[name="selected_artists"]').val(selectedArtists.join(','));
+
+                    // Continuer la soumission du formulaire
+                    return true;
+                });
+            });
+            
+        </script>
+        {{ form_end(form) }}
+    </section>
+
+    
+
+{% endblock %}

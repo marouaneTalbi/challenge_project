@@ -35,6 +35,16 @@
         {{ form_label(form.border_color) }}
         {{ form_widget(form.border_color) }}
     </div>
+    <div class="input-container">
+        {{ form_label(form.invite) }}
+        {{ form_widget(form.invite) }}
+    </div>
 
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+
+<script>    
+     $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+    });
+</script>

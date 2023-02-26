@@ -1,30 +1,42 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
-    <h1>Edit Playlist</h1>
+    <section class="playlist-edit">
+        <h2>Modifier votre playlist</h2>
+        {{ form_start(form) }}
+            <div class="input-container">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="input-container">
+                {{ form_label(form.image) }}
+                {{ form_widget(form.image) }}
+            </div>
+            <div class="input-container">
+                {{ form_label(form.public) }}
+                {{ form_widget(form.public) }}
+            </div>
+            <div class="input-container">
+                {{ form_label(form.music) }}
+                {{ form_widget(form.music) }}
+            </div>
+            <div class="button-container">
+                <button class="button">{{ button_label|default('Save') }}</button>
+            </div>
 
- {# {{ include('front/playlist/_form.html.twig', {'button_label': 'Update'}) }} #}
+            <script>
+                $(document).ready(function() {
+                    $('.js-example-basic-multiple').select2({
+                        escapeMarkup: function(markup) {
+                            return markup;
+                        }
+                    });
+                });
+            </script>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <select class="js-example-basic-multiple" name="music[]" multiple="multiple">
-        {% for music in musics %}
-            <option value="{{ music.id }}">{{ music.name }}</option>
-        {% endfor %}
-    </select>
-    <button class="button">{{ button_label|default('Save') }}</button>
-    {{ form_end(form) }}
+        {{ form_end(form) }}
+                        {{ include('front/playlist/_delete_form.html.twig') }}
 
-    <script>
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-        });
-    </script>
+    </section>
 
-    <div class="buttonContainer">
-        <button class="button">
-            <a href="{{ path('front_app_playlist_index') }}"><i class="fa-solid fa-arrow-left"></i></a>
-        </button>
-        {# {{ include('front/playlist/_delete_form.html.twig') }} #}
-    </div>
 {% endblock %}

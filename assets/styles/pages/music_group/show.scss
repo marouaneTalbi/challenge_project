@@ -13,23 +13,31 @@
         font-size: 24px;
         line-height: 36px;
         color: #FFFFFF;
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
     }
 
     & .artist-list {
         display: flex;
         flex-direction: row;
-        gap: 20px;
+        gap: 40px;
 
         & .artist {
             display: flex;
             flex-direction: column;
             gap: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+
+            &:hover {
+                transform: scale(1.05);
+            }
 
             & .picture {
                 width: 60px;
                 height: 60px;
                 border-radius: 15px;
-                background-color: red;
                 width: 132px;
                 height: 132px;
             }
@@ -38,15 +46,27 @@
                 font-family: 'Poppins';
                 font-style: normal;
                 font-weight: 500;
-                font-size: 24px;
+                font-size: 17px;
                 line-height: 36px;
                 color: #FFFFFF;
             }
         }
     }
 
-    & a {
+    & .button {
         @extend .main-button;
+    }
+
+    & .music-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        & .music {
+            height: max-content;
+            font-size: 17px;
+            color: white;
+            line-height: 20px;
+        }
     }
 
     & span {
@@ -60,7 +80,37 @@
     }
 
     & .calendar {
-        background: transparent;
-        text-decoration: underline;
+        @extend .main-button;
+        background: transparent !important;
+        text-decoration: underline !important;
+    }
+
+    & #audio {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    & .add-music {
+        border: 1px solid white;
+        border-radius: 20px;
+        padding: 5px 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: max-content;
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+
+        & svg {
+            color: white;
+            width: 20px;
+            height: 20px;
+        }
     }
 }

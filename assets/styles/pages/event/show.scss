@@ -9,6 +9,20 @@
         color: #FFFFFF;
     }
 
+    & .invite {
+        & span {
+            color: white;
+            font-size: 20px;
+        }
+
+        & ul {
+            & li {
+                color: white;
+                font-size: 15px;
+            }
+        }
+    }
+
     & p {
         font-style: normal;
         font-weight: 500;

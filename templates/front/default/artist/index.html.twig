@@ -2,34 +2,17 @@
 
 {% block body %}
 
-    <h1>Artists index</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for artist in artists %}
-            <tr>
-                <td>{{ artist.id }}</td>
-                <td>{{ artist.firstname}}</td>
-                <td>
-                    <button class="button">
-                         <a href="{{ path('front_artist_show', {'id': artist.id}) }}">
-                            <i class="fa-solid fa-eye"></i>
-                         </a>
-                    </button>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <section class="artist-index">
+        <h2>Listes des Artistes</h2>
+        <add class="artist-list">
+            {% for artist in artists %}
+            <a class="artist" href="{{ path('front_default_artist', {'id': artist.id}) }}">
+                <img class="picture" src="{{ asset('images/' ~  artist.image) }}" alt="logo" />
+                <h4>{{ artist.firstname }}</h4>
+            </a>
+            {% endfor %}
+        </div>
+    
+    </section>
 
 {% endblock %}
