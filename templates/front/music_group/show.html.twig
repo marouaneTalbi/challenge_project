@@ -16,9 +16,7 @@
         <span>coming soon...</span>
         <h2>Musiques <a title="upload une musique" class="add-music" href="{{ path('front_app_music_new_for_groupmusic' , {'id': music_group.id}) }}"><i class="fa-solid fa-plus"></i></a></h2>
         <div class="music-container">
-            {% for music in musics %}
-                <a class="music">{{ music.name }}</a>
-            {% endfor %}
+            <div id="songListContainer"></div>
         </div>
         <div>
             {% if is_granted('ROLE_MANAGER') %}
@@ -38,12 +36,77 @@
         {% for music in musics %}
             {% set array = array | merge([{id: music.id ,name: music.name, url: music.url}]) %}
         {% endfor %}
-        <input type="hidden" id="array" value="{{ array|json_encode }}">
 
         <audio controls id="audio"></audio>
+        <input type="hidden" id="array" value="{{ array|json_encode }}">
+        <div id="div1"></div>
 
-        <script>
-        const musics = document.getElementById('array').value;
+        <style>
+            #audio{
+                width: 90%;
+            }
+            #div1 {
+                width: 100%;
+                height: 100px;
+                padding: 10px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+            }
+            #div2 {
+                width: 100%;
+                padding: 10px;
+            }
+            .addButton {
+                background: linear-gradient(95.82deg, #FC466B 5.85%, #3F5EFB 93.47%);
+                border-radius: 100px;
+                border: none;
+                color: white;
+                padding: 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 25px;
+                cursor: pointer;
+            }
+
+            .playButton {
+                background: linear-gradient(95.82deg, #FC466B 5.85%, #3F5EFB 93.47%);
+                height: 50px;
+                width: 50px;
+                border-radius: 100px;
+                border: none;
+                color: white;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 25px;
+                cursor: pointer;
+            }
+
+            .songNameContainer{
+                padding:10px;
+                display: flex;
+                justify-content: space-between;
+                width: 20%;
+                flex-direction: row;
+                align-items: center;
+                border-bottom: solid 1px black;
+            }
+            .songDetails{
+                margin-left: 10px;
+            }
+
+
+        </style>
+
+
+
+
+    <script>
+
+       const musics = document.getElementById('array').value;
         const allMusicsParsed = JSON.parse(musics);
         const audio = document.getElementById("audio");
         const source= document.createElement("source");
@@ -51,64 +114,70 @@
         const next = document.createElement("button");
         const songName= document.createElement("h2");
         const div1 = document.getElementById("div1");
-        const div2 = document.getElementById("div2");
+        const div2 = document.getElementById("songListContainer");
 
         previus.setAttribute("class","addButton")
         previus.innerHTML = "<i class='fa-solid fa-backward'></i>";
         next.setAttribute("class","addButton")
         next.innerHTML = "<i class='fa-solid fa-forward'></i>";
         audio.appendChild(source);
+
         source.setAttribute("src", '/uploads/'+allMusicsParsed[0].url);
         source.setAttribute("type", 'audio/mpeg');
 
-            next.addEventListener("click", function(){
-                const indexofItem = allMusicsParsed.findIndex(x => x.url === source.getAttribute("src").replace('/uploads/', ''));
-                if(indexofItem +1 === allMusicsParsed.length){
-                    source.setAttribute("src", '/uploads/'+allMusicsParsed[0].url);
-                    songName.innerHTML = allMusicsParsed[0].name;
-                } else {
-                    source.setAttribute("src", '/uploads/'+allMusicsParsed[indexofItem + 1].url);
-                    songName.innerHTML = allMusicsParsed[indexofItem + 1].name;
-                }
-                 audio.load();
-                 audio.play();
-            });
+        next.addEventListener("click", function(){
+            const indexofItem = allMusicsParsed.findIndex(x => x.url === source.getAttribute("src").replace('/uploads/', ''));
+            if(indexofItem +1 === allMusicsParsed.length){
+                source.setAttribute("src", '/uploads/'+allMusicsParsed[0].url);
+                songName.innerHTML = allMusicsParsed[0].name;
+            } else {
+                source.setAttribute("src", '/uploads/'+allMusicsParsed[indexofItem + 1].url);
+                songName.innerHTML = allMusicsParsed[indexofItem + 1].name;
+            }
+             audio.load();
+             audio.play();
+        });
 
-            previus.addEventListener("click", function(){
-                const indexofItem = allMusicsParsed.findIndex(x => x.url === source.getAttribute("src").replace('/uploads/', ''));
-                if(indexofItem +1 === allMusicsParsed.length){
-                    source.setAttribute("src", '/uploads/'+allMusicsParsed[0].url);
-                    songName.innerHTML = allMusicsParsed[0].name;
-                } else {
-                    source.setAttribute("src", '/uploads/'+allMusicsParsed[indexofItem + 1].url);
-                    songName.innerHTML = allMusicsParsed[indexofItem + 1].name;
-                }
-                audio.load();
-                audio.play();
-            });
+        previus.addEventListener("click", function(){
+            const indexofItem = allMusicsParsed.findIndex(x => x.url === source.getAttribute("src").replace('/uploads/', ''));
+            if(indexofItem +1 === allMusicsParsed.length){
+                source.setAttribute("src", '/uploads/'+allMusicsParsed[0].url);
+                songName.innerHTML = allMusicsParsed[0].name;
+            } else {
+                source.setAttribute("src", '/uploads/'+allMusicsParsed[indexofItem + 1].url);
+                songName.innerHTML = allMusicsParsed[indexofItem + 1].name;
+            }
+            audio.load();
+            audio.play();
+        });
 
-        for(let i = 0; i < allMusicsParsed.length; i++){
+
+       for(let i = 0; i < allMusicsParsed.length; i++){
+           const songNameContainer = document.createElement("div");
+           songNameContainer.setAttribute("class","songNameContainer");
             const music = allMusicsParsed[i];
             const button = document.createElement("button");
+            const songDetails = document.createElement("p");
+            songDetails.setAttribute("class","songDetails");
+            button.setAttribute("class","playButton")
+            button.innerHTML = "<i class='fa-solid fa-play'></i>";
+            songDetails.innerHTML = music.name;
+           songNameContainer.appendChild(songDetails);
+           songNameContainer.appendChild(button);
 
-            button.setAttribute("class","addButton")
-            button.innerHTML = music.name;
-            button.addEventListener("click", function(){
+
+           button.addEventListener("click", function(){
                 source.setAttribute("src", '/uploads/'+music.url);
-                console.log(source);
                 audio.load();
                 audio.play();
             });
-            div2.appendChild(button);
-        }
+           div2.appendChild(songNameContainer);
+       }
 
         div1.appendChild(previus);
         div1.appendChild(next);
         div1.insertBefore(audio, next);
-        div1.insertBefore(previus,songName);
-    </script>
+        </script>
     </section>
 
 {% endblock %}
-
-

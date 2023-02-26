@@ -29,6 +29,7 @@
                         <li><a href="{{ path('front_default_artists') }}">Liste des Artistes</a></li>
                         <li><a href="{{ path('front_default_music_groups') }}">Liste des Groupes</a></li>
                         <li><a href="{{ path('front_app_event_index') }}">Liste des Events</a></li>
+                        <li><a href="{{ path('front_app_music_index') }}">Music</a></li>
                         {% if (is_granted('ROLE_ADMIN')) %}
                             <li><a href="{{ path('back_default_index') }}">Panel d'admin</a></li>
                         {% endif %}
