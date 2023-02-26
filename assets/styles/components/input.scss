@@ -1,0 +1,56 @@
+.container {
+    & .loginContainer {
+        & .forgotPasswordDiv {
+            margin: 10px;
+            & a {
+                margin: 10px;
+            }
+        }
+        & .blockLogin {
+            // border: 3px solid white;
+            text-align: center;
+            padding: 1em;
+            & .loginImageContainer {
+                img {
+                    height: 94px;
+                    width: 94px;
+                    left: 154px;
+                    top: 161px;
+                    border-radius: 0px;
+                    text-align: center;
+                    margin: 5px;
+                }
+            }
+            & .input-style {
+                margin: 40px;
+                & label {
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 20px;
+                color: #FFFFFF;
+                margin: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                }
+                & input {
+                    background-color: transparent;
+                    border: 3px solid rgba(255, 255, 255, 0.2);
+                    border-radius: 7px;
+                    height: 54px;
+                    width: 457px;
+                    border-radius: 7px;
+                    margin: 5px;
+                    color: white;
+                    font-weight: 200;
+                    font-size: 20px;
+                    line-height: 20px;
+                    padding: 5px;
+                    outline: none;
+                }
+            }
+        }
+    }
+}

@@ -10,13 +10,19 @@
             <div class="loginImageContainer">
                 <img src="{{ asset('images/logo.png') }}" alt="logo" class="loginLogo">
             </div>
-            {{form_start(form)}}
+            {{form_start(form, {'attr': {'class': 'form-register'}})}}
             <div class="form_error">
-                {{ form_errors(form) }}
+              {{ form_errors(form) }}
+            </div> 
+
+            <div class="form-widget">
+                {{ include('front/event/_input_textarea.html.twig') }}
             </div>
-            {{form_widget(form)}}
-            <button type="submit" class="button">Register</button>
-            {{form_end(form)}}
+            
+
+            <button  class="validate_button"type="submit" class="button">Register</button>
+           
+            {{form_end(form, {})}}
         </div>
     </form>
 </div>

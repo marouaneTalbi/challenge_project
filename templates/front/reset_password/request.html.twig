@@ -11,14 +11,14 @@
         <div class="containerReset">
             <h1 class="mainTitle">Reset your password</h1>
                 {{ form_start(requestForm) }}
-                {{ form_row(requestForm.email) }}
+                {{ form_row(requestForm.email, {'attr': {'class': 'input_register'}}) }}
                 <div>
                     <small>
                         Enter your email address and we will send you a
                         link to reset your password.
                     </small>
                 </div>
-                <button class="button">Reset email</button>
+                <button class="button1">Reset email</button>
             {{ form_end(requestForm) }}
         </div>
     </div>
