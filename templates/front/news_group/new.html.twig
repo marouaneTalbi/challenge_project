@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-
-<title>New NewsGroup</title>
+{% extends 'base_front.html.twig' %}
 
 {% block body %}
     <h1>Create new NewsGroup</h1>
 
     {{ include('front/news_group/_form.html.twig') }}
 
-    <a href="{{ path('front_front_app_news_group_index') }}">back to list</a>
+    <a href="{{ path('front_app_news_group_index') }}">back to list</a>
 {% endblock %}

@@ -36,6 +36,22 @@ class MailerService extends AbstractController
             return $this->render('front/default/index.html.twig');
     }
 
+    public function sendMailToAdminNews($email): Response
+    {
+        $email = (new TemplatedEmail())
+            ->from('challenge.noreply@gmail.com')
+            ->to(new Address($email))
+            ->subject('Bonjour')
+            ->text('Sending emails is fun again!')
+            ->html('<p>See Twig integration for better HTML integration!</p>')
+            ->htmlTemplate('front/email/admin-news-requests.html.twig');
+
+
+        $this->mailer->send($email);
+
+        return $this->render('front/default/index.html.twig');
+    }
+
     public function sendMail($email, $token) :Response
     {
        $email = (new TemplatedEmail())
