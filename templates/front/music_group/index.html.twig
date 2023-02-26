@@ -1,48 +1,30 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
-    <h1>MusicGroup index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for music_group in music_groups %}
-            <tr>
-                <td>{{ music_group.id }}</td>
-                <td>{{ music_group.name }}</td>
-                <td><a href="follow/{{ music_group.id }}">follow</a></td>
-                <td>
-                    <div class="actionTable">
-                        <button class="button">
-                            <a href="{{ path('front_app_music_group_show', {'id': music_group.id}) }}">
-                                <i class="fa-solid fa-eye"></i>
-                            </a>
-                        </button>
-                        {% if is_granted('ROLE_ADMIN')  %}
-                            <button class="button">
-                                <a href="{{ path('front_app_music_group_edit', {'id': music_group.id}) }}">
-                                    <i class="fa-solid fa-pencil"></i>
-                                </a>
-                            </button>
-                            {% include 'front/music_group/_delete_form.html.twig' %}
-                        {% endif %}
+    <section class="music-group-index">
+        <h1>Liste des groupes</h1>
+
+        <div class="music-group-list">
+            {% for music_group in music_groups %}
+                <a class="music-group-card" href="{{ path('front_app_music_group_show', {'id': music_group.id}) }}">
+                    <div class="picture">
+
                     </div>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+                    <div class="music-group-infos">
+                        <h3>{{ music_group.name }}</h3>
+                        <ul>
+                            {% for artiste in music_group.artiste %}
+                                <li>{{ artiste.firstname }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </a>
+            {% else %}
+                <p>Aucun groupe de musique n'a été trouvé</p>
+            {% endfor %}
+        </div>
+    </section>
 
 
 {% endblock %}
