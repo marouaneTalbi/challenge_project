@@ -4,10 +4,14 @@
     {{ form_start(form) }}
         <h2>Upload une musique</h2>
         <div class="input-container">
+
             {{ form_label(form.name) }}
             {{ form_widget(form.name) }}
         </div>
         <div class="input-container">
+            <div class="form-error" >
+                {{ form_errors(form.url) }}
+            </div>
             {{ form_label(form.url) }}
             {{ form_widget(form.url) }}
         </div>
@@ -20,6 +24,13 @@
         </button>
     {{ form_end(form) }}
     </section>
+
+    <style>
+        .form-error > ul > li {
+            color: red;
+            font-size: 20px;
+        }
+    </style>
 
  
 {% endblock %}

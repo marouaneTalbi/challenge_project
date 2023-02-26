@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\MusicGroup;
-use App\Entity\News;
+use App\Entity\NewsGroup;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;

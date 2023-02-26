@@ -113,15 +113,16 @@ class AlbumController extends AbstractController
         }
 
         $form = $this->createForm(AlbumType::class, $album, ['musicGroup' => $musicGroup, 'edit' => true]);
+
         $form->handleRequest($request);
-        
-        $musicGroup = $album->getMusicGroup();
-        $albumMusics = $album->getMusic();
+
+        //dd( $form->handleRequest($request));
 
         
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $image = $form->get('image')->getData();
+
             $image->move($this->getParameter('images_directory'), $image->getClientOriginalName());
             $album->setImage($image->getClientOriginalName());
             if ($image == null) {
@@ -132,6 +133,8 @@ class AlbumController extends AbstractController
 
             return $this->redirectToRoute('app_album_show', ['id' => $album->getId()], Response::HTTP_SEE_OTHER);
         }
+
+        $albumMusics = $album->getMusic();
 
         return $this->renderForm('front/album/edit.html.twig', [
             'album' => $album,

@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\MusicGroup;
-use App\Entity\News;
+use App\Entity\NewsGroup;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -19,11 +19,10 @@ class NewsFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create('fr_FR');
 
         for($i = 0; $i < 10; $i++){
-            $news = new News();
+            $news = new NewsGroup();
             $news->setPost('The Beatles'.$i);
-            $news->setStatus('Status'.$i);
-            $news->setGroupId($faker->randomElement($musicGroups));
-            $news->setUserId($faker->randomElement($users));
+            $news->setAuthor($faker->randomElement($users));
+            $news->setGroupe($faker->randomElement($musicGroups));
             $manager->persist($news);
         }
 

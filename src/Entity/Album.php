@@ -28,7 +28,7 @@ class Album
     #[ORM\OneToMany(mappedBy: 'album', targetEntity: Music::class, cascade: ['persist'])]
     private Collection $music;
     
-    // #[Assert\Image( mimeTypes: ["image/jpeg", "image/png"], mimeTypesMessage: "Please upload a valid image")]
+    #[Assert\Image( mimeTypes: ["image/jpeg", "image/png"], mimeTypesMessage: "Please upload a valid image")]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 

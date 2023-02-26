@@ -22,7 +22,7 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
         for($i =0; $i< 10; $i++){
             $event = new Event();
             $event
-                ->setTitle('event Nameddd'.$i)
+                ->setTitle('event Name'.$i)
                 ->setEventStart(new \DateTime(date('Y-m-d H:i:s')))
                 ->setEventEnd(new \DateTime(date('Y-m-d H:i:s')))
                 ->setBackgroundColor('red')

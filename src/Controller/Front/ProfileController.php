@@ -41,6 +41,7 @@ class ProfileController extends AbstractController
         $form = $this->createForm(ProfileFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
            // dd($form->get('image')->getData());
             $image = $form->get('image')->getData();
            // $newImageName = str_replace(' ', '', $form->get('image')->getData());
@@ -67,11 +68,13 @@ class ProfileController extends AbstractController
     #[Route('/profile/edit', name: 'app_profile_edit')]
     public function edit(UserRepository $userRepository, Request $request): Response
     {
+
         $user = $this->getUser();
 
         $form = $this->createForm(ProfileFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
             // dd($form->get('image')->getData());
             $image = $form->get('image')->getData();
             // $newImageName = str_replace(' ', '', $form->get('image')->getData());
@@ -86,6 +89,7 @@ class ProfileController extends AbstractController
 
         return $this->render('front/profile/edit.html.twig', [
             'form' => $form->createView(),
+            'error' => null,
         ]);
     }
 
