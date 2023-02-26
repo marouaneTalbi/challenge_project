@@ -5,11 +5,17 @@
     <section class="event-show">
 
         <h3>{{ event.title }}</h3>
-        {% for invite in invites %}
-            {{invite.firstname}}
-            {% else %}
-            0 invités
-        {% endfor %}
+        <div class="invite">
+            <span>Invités :</span>
+            <ul>
+
+            {% for invite in invites %}
+                <li>{{invite.firstname}}</li>
+                {% else %}
+                0 invités
+            {% endfor %}
+            </ul>
+        </div>
         <p>{{ event.description }}</p>
         <div class="infos">
             <span><i class="fa-solid fa-location-dot"></i> {{ event.lieu }}</span>
@@ -21,5 +27,4 @@
 
     <a href="{{ path('front_app_event_edit', {'id': event.id}) }}">edit</a>
 
-    {{ include('front/event/_delete_form.html.twig') }}
 {% endblock %}

@@ -6,6 +6,8 @@ use App\Entity\MusicGroup;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -13,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Choice;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 class MusicGroupType extends AbstractType
 {
@@ -27,20 +30,17 @@ class MusicGroupType extends AbstractType
 
                 ]
             ])
-            
-            // ->add('selected_artists', HiddenType::class, [
-            //     'mapped' => false, // Ne pas mapper ce champ à une propriété de l'objet
-            //     'attr' => ['id' => 'selected_artists'] // Ajouter un identifiant pour cibler ce champ avec JavaScript
-            // ])
-
-
-
-            // ->add('artiste', EntityType::class, [
-            //     'class' => User::class,
-            //     'autocomplete' => true,
-            //     'multiple' => true
-            // ])
-        ;
+            ->add('artiste', EntityType::class, [
+                'class' => User::class,
+                'multiple' => true,
+                'choice_label' => 'firstname',
+                'attr' => [
+                    'class' => 'js-example-basic-multiple'
+                ],
+                'query_builder' => function (UserRepository $userRepository) {
+                    return $userRepository->findByRoleForForm('ROLE_ARTIST');
+                },
+            ]);
 
     }
 

@@ -1,0 +1,21 @@
+{% extends 'base_front.html.twig' %}
+{% block body %}
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="input-container">
+        
+    </div>
+    <script>    
+            $(document).ready(function() {
+                $('.js-example-basic-multiple').select2({
+                    escapeMarkup: function(markup) {
+                        return markup;
+                    }
+                });
+            });
+
+        </script>
+{{ form_end(form) }}
+{% endblock %}

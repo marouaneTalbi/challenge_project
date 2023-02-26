@@ -47,10 +47,10 @@ class MusicGroupController extends AbstractController
 
             $selectedUsers = $request->get('artiste');
 
-            foreach ($selectedUsers as $userId) {
-                $user = $userRepository->find($userId);
-                $musicGroup->addArtiste($user);
-            }
+            // foreach ($selectedUsers as $userId) {
+            //     $user = $userRepository->find($userId);
+            //     $musicGroup->addArtiste($user);
+            // }
 
             $musicGroup->setManager($this->getUser());
             $musicGroupRepository->save($musicGroup, true);
@@ -76,9 +76,9 @@ class MusicGroupController extends AbstractController
         // if (!$musicGroup->getArtiste()->contains($artist)) {
         //     throw new AccessDeniedException("You are not a member of this group.");
         // }
-
-
-      //  dd($musicGroup->getArtiste());
+        $albums = $musicGroup->getAlbums();
+        $manager = $musicGroup->getManager();
+        // dd($manager);
 
         $musics = $musicRepository->findBy(['owner_music_group' => $musicGroup->getId()]);
 
@@ -88,6 +88,8 @@ class MusicGroupController extends AbstractController
             'music_group' => $musicGroup,
             'musics' => $musics,
             'artists' => $musicGroup->getArtiste(),
+            'albums' => $albums,
+            'user' => $artist
         ]);
     }
 
@@ -112,16 +114,16 @@ class MusicGroupController extends AbstractController
             
             $artists = $musicGroup->getArtiste();
 
-            foreach ($artists as $artist) {
-                if (!in_array($artist, $selectedUsers)) {
-                    $musicGroup->removeArtiste($artist);
-                }
-            }
+            // foreach ($artists as $artist) {
+            //     if (!in_array($artist, $selectedUsers)) {
+            //         $musicGroup->removeArtiste($artist);
+            //     }
+            // }
 
-            foreach ($selectedUsers as $userId) {
-                $user = $userRepository->find($userId);
-                $musicGroup->addArtiste($user);
-            }
+            // foreach ($selectedUsers as $userId) {
+            //     $user = $userRepository->find($userId);
+            //     $musicGroup->addArtiste($user);
+            // }
             // dd($form);
             // foreach($musicGroup->getArtiste() as $test){
             //     dd($test);
@@ -229,6 +231,8 @@ class MusicGroupController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/{id}/show-user', name: 'artist_show', methods: ['GET'])]
     public function showArtist(User $user): Response
     {
@@ -240,6 +244,7 @@ class MusicGroupController extends AbstractController
     }
 
     
+
     #[Route('/{id}/my-event', name: 'app_music_group_event', methods: ['GET'])]
     public function event(MusicGroup $musicGroup, MusicGroupRepository $musicGroupRepository, EventRepository $eventRepository, $id): Response
     {

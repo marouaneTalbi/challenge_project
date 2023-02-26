@@ -1,8 +1,12 @@
 .nav-bar {
     padding-top: 20px;
-    width: 100%;
+    width: 90vw;
     height: 100px;
     border-top: 1px solid rgba(136, 136, 136, 0.15);
+    position: fixed;
+    bottom: 0;
+    background-color: #151419;
+    box-shadow: 0px -5px 5px -5px rgba(0,0,0,0.75);
 
     & ul {
         display: flex;

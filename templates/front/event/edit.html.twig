@@ -43,13 +43,8 @@
     </div>
 
             <div class="input-container">
-                <label>artistes du groupe</label>
-                <select class="js-example-basic-multiple" name="artiste[]" multiple="multiple">
-                    {% for user in artistUsers %}
-                        <option value="{{ user.id }}">{{ user.firstname }}</option>
-                    {% endfor %}
-
-                </select>
+                {{ form_label(form.invite) }}
+                {{ form_widget(form.invite) }}
             </div>
             <div class="button-container">
                 <button class="save">{{ button_label|default('Modifier le groupe') }}</button>

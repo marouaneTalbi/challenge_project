@@ -7,22 +7,30 @@
                 {{ form_label(form.name) }}
                 {{ form_widget(form.name) }}
             </div>
-
             <div class="input-container">
+                {{ form_label(form.artiste) }}
+                {{ form_widget(form.artiste) }}
+            </div>
+
+            {# <div class="input-container">
                 <label>artistes du groupe</label>
                 <select class="js-example-basic-multiple" name="artiste[]" multiple="multiple">
                     {% for user in artistUsers %}
                         <option value="{{ user.id }}">{{ user.firstname }}</option>
                     {% endfor %}
                 </select>
-            </div>
+            </div> #}
         
             <button class="save">{{ button_label|default('Créer le groupe') }}</button>
         {{ form_end(form) }}
 
         <script>    
             $(document).ready(function() {
-                $('.js-example-basic-multiple').select2();
+                $('.js-example-basic-multiple').select2({
+                    escapeMarkup: function(markup) {
+                            return markup;
+                        }
+                });
             });
 
         </script>
