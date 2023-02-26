@@ -1,0 +1,47 @@
+.admin-user-show {
+    @extend .main-section;
+
+    & ul {
+        & li {
+            & span {
+                color: rgba(255, 255, 255, 0.4);
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 24px;
+                margin-right: 20px;
+            }
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 30px;
+            /* identical to box height */
+            
+            color: #FFFFFF;
+        }
+    }
+
+    & form {
+        width: max-content;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    & svg {
+        color: white;
+    }
+    & button {
+        background: transparent;
+    }
+
+    & .buttonContainer {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+    }
+}

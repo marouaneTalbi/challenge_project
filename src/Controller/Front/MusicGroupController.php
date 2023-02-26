@@ -47,10 +47,10 @@ class MusicGroupController extends AbstractController
 
             $selectedUsers = $request->get('artiste');
 
-            foreach ($selectedUsers as $userId) {
-                $user = $userRepository->find($userId);
-                $musicGroup->addArtiste($user);
-            }
+            // foreach ($selectedUsers as $userId) {
+            //     $user = $userRepository->find($userId);
+            //     $musicGroup->addArtiste($user);
+            // }
 
             $musicGroup->setManager($this->getUser());
             $musicGroupRepository->save($musicGroup, true);
@@ -114,16 +114,16 @@ class MusicGroupController extends AbstractController
             
             $artists = $musicGroup->getArtiste();
 
-            foreach ($artists as $artist) {
-                if (!in_array($artist, $selectedUsers)) {
-                    $musicGroup->removeArtiste($artist);
-                }
-            }
+            // foreach ($artists as $artist) {
+            //     if (!in_array($artist, $selectedUsers)) {
+            //         $musicGroup->removeArtiste($artist);
+            //     }
+            // }
 
-            foreach ($selectedUsers as $userId) {
-                $user = $userRepository->find($userId);
-                $musicGroup->addArtiste($user);
-            }
+            // foreach ($selectedUsers as $userId) {
+            //     $user = $userRepository->find($userId);
+            //     $musicGroup->addArtiste($user);
+            // }
             // dd($form);
             // foreach($musicGroup->getArtiste() as $test){
             //     dd($test);

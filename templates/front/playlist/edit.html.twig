@@ -26,7 +26,11 @@
 
             <script>
                 $(document).ready(function() {
-                    $('.js-example-basic-multiple').select2();
+                    $('.js-example-basic-multiple').select2({
+                        escapeMarkup: function(markup) {
+                            return markup;
+                        }
+                    });
                 });
             </script>
 

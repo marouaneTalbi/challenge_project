@@ -58,11 +58,11 @@ class EventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $event->setMusicGroup($musicGroup);
 
-            $selectedUsers = $request->get('invites');
-            foreach ($selectedUsers as $userId) {
-                $user = $userRepository->find($userId);
-                $event->addInvite($user);
-            }
+            // $selectedUsers = $request->get('invites');
+            // foreach ($selectedUsers as $userId) {
+            //     $user = $userRepository->find($userId);
+            //     $event->addInvite($user);
+            // }
             $eventRepository->save($event, true);
 
             return $this->redirectToRoute('front_app_music_group_calendar', ["id" => $id], Response::HTTP_SEE_OTHER);

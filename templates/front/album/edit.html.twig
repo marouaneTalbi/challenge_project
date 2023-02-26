@@ -15,17 +15,8 @@
                 {{ form_widget(form.image) }}
             </div>
             <div class="input-container">
-                <label>musiques</label>
-                <select class="js-example-basic-multiple" name="musics[]" multiple="multiple">
-                    {% for music in musics %}
-                        {% if music not in albumMusics %}
-                            <option value="{{ music.id }}">{{ music.name }}</option>
-                        {% endif %}
-                    {% endfor %}
-                    {% for music in albumMusics %}
-                        <option selected="selected" value="{{ music.id }}">{{ music.name }}</option>
-                    {% endfor %}
-                </select>
+                {{ form_label(form.music) }}
+                {{ form_widget(form.music) }}
             </div>
             <div class="button-container">
                 <button class="btn">{{ button_label|default('Modifier') }}</button>
@@ -35,7 +26,11 @@
 
             <script>    
             $(document).ready(function() {
-                $('.js-example-basic-multiple').select2();
+                $('.js-example-basic-multiple').select2({
+                    escapeMarkup: function(markup) {
+                        return markup;
+                    }
+                });
 
                 // Initialiser le tableau des artistes sélectionnés
                 const selectedArtists = $('.js-example-basic-multiple').val() || [];

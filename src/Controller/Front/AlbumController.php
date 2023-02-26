@@ -51,17 +51,19 @@ class AlbumController extends AbstractController
             return $music->getAlbum() === null;
         });
 
-        $form = $this->createForm(AlbumType::class, $album);
+        $form = $this->createForm(AlbumType::class, $album, ['musicGroup' => $musicGroup, 'edit' => false]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $album->setMusicGroup($musicGroup);
-            $selectedMusics = $request->get('musics');
+
+            $selectedMusics = $album->getMusic();
             foreach ($selectedMusics as $selectedMusic) {
                 $music = $musicRepository->find($selectedMusic);
                 $music->setAlbum($album);
                 $musicRepository->save($music, true);
             }
+
             $image = $form->get('image')->getData();
             $image->move($this->getParameter('images_directory'), $image->getClientOriginalName());
             $album->setImage($image->getClientOriginalName());
@@ -110,21 +112,21 @@ class AlbumController extends AbstractController
             throw new AccessDeniedException();
         }
 
-        $form = $this->createForm(AlbumType::class, $album);
+        $form = $this->createForm(AlbumType::class, $album, ['musicGroup' => $musicGroup, 'edit' => true]);
         $form->handleRequest($request);
         
         $musicGroup = $album->getMusicGroup();
         $albumMusics = $album->getMusic();
 
-        $musics = $musicGroupRepository->find($musicGroup->getId())->getMusic()->filter(function(Music $music) {
-            return $music->getAlbum() === null;
-        });
         
         if ($form->isSubmitted() && $form->isValid()) {
             
             $image = $form->get('image')->getData();
             $image->move($this->getParameter('images_directory'), $image->getClientOriginalName());
             $album->setImage($image->getClientOriginalName());
+            if ($image == null) {
+                $album->setImage('empty');
+            }
 
             $albumRepository->save($album, true);
 
@@ -135,7 +137,6 @@ class AlbumController extends AbstractController
             'album' => $album,
             'form' => $form,
             'albumMusics' => $albumMusics,
-            'musics' => $musics,
         ]);
     }
 

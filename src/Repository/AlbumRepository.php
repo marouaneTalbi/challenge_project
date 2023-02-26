@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Album;
+use App\Entity\MusicGroup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,15 @@ class AlbumRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+    
+    public function findTracksWithoutAlbum(MusicGroup $group)
+    {
+    return $this->createQueryBuilder('t')
+        ->leftJoin('t.album', 'a')
+        ->andWhere('t.musicGroup = :group')
+        ->andWhere('a.id IS NULL')
+        ->setParameter('group', $group);
     }
 
 //    /**
