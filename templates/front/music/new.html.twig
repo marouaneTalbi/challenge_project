@@ -1,8 +1,25 @@
 {% extends 'base_front.html.twig' %}
 {% block body %}
- <div class="container">
-        <h1 class="mainTitle">Create new Music</h1>
-    {{ include('front/music/_form.html.twig') }}
-    </div>
-     <a href="{{ path('front_app_music_index') }}">back to list</a>
+    <section class="music-new">
+    {{ form_start(form) }}
+        <h2>Upload une musique</h2>
+        <div class="input-container">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+        </div>
+        <div class="input-container">
+            {{ form_label(form.url) }}
+            {{ form_widget(form.url) }}
+        </div>
+        <div class="input-container">
+            {{ form_label(form.type) }}
+            {{ form_widget(form.type) }}
+        </div>
+        <button class="button">
+            Upload
+        </button>
+    {{ form_end(form) }}
+    </section>
+
+ 
 {% endblock %}

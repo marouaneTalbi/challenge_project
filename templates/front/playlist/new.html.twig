@@ -1,7 +1,38 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
-    <div class="container">
+    <section class="playlist-new">
+        <h2>Créer une playlist</h2>
+        {{ form_start(form) }}
+            <div class="input-container">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="input-container">
+                {{ form_label(form.image) }}
+                {{ form_widget(form.image) }}
+            </div>
+            <div class="input-container">
+                {{ form_label(form.public) }}
+                {{ form_widget(form.public) }}
+            </div>
+            <div class="input-container">
+                {{ form_label(form.music) }}
+                {{ form_widget(form.music) }}
+            </div>
+            <button class="button">{{ button_label|default('Save') }}</button>
+            <script>
+                $(document).ready(function() {
+                    $('.js-example-basic-multiple').select2();
+                });
+            </script>
+
+        {{ form_end(form) }}
+    </section>
+
+
+
+    {# <div class="container">
         <h1 class="mainTitle">Create new Playlist</h1>
             {{ form_start(form) }}
             {{ form_widget(form) }}
@@ -23,7 +54,7 @@
         <button class="button">
             <a href="{{ path('front_app_playlist_index') }}"><i class="fa-solid fa-arrow-left"></i></a>
         </button>
-    </div>
+    </div> #}
 {% endblock %}
 
 

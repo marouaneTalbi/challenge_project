@@ -1,0 +1,41 @@
+.nav-bar {
+    padding-top: 20px;
+    width: 90vw;
+    height: 100px;
+    border-top: 1px solid rgba(136, 136, 136, 0.15);
+    position: fixed;
+    bottom: 0;
+    background-color: #151419;
+    box-shadow: 0px -5px 5px -5px rgba(0,0,0,0.75);
+
+    & ul {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        & li {
+            & a {
+                height: max-content;
+                line-height: 20px;
+                text-decoration: none;
+                color: white;
+            }
+            padding: 15px;
+            color: white;
+            border: 1px solid rgba(136, 136, 136, 0.15);
+            border-radius: 15px;
+            width: max-content;
+            height: max-content;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            align-items: center;
+            font-size: 20px;
+            transition: transform 0.2s ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+    }
+}

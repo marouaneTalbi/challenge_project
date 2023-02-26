@@ -14,19 +14,17 @@
         {% endblock %}
     </head>
     <body class="columnBody">
-        <nav class="sideBar">
-            <ul class="ulSideBar">
-                <li class="liSideBar">
-                    <a href="{{ path('front_default_index') }}">Accueil</a>
-                </li>
-                <li class="liSideBar">
-                    <a href="{{ path('back_user_index') }}">USER</a>
-                </li>
-                 <li class="liSideBar">
-                    <a href="{{ path('back_mailbox_index') }}">BOITE DE RECEPTION</a>
-                </li>
-            </ul>
-        </nav>
+        <header>
+                <h1>PANEL ADMIN</h1>
+                <nav>
+                    <ul>
+                        <li><a href="{{ path('front_default_index') }}">Accueil</a></li>
+                        <li class="front_nav_li"><a href="{{ path('back_user_index') }}">USER</a></li>
+                        <li><a href="{{ path('back_mailbox_index') }}">BOITE DE RECEPTION</a></li>
+                    </ul>
+                </nav>
+        </header>
+        
         {% block body %}{% endblock %}
     </body>
 </html>

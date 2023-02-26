@@ -10,51 +10,28 @@
         {% endblock %}
 
 {% block body %}
-
-    <div class="container">
-        <table class="table">
-            <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                 <td>
-                {% for role in user.roles %}
+    <section class="admin-user-show">
+        <ul>
+            <li><span>ID:</span> {{ user.id }}</li>
+            <li><span>FIRSTNAME:</span> {{ user.firstname }}</li>
+            <li><span>LASTNAME:</span> {{ user.lastname }}</li>
+            <li><span>EMAIL:</span> {{ user.email }}</li>
+            <li><span>RÔLES:</span> {% for role in user.roles %}
                     {{role}}
                 {% endfor %}
-                </td>
-            </tr>
-            <tr>
-                <th>Actions</th>
-                <td>
-                    <div class="buttonContainer">
-                        <button class="button">
-                            <a href="{{ path('back_user_index') }}">
-                            <i class="fa-solid fa-arrow-left"></i></a>
-                        </button>
-                        <button class="button">
-                            <a href="{{ path('back_user_edit', {'id': user.id}) }}"><i class="fa-solid fa-pencil"></i></a>
-                        </button>
-                        {% include 'back/user/_delete_form.html.twig' %}
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+            </li>
+        </ul>
+        <div class="buttonContainer">
+            <button class="button">
+                <a href="{{ path('back_user_index') }}">
+                <i class="fa-solid fa-arrow-left"></i></a>
+            </button>
+            <button class="button">
+                <a href="{{ path('back_user_edit', {'id': user.id}) }}"><i class="fa-solid fa-pencil"></i></a>
+            </button>
+            {% include 'back/user/_delete_form.html.twig' %}
+        </div>
+    </section>
+
 
 {% endblock %}

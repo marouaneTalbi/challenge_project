@@ -1,0 +1,90 @@
+.admin-mailbox {
+    @extend .main-section;
+    
+    
+}
+.mail-list {
+    width: 40%;
+    height: max-content;
+    padding: 20px;
+
+    & span {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 30px;
+        /* identical to box height */
+        color: #888888;
+    }
+}
+
+a {
+    color: white;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+
+    color: #FFFFFF;
+}
+
+.bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    & .manage {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+
+        & form {
+            height: max-content;
+            cursor: pointer;
+        }
+    }
+}
+
+h5 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    /* identical to box height */
+    width: max-content;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+p {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    
+    color: #FFFFFF;
+    
+}
+
+.card {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    background: #1F1E25;
+    border: 1px solid rgba(136, 136, 136, 0.15);
+    border-radius: 15px;
+    padding: 25px;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

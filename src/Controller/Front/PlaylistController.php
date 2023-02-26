@@ -33,11 +33,12 @@ class PlaylistController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $music = $request->request->all()['music'];
-            foreach ($music as $key => $value) {
-                $playlist->addMusic($musicRepository->find($value));
-            }
+            // dd();
+            // // $selectedUsers = $request->get('invites');
+            // $music = $request->get('music');
+            // foreach ($music as $key => $value) {
+            //     $playlist->addMusic($musicRepository->find($value));
+            // }
             $playlist->setOwner($this->getUser());
             $playlistRepository->save($playlist, true);
 
@@ -51,12 +52,15 @@ class PlaylistController extends AbstractController
         ]);
     }
 
+
+
+
     #[Route('/{id}', name: 'app_playlist_show', methods: ['GET'])]
     public function show(Playlist $playlist, PlaylistRepository $playlistRepository): Response
     {
-        if(!$this->isGranted('ROLE_ADMIN') || $playlist->getOwner() != $this->getUser()){
-            throw new AccessDeniedException();
-        }
+        // if(!$this->isGranted('ROLE_ADMIN') || $playlist->getOwner() != $this->getUser()){
+        //     throw new AccessDeniedException();
+        // }
 
 
         return $this->render('front/playlist/show.html.twig', [
@@ -70,15 +74,15 @@ class PlaylistController extends AbstractController
     #[Route('/{id}/edit', name: 'app_playlist_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Playlist $playlist, PlaylistRepository $playlistRepository, MusicRepository $musicRepository): Response
     {
+        if(!$this->isGranted('ROLE_ADMIN') && $playlist->getOwner() != $this->getUser()){
+            throw new AccessDeniedException();
+        }
+
         $form = $this->createForm(PlaylistType::class, $playlist);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $music = $request->request->all()['music'];
-            foreach ($music as $key => $value) {
-                $playlist->addMusic($musicRepository->find($value));
-            }
             $playlist->setOwner($this->getUser());
             $playlistRepository->save($playlist, true);
 
@@ -92,15 +96,25 @@ class PlaylistController extends AbstractController
         ]);
     }
 
+
+
+
     #[Route('/{id}', name: 'app_playlist_delete', methods: ['POST'])]
     public function delete(Request $request, Playlist $playlist, PlaylistRepository $playlistRepository): Response
     {
+        if(!$this->isGranted('ROLE_ADMIN') && $playlist->getOwner() != $this->getUser()){
+            throw new AccessDeniedException();
+        }
+
         if ($this->isCsrfTokenValid('delete'.$playlist->getId(), $request->request->get('_token'))) {
             $playlistRepository->remove($playlist, true);
         }
 
         return $this->redirectToRoute('front_app_playlist_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
 
     #[Route('/show/my-play-list', name: 'app_show_myplaylist', methods: ['GET'])]
     public function myplaylist(PlaylistRepository $playlistRepository): Response
@@ -110,6 +124,10 @@ class PlaylistController extends AbstractController
              'playlists' => $playlistRepository->findBy(['owner' => $this->getUser()]),
          ]);
     }
+
+
+
+
 
     #[Route('/{id}/playlist-musics', name: 'app_music_myplaylist', methods: ['GET'])]
     public function myplaylistmusic( Playlist $playlist, PlaylistRepository $playlistRepository): Response

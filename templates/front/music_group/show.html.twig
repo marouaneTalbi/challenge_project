@@ -1,6 +1,110 @@
 {% extends 'base_front.html.twig' %}
 
 {% block body %}
+    <section class="music-group-show">
+        <h1>{{ music_group.name }}</h1>
+        <h2>Artistes</h2>
+        <div class="artist-list">
+            {% for artist in music_group.artiste %}
+                <a class="artist" href="{{ path('front_default_artist', {'id': artist.id}) }}">
+                    <img class="picture" src="{{ asset('images/' ~  artist.image) }}" alt="logo" />
+                    <h4>{{ artist.firstname }}</h4>
+                </a>
+            {% endfor %}
+        </div>
+        <h2>Musiques <a title="upload une musique" class="add-music" href="{{ path('front_app_music_new_for_groupmusic' , {'id': music_group.id}) }}"><i class="fa-solid fa-plus"></i></a></h2>
+        <div class="music-container">
+            <div id="songListContainer"></div>
+        </div>
+        <h2>Album <a title="Créer un album" class="add-music" href="{{ path('front_app_album_new' , {'id': music_group.id}) }}"><i class="fa-solid fa-plus"></i></a></h2>
+        <div class="music-container">
+            {% for album in albums %}
+                <a class="music" href="{{ path('front_app_album_show' , {'id': album.id}) }}">{{ album.name }}</a>
+            {% endfor %}
+        </div>
+        <div>
+            {% if is_granted('ROLE_MANAGER') %}
+                {% if is_granted('MANAGER_ACCESS', music_group) %}
+                    <a class="button" href="{{ path('front_app_music_group_edit', {'id': music_group.id}) }}">Modifier</a>
+                {% endif %}
+            {% endif %}
+            {% if is_granted('ROLE_ARTIST', music_group) or is_granted('ROLE_MANAGER', music_group) %}
+                {% if is_granted('MANAGER_ACCESS', music_group) or music_group.artiste.contains(user) %}
+                    <a class="calendar" href="{{ path('front_app_music_group_calendar', {'id': music_group.id}) }}">gérer les évènements</a>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        {% set array = [] %}
+        {% for music in musics %}
+            {% set array = array | merge([{id: music.id ,name: music.name, url: music.url}]) %}
+        {% endfor %}
+
+        <audio controls id="audio"></audio>
+        <input type="hidden" id="array" value="{{ array|json_encode }}">
+        <div id="div1"></div>
+
+        <style>
+            #audio{
+                width: 90%;
+            }
+            #div1 {
+                width: 100%;
+                height: 100px;
+                padding: 10px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+            }
+            #div2 {
+                width: 100%;
+                padding: 10px;
+            }
+            .addButton {
+                background: linear-gradient(95.82deg, #FC466B 5.85%, #3F5EFB 93.47%);
+                border-radius: 100px;
+                border: none;
+                color: white;
+                padding: 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 25px;
+                cursor: pointer;
+            }
+
+            .playButton {
+                background: linear-gradient(95.82deg, #FC466B 5.85%, #3F5EFB 93.47%);
+                height: 50px;
+                width: 50px;
+                border-radius: 100px;
+                border: none;
+                color: white;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 25px;
+                cursor: pointer;
+            }
+
+            .songNameContainer{
+                padding:10px;
+                display: flex;
+                justify-content: space-between;
+                width: 20%;
+                flex-direction: row;
+                align-items: center;
+                border-bottom: solid 1px black;
+            }
+            .songDetails{
+                margin-left: 10px;
+            }
+
+
+        </style>
+
+
 
     <table class="table">
         <tbody>
@@ -71,7 +175,8 @@
     <audio controls id="audio"></audio>
 
     <script>
-        const musics = document.getElementById('array').value;
+
+       const musics = document.getElementById('array').value;
         const allMusicsParsed = JSON.parse(musics);
         const audio = document.getElementById("audio");
         const source= document.createElement("source");
@@ -79,116 +184,70 @@
         const next = document.createElement("button");
         const songName= document.createElement("h2");
         const div1 = document.getElementById("div1");
-        const div2 = document.getElementById("div2");
+        const div2 = document.getElementById("songListContainer");
 
         previus.setAttribute("class","addButton")
         previus.innerHTML = "<i class='fa-solid fa-backward'></i>";
         next.setAttribute("class","addButton")
         next.innerHTML = "<i class='fa-solid fa-forward'></i>";
         audio.appendChild(source);
+
         source.setAttribute("src", '/uploads/'+allMusicsParsed[0].url);
         source.setAttribute("type", 'audio/mpeg');
 
-            next.addEventListener("click", function(){
-                const indexofItem = allMusicsParsed.findIndex(x => x.url === source.getAttribute("src").replace('/uploads/', ''));
-                if(indexofItem +1 === allMusicsParsed.length){
-                    source.setAttribute("src", '/uploads/'+allMusicsParsed[0].url);
-                    songName.innerHTML = allMusicsParsed[0].name;
-                } else {
-                    source.setAttribute("src", '/uploads/'+allMusicsParsed[indexofItem + 1].url);
-                    songName.innerHTML = allMusicsParsed[indexofItem + 1].name;
-                }
-                 audio.load();
-                 audio.play();
-            });
+        next.addEventListener("click", function(){
+            const indexofItem = allMusicsParsed.findIndex(x => x.url === source.getAttribute("src").replace('/uploads/', ''));
+            if(indexofItem +1 === allMusicsParsed.length){
+                source.setAttribute("src", '/uploads/'+allMusicsParsed[0].url);
+                songName.innerHTML = allMusicsParsed[0].name;
+            } else {
+                source.setAttribute("src", '/uploads/'+allMusicsParsed[indexofItem + 1].url);
+                songName.innerHTML = allMusicsParsed[indexofItem + 1].name;
+            }
+             audio.load();
+             audio.play();
+        });
 
-            previus.addEventListener("click", function(){
-                const indexofItem = allMusicsParsed.findIndex(x => x.url === source.getAttribute("src").replace('/uploads/', ''));
-                if(indexofItem +1 === allMusicsParsed.length){
-                    source.setAttribute("src", '/uploads/'+allMusicsParsed[0].url);
-                    songName.innerHTML = allMusicsParsed[0].name;
-                } else {
-                    source.setAttribute("src", '/uploads/'+allMusicsParsed[indexofItem + 1].url);
-                    songName.innerHTML = allMusicsParsed[indexofItem + 1].name;
-                }
-                audio.load();
-                audio.play();
-            });
+        previus.addEventListener("click", function(){
+            const indexofItem = allMusicsParsed.findIndex(x => x.url === source.getAttribute("src").replace('/uploads/', ''));
+            if(indexofItem +1 === allMusicsParsed.length){
+                source.setAttribute("src", '/uploads/'+allMusicsParsed[0].url);
+                songName.innerHTML = allMusicsParsed[0].name;
+            } else {
+                source.setAttribute("src", '/uploads/'+allMusicsParsed[indexofItem + 1].url);
+                songName.innerHTML = allMusicsParsed[indexofItem + 1].name;
+            }
+            audio.load();
+            audio.play();
+        });
 
-        for(let i = 0; i < allMusicsParsed.length; i++){
+
+       for(let i = 0; i < allMusicsParsed.length; i++){
+           const songNameContainer = document.createElement("div");
+           songNameContainer.setAttribute("class","songNameContainer");
             const music = allMusicsParsed[i];
             const button = document.createElement("button");
+            const songDetails = document.createElement("p");
+            songDetails.setAttribute("class","songDetails");
+            button.setAttribute("class","playButton")
+            button.innerHTML = "<i class='fa-solid fa-play'></i>";
+            songDetails.innerHTML = music.name;
+           songNameContainer.appendChild(songDetails);
+           songNameContainer.appendChild(button);
 
-            button.setAttribute("class","addButton")
-            button.innerHTML = music.name;
-            button.addEventListener("click", function(){
+
+           button.addEventListener("click", function(){
                 source.setAttribute("src", '/uploads/'+music.url);
-                console.log(source);
                 audio.load();
                 audio.play();
             });
-            div2.appendChild(button);
-        }
+           div2.appendChild(songNameContainer);
+       }
 
         div1.appendChild(previus);
         div1.appendChild(next);
         div1.insertBefore(audio, next);
-        div1.insertBefore(previus,songName);
-    </script>
-
-
-
-
-
-
-    <a href="{{ path('front_app_music_group_index') }}">back to list</a>
-    {% if is_granted('ROLE_MANAGER') %}
-        {% if is_granted('MANAGER_ACCESS', music_group) %}
-            <button class="addButton">
-                <a href="{{ path('front_app_music_group_edit', {'id': music_group.id}) }}">edit</a>
-            </button>
-            <button class="addButton">
-                <a href="{{ path('front_app_music_new_for_groupmusic' , {'id': music_group.id}) }}">add new Music</a>
-            </button>
-            {{ include('front/music_group/_delete_form.html.twig') }}
-        {% endif %}
-    {% endif %}
-
-    {% if is_granted('ROLE_ARTIST', music_group) or is_granted('ROLE_MANAGER', music_group) %}
-        {% if is_granted('MANAGER_ACCESS', music_group) or is_granted('MEMBER_ACCES', music_group) %}
-            <a href="{{ path('front_app_music_group_calendar', {'id': music_group.id}) }}">voir calendrier</a>
-        {% endif %}
-    {% endif %}
-    <section class="music-group-show">
-        <h1>{{ music_group.name }}</h1>
-        <h2>Artistes</h2>
-        <div class="artist-list">
-            {% for artist in music_group.artiste %}
-                <div class="artist">
-                    <div class="picture">
-
-                    </div>
-                    <h4>{{ artist.firstname }}</h4>
-                </div>
-            {% endfor %}
-        </div>
-        <h2>Biographie</h2>
-        <span>coming soon...</span>
-        <div>
-            {% if is_granted('ROLE_MANAGER') %}
-                {% if is_granted('MANAGER_ACCESS', music_group) %}
-                    <a href="{{ path('front_app_music_group_edit', {'id': music_group.id}) }}">Modifier</a>
-                {% endif %}
-            {% endif %}
-
-            {% if is_granted('ROLE_ARTIST', music_group) or is_granted('ROLE_MANAGER', music_group) %}
-                {% if is_granted('MANAGER_ACCESS', music_group) or is_granted('MEMBER_ACCES', music_group) %}
-                    <a class="calendar" href="{{ path('front_app_music_group_calendar', {'id': music_group.id}) }}">Voir calendrier</a>
-                {% endif %}
-            {% endif %}
-        </div>
+        </script>
     </section>
 
 {% endblock %}
-
-

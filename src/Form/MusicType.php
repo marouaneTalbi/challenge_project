@@ -29,7 +29,7 @@ class MusicType extends AbstractType
 
             ->add('url', FileType::class, [
                 'mapped' => false,
-                'label' => 'Url',
+                'label' => 'Fichier (2Mo max)',
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Url'

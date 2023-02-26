@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Music;
+use App\Entity\MusicGroup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,32 @@ class MusicRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+
+    
+    public function findUnassignedMusic()
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.album IS NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findTracksByGroup(MusicGroup $group)
+    {
+        return $this->createQueryBuilder('t')
+            ->leftJoin('t.album', 'a')
+            ->andWhere('a.id IS NULL')
+            ->andWhere('t.owner_music_group = :group')
+            ->setParameter('group', $group);
+    }
+
+    public function findTracksByGroupForEdit(MusicGroup $group)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.owner_music_group = :group')
+            ->setParameter('group', $group);
     }
 
 //    /**

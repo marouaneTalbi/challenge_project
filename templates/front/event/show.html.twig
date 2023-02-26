@@ -5,17 +5,26 @@
     <section class="event-show">
 
         <h3>{{ event.title }}</h3>
+        <div class="invite">
+            <span>Invités :</span>
+            <ul>
+
+            {% for invite in invites %}
+                <li>{{invite.firstname}}</li>
+                {% else %}
+                0 invités
+            {% endfor %}
+            </ul>
+        </div>
         <p>{{ event.description }}</p>
         <div class="infos">
             <span><i class="fa-solid fa-location-dot"></i> {{ event.lieu }}</span>
             <span><i class="fa-solid fa-calendar-days"></i> {{ event.eventStart ? event.eventStart|date('Y-m-d') : '' }} - {{ event.eventEnd ? event.eventEnd|date('Y-m-d') : '' }}</span>
         </div>
-        <button disable>Postuler (à venir)</button>
     
     </section>
 
 
     <a href="{{ path('front_app_event_edit', {'id': event.id}) }}">edit</a>
 
-    {{ include('front/event/_delete_form.html.twig') }}
 {% endblock %}

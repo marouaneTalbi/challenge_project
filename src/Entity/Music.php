@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Album;
 use App\Repository\MusicRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -43,6 +43,9 @@ class Music
 
     #[ORM\ManyToMany(targetEntity: Playlist::class, mappedBy: 'music')]
     private Collection $playlists;
+
+    #[ORM\ManyToOne(targetEntity: Album::class, inversedBy: 'music', cascade: ['persist'])]
+    private ?Album $album = null;
 
     public function __construct()
     {
@@ -149,6 +152,18 @@ class Music
         if ($this->playlists->removeElement($playlist)) {
             $playlist->removeMusic($this);
         }
+
+        return $this;
+    }
+
+    public function getAlbum(): ?Album
+    {
+        return $this->album;
+    }
+
+    public function setAlbum(?Album $album): self
+    {
+        $this->album = $album;
 
         return $this;
     }

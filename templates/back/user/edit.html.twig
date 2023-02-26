@@ -1,17 +1,9 @@
 {% extends 'base_back.html.twig' %}
 
 {% block body %}
-
-<div class="bigContainer">
+<section class="admin-user-edit">
     {% include 'back/user/_form.html.twig' %}
-    <div class="buttonContainer">
-        <button class="button">
-            <a href="{{ path('back_user_index') }}">back to list</a>
-        </button>
-    {# {% include 'back/user/_delete_form.html.twig' %} #}
-    </div>
-</div>
-
+</section>
 
 
 
