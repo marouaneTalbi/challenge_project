@@ -15,7 +15,9 @@
             </a>
             {% endfor %}
             {% else %}
-            <span>Vous avez invité à aucun évènement</span>
+            <span>Vous êtes invité à aucun évènement</span>
         {% endfor %}
+                {{ include('front/navbar.html.twig') }}
+
     </section>
 {% endblock %}

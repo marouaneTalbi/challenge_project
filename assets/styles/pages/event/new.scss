@@ -63,8 +63,29 @@
             color: #FFFFFF;
         }
 
-        & button {
+        & .select2-selection {
+            width: 460px;
+            padding: 15px;
+            background-color: transparent;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-radius: 7px;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 30px;
+        }
+
+        & .btn {
             @extend .main-button;
         }
+    }
+    & #event_event_start {
+        height: 20px;
+    }
+
+    & .delete {
+        @extend .main-button;
+        background: #C95656 !important;
     }
 }

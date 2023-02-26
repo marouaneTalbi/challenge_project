@@ -89,7 +89,6 @@ class MusicGroupController extends AbstractController
             'music_group' => $musicGroup,
             'musics' => $musics,
             'artists' => $musicGroup->getArtiste(),
-            'news_group' => $musicGroup->getNewsGroups()
             'news_group' => $musicGroup->getNewsGroups(),
             'albums' => $albums,
             'user' => $artist
@@ -208,6 +207,17 @@ class MusicGroupController extends AbstractController
     #[Route('/{id}/new/music', name: 'app_music_new_for_groupmusic', methods: ['GET', 'POST'])]
     public function addMusicOfGroup(Request $request, MusicGroup $musicgroup, MusicRepository $musicRepository, MusicGroupRepository $musicGroupRepository): Response
     {
+        //vérifie si le user est un artiste ou un manager
+        if(!$this->isGranted('ROLE_ARTIST') && !$this->isGranted('ROLE_MANAGER')) {
+            throw new AccessDeniedException();
+        }
+
+        //vérifie si le user est le manager ou un artiste du groupe
+        if (!$this->isGranted(MusicGroupArtistAccesVoter::MEMBER_ACCESS, $musicgroup) &&
+            !$this->isGranted(MusicGroupManagerAccesVoter::MANAGER_ACCESS, $musicgroup)) {
+                throw new AccessDeniedException();
+        }   
+
         $music = new Music();
 
         $form = $this->createForm(MusicType::class, $music);

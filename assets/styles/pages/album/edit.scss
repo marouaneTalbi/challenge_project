@@ -75,10 +75,16 @@
             gap: 20px;
             & .btn {
                 @extend .main-button;
+                
             }
             & .delete {
-                background: #C95656;
+                background: #C95656 !important;
             }
         }
+    
+    }
+    & .edit {
+        @extend .main-button;
+        background: transparent !important;
     }
 }

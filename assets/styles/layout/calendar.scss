@@ -11,7 +11,7 @@
     
         & .event {
             @extend .main-button;
-            background: transparent;
+            background: transparent !important;
             text-decoration: underline;
         }
     }

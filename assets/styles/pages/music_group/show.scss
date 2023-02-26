@@ -1,6 +1,7 @@
 
 .music-group-show {
     @extend .main-section;
+    padding-bottom: 100px !important;
 
     & h1 {
         color: white;
@@ -62,10 +63,14 @@
         flex-direction: column;
         gap: 20px;
         & .music {
+            padding: 10px;
+            padding-left: 20px;
             height: max-content;
-            font-size: 17px;
-            color: white;
-            line-height: 20px;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 30px;  
         }
     }
 

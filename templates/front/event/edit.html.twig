@@ -47,13 +47,12 @@
                 {{ form_widget(form.invite) }}
             </div>
             <div class="button-container">
-                <button class="save">{{ button_label|default('Modifier le groupe') }}</button>
+                <button class="btn">{{ button_label|default('Modifier le groupe') }}</button>
                 {{ form_end(form) }}
-
+                {{ include('front/event/_delete_form.html.twig') }}
             </div>
     </section>
 
-    {{ include('front/event/_delete_form.html.twig') }}
 
     <script>    
             $(document).ready(function() {

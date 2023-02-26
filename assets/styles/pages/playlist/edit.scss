@@ -54,6 +54,18 @@
             line-height: 30px;
             color: #FFFFFF;
         }
+        & .select2-selection {
+            width: 460px;
+            padding: 15px;
+            background-color: transparent;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-radius: 7px;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 30px;
+        }
         & .js-example-basic-multiple {
             height: 30px;
             width: 460px;
@@ -70,7 +82,7 @@
         }
         & .delete {
             @extend .main-button;
-            background: #C95656;
+            background: #C95656 !important;
         }
         & .button {
             @extend .main-button;
