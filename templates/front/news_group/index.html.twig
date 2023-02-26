@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-
-<title>NewsGroup index</title>
+{% extends 'base_front.html.twig' %}
 
 {% block body %}
-    <h1>NewsGroup index</h1>
 
     <table class="table">
         <thead>
@@ -18,9 +15,11 @@
             <tr>
                 <td>{{ news_group.id }}</td>
                 <td>{{ news_group.post }}</td>
+                <td>{{ news_group.content }}</td>
                 <td>
                     <a href="{{ path('front_app_news_group_show', {'id': news_group.id}) }}">show</a>
                     <a href="{{ path('front_app_news_group_edit', {'id': news_group.id}) }}">edit</a>
+                    <a href="{{ path('front_app_news_group_delete', {'id': news_group.id}) }}">delete</a>
                 </td>
             </tr>
         {% else %}
@@ -30,6 +29,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('front_app_news_group_new') }}">Create new</a>
 {% endblock %}

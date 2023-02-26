@@ -13,8 +13,9 @@ class NewsGroupType extends AbstractType
     {
         $builder
             ->add('post')
-            ->add('author')
-            ->add('groupe')
+            ->add('content')
+            //->add('author')
+            //->add('groupe')
         ;
     }
 

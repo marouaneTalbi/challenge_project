@@ -3,43 +3,54 @@
 <section class="admin-mailbox">
     <h2>Boite de réception</h2>
     <div class="container">
-    <div class="mail-list">
-        <span>ARTISTE</span>
-        {% for user in artistsUsersRequest %}
-        <div class="card">
-            <h5>{{user.firstname}}</h5>
-            <p>{{user.description}}<p>
-            <div class="bottom">
-                <a target="_blank" href="{{user.promotionLink}}"><i class="fa-solid fa-link"></i> {{user.promotionLink}}</a>
-                <div class="manage">
-                <form method="post" action="{{ path('back_user_update_status', {'id': user.id, 'role': 'artiste'}) }}" onsubmit="return confirm('Voulez-vous vraiment passer cet utilisateur Artiste ?');">
-                        {# <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}"> #}
-                        <button class="button">
-                            <i class="fa-solid fa-check"></i>
-                        </button>
-                    </form>
-                    <form method="post" action="{{ path('back_user_rejected_status', {'id': user.id, 'role': 'artiste'}) }}" onsubmit="return confirm('Voulez-vous vraiment refuser la demande pour passer Artiste de cet utilisateur');">
-                        {# <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}"> #}
-                        <button class="button">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </form>
+        <div class="mail-list">
+            <span>ARTISTE</span>
+            {% for user in artistsUsersRequest %}
+            <div class="card">
+                <h5>{{user.firstname}}</h5>
+                <p>{{user.description}}<p>
+                <div class="bottom">
+                    <a target="_blank" href="{{user.promotionLink}}"><i class="fa-solid fa-link"></i> {{user.promotionLink}}</a>
+                    <div class="manage">
+                    <form method="post" action="{{ path('back_user_update_status', {'id': user.id, 'role': 'artiste'}) }}" onsubmit="return confirm('Voulez-vous vraiment passer cet utilisateur Artiste ?');">
+                            {# <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}"> #}
+                            <button class="button">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                        </form>
+                        <form method="post" action="{{ path('back_user_rejected_status', {'id': user.id, 'role': 'artiste'}) }}" onsubmit="return confirm('Voulez-vous vraiment refuser la demande pour passer Artiste de cet utilisateur');">
+                            {# <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}"> #}
+                            <button class="button">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
+            {% else %}
+                <p>no records found<p>
+            {% endfor %}
         </div>
-        {% else %}
+        <div class="mail-list">
+            <span>MANAGER</span>
+            {% for user in managersUsersRequest %}
+                {{user.firstname}}
+                {{user.description}}
+            {% else %}
+                <p>no records found<p>
+            {% endfor %}
+        </div>
+
+        <div class="mail-list">
+            <span>News</span>
+            {% for news in newsInWaiting %}
+            {{news.post}}
+            {{news.content}}
+            <a href="{{ path('front_app_news_valid', {'id': news.id}) }}">Validate</a>
+            {% else %}
             <p>no records found<p>
-        {% endfor %}
-    </div>
-    <div class="mail-list">
-        <span>MANAGER</span>
-        {% for user in managersUsersRequest %}
-            {{user.firstname}}
-            {{user.description}}
-        {% else %}
-            <p>no records found<p>
-        {% endfor %}
-    </div>
+                {% endfor %}
+        </div>
     </div>
 
 </section>
